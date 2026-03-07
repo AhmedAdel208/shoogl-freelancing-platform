@@ -4,6 +4,9 @@ import Link from "next/link";
 import { UserButton } from "./UserButton";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { LogIn, Sparkles, Plus } from "lucide-react";
+import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
+import { useTranslation } from "@/hooks/useTranslation";
 // Tailwind Class Variables for cleaner JSX
 const CONTAINER_CLASSES = "flex gap-4 items-center";
 
@@ -22,6 +25,7 @@ const SECONDARY_BTN_CLASSES =
 export default function Navbuttons() {
   const { isAuthenticated, isMounted, user } = useAuth();
   const isClient = user?.isClient;
+  const { t } = useTranslation();
 
   if (!isMounted) {
     return null; // Avoid hydration mismatch
@@ -37,7 +41,7 @@ export default function Navbuttons() {
                 <div className={GRADIENT_BG_CLASSES} />
                 <div className="relative flex items-center gap-2">
                   <Plus size={18} className="text-white" />
-                  <span className="mb-px">نشر مشروع</span>
+                  <span className="mb-px">{t.header.postJob}</span>
                 </div>
               </button>
             </Link>
@@ -54,7 +58,7 @@ export default function Navbuttons() {
                
                <div className="relative flex items-center gap-2">
                  <Sparkles size={18} className="text-white animate-pulse" />
-                 <span className="mb-px tracking-wide">كن مشتغل</span>
+                 <span className="mb-px tracking-wide">{t.header.beWorker}</span>
                </div>
                
                {/* Hover Shine Layer */}
@@ -66,9 +70,13 @@ export default function Navbuttons() {
           <Link href="/login">
             <button className={SECONDARY_BTN_CLASSES}>
               <LogIn size={18} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span className="mb-px">تسجيل الدخول</span>
+              <span className="mb-px">{t.header.login}</span>
             </button>
           </Link>
+          <div className="flex items-center gap-4 ml-2 border-l border-border pl-4">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
         </>
       )}
     </div>

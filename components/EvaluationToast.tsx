@@ -23,7 +23,7 @@ export default function EvaluationToast({ jobRequestId, freelancerId, onSubmit, 
     setIsVisible(false);
     setTimeout(() => {
       onClose();
-    }, 200); // مدة الانيميشن
+    }, 200);
   };
 
   const handleSubmit = async () => {

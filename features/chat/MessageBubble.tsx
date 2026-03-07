@@ -13,7 +13,6 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
   const formatTime = (dateStr: string): string => {
     if (!dateStr) return "";
     try {
-      // Append Z to parse as UTC if not already present
       const date = new Date(dateStr.endsWith("Z") || dateStr.includes("+") ? dateStr : dateStr + "Z");
       if (isNaN(date.getTime())) return "";
 
@@ -53,12 +52,12 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
           <img
             src={avatarUrl}
             alt="User avatar"
-            className="w-7 h-7 rounded-full object-cover shadow-sm border border-gray-100/50"
+            className="w-7 h-7 rounded-full object-cover shadow-sm border border-border"
             loading="lazy"
           />
         ) : (
-          <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center shadow-sm border border-gray-100/50">
-             <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+          <div className="w-7 h-7 rounded-full bg-card-bg flex items-center justify-center shadow-sm border border-border">
+             <svg className="w-4 h-4 text-gray-medium" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
           </div>
         )}
       </div>
@@ -67,15 +66,15 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
         <div
           className={`relative px-3.5 py-2 rounded-2xl mt-4 shadow-sm text-sm font-cairo ${
             isMine
-              ? "bg-gray-700 text-white rounded-tr-none"
-              : "bg-white border border-gray-100 text-gray-800 rounded-tl-none"
+              ? "bg-slate-800 dark:bg-primary-dark/80 text-white rounded-tr-none"
+              : "bg-card-bg border border-border text-heading rounded-tl-none"
           }`}
         >
           {/* Attachment */}
           {message.fileUrl && (
             <div className="mb-2">
               {isImage(message.fileName || message.fileUrl) ? (
-                <div className="relative rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
+                <div className="relative rounded-xl overflow-hidden bg-bg/50 flex items-center justify-center min-w-[200px] border border-border/20">
                   <img
                     src={getImageUrl(message.fileUrl)}
                     alt={message.fileName || "مرفق"}
@@ -90,14 +89,14 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`flex items-center gap-3 p-3 rounded-xl border transition-colors ${
-                    isMine ? "bg-white/10 border-white/20 hover:bg-white/20" : "bg-gray-50 border-gray-100 hover:bg-gray-100"
+                    isMine ? "bg-white/10 border-white/20 hover:bg-white/20" : "bg-bg border-border hover:bg-bg/80"
                   }`}
                 >
                   <div className={`p-2 rounded-lg ${isMine ? "bg-white/20" : "bg-primary/10"}`}>
                     <FileIcon size={20} className={isMine ? "text-white" : "text-primary"} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-xs font-black truncate ${isMine ? "text-white" : "text-gray-900"}`}>
+                    <p className={`text-xs font-black truncate ${isMine ? "text-white" : "text-heading"}`}>
                       {message.fileName || "ملف مرفق"}
                     </p>
                   </div>
@@ -108,14 +107,14 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
 
           {/* Text content */}
           {message.content && (
-            <p className="font-bold leading-relaxed break-all overflow-wrap-anywhere whitespace-pre-wrap">
+            <p className="font-bold leading-relaxed break-all whitespace-pre-wrap">
               {message.content}
             </p>
           )}
 
-          {/* Footer info (Time & Status) */}
+          {/* Footer info */}
           <div className={`flex items-center gap-1.5 mt-1 ${isMine ? "justify-end" : "justify-start"}`}>
-            <span className={`text-[10px] font-bold ${isMine ? "text-white/60" : "text-gray-400"}`}>
+            <span className={`text-[10px] font-bold ${isMine ? "text-white/60" : "text-gray-medium/60"}`}>
               {time}
             </span>
             {isMine && (

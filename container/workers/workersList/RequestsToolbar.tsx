@@ -11,12 +11,14 @@ import {
   completedJobsOptions,
   nationalityOptions,
 } from "@/data/requestsToolbarData";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const RequestsToolbar = ({
   searchParams,
   setSearchParams,
 }: RequestsToolbarProps) => {
   const [filterShow, setFilterShow] = useState(false);
+  const { isRtl } = useTranslation();
 
   // Update search params when local state changes
   const handleSearchChange = (value: string) => {
@@ -33,49 +35,67 @@ const RequestsToolbar = ({
     setSearchParams((prev) => ({ ...prev, nationality, pageNumber: 1 }));
   };
 
+  const ratingOptionsEn = [
+    { value: "0", label: "All Ratings" },
+    { value: "4", label: "4 Stars & Above" },
+    { value: "3", label: "3 Stars & Above" },
+  ];
+
+  const completedJobsOptionsEn = [
+    { value: "0", label: "Any Count" },
+  ];
+
+  const nationalityOptionsEn = [
+    { value: "all", label: "All Nationalities" },
+    { value: "Saudi", label: "Saudi Arabia" },
+    { value: "Egypt", label: "Egypt" },
+    { value: "Other", label: "Others" },
+  ];
+
   return (
     <div className="w-full mb-8">
-      <CommonSearchAndFilters
-        searchTerm={searchParams.searchTerm}
-        onSearchChange={handleSearchChange}
-        filterShow={filterShow}
-        onFilterToggle={setFilterShow}
-        placeholder="ابحث عن مستقل محترف..."
-      >
-        {/* Rating Filter */}
-        <FilterField label="التقييم">
-          <FilterSelect
-            options={ratingOptions}
-            value={
-              searchParams.minRating === 0
-                ? "0"
-                : searchParams.minRating.toString()
-            }
-            onChange={(e) => handleRatingChange(e.target.value)}
-          />
-        </FilterField>
+        <CommonSearchAndFilters
+          searchTerm={searchParams.searchTerm}
+          onSearchChange={handleSearchChange}
+          filterShow={filterShow}
+          onFilterToggle={setFilterShow}
+          placeholder={isRtl ? "ابحث عن مستقل محترف..." : "Search for professional freelancers..."}
+        >
+          {/* Rating Filter */}
+          <FilterField label={isRtl ? "التقييم" : "Rating"}>
+            <FilterSelect
+              options={isRtl ? ratingOptions : ratingOptionsEn}
+              value={
+                searchParams.minRating === 0
+                  ? "0"
+                  : searchParams.minRating.toString()
+              }
+              onChange={(e) => handleRatingChange(e.target.value)}
+            />
+          </FilterField>
 
-        {/* Jobs Completed Filter */}
-        <FilterField label="الوظائف المكتملة">
-          <FilterSelect
-            options={completedJobsOptions}
-            value="0" // This would need to be implemented in API if needed
-            onChange={() => {}} // Placeholder until API supports completed jobs filter
-          />
-        </FilterField>
+          {/* Jobs Completed Filter */}
+          <FilterField label={isRtl ? "الوظائف المكتملة" : "Completed Jobs"}>
+            <FilterSelect
+              options={isRtl ? completedJobsOptions : completedJobsOptionsEn}
+              value="0" 
+              onChange={() => {}} 
+            />
+          </FilterField>
 
-        {/* Nationality Filter */}
-        <FilterField label="الجنسية">
-          <FilterSelect
-            options={nationalityOptions}
-            value={
-              searchParams.nationality === "" ? "all" : searchParams.nationality
-            }
-            onChange={(e) => handleNationalityChange(e.target.value)}
-          />
-        </FilterField>
-      </CommonSearchAndFilters>
-    </div>
+          {/* Nationality Filter */}
+          <FilterField label={isRtl ? "الجنسية" : "Nationality"}>
+            <FilterSelect
+              options={isRtl ? nationalityOptions : nationalityOptionsEn}
+              value={
+                searchParams.nationality === "" ? "all" : searchParams.nationality
+              }
+              onChange={(e) => handleNationalityChange(e.target.value)}
+            />
+          </FilterField>
+        </CommonSearchAndFilters>
+      </div>
+    
   );
 };
 

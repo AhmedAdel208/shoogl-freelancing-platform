@@ -11,11 +11,7 @@ export default function LinksHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 
-       
-          bg-white backdrop-blur-xl shadow-sm shadow-slate-200/50 border-b border-slate-100
-          
-      `}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 bg-bg/80 backdrop-blur-xl border-b border-border shadow-sm shadow-black/5`}
     >
       <div className="flex items-center justify-between max-w-8xl mx-auto px-6 md:px-8 py-3.5">
         {/* Left: Logo + Nav */}

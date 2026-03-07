@@ -6,6 +6,8 @@ import { MessageSquareMore, Bell } from "lucide-react";
 import { useQuery} from "@tanstack/react-query";
 import { notificationsApi } from "@/lib/api/notifications";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
 
 
 export default function Navicons() {
@@ -23,16 +25,20 @@ export default function Navicons() {
 
 
   return (
-    <div className="flex items-center gap-10">
-            {/* Notifications Icon */}
+    <div className="flex items-center gap-4 sm:gap-6 lg:gap-10">
+      {/* Theme Toggle Button */}
+      <LanguageToggle />
+      <ThemeToggle />
+
+      {/* Notifications Icon */}
       <Link 
         href="/notifications" 
-        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-slate-100 hover:bg-[#ebf5f6] transition-all duration-400 active:scale-95 shadow-[0_4px_10px_rgb(0,0,0,0.03)]"
+        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-light-white hover:bg-primary/5 border border-border/50 transition-all duration-400 active:scale-95 shadow-sm"
       >
         <div className="relative">
           <Bell 
             size={22} 
-            className="text-[#209fa9] group-hover:rotate-12 transition-transform duration-300" 
+            className="text-primary group-hover:rotate-12 transition-transform duration-300" 
             strokeWidth={2.2}
           />
           {unreadNotificationsCount > 0 && (
@@ -42,16 +48,16 @@ export default function Navicons() {
           )}
         </div>
         
-        <div className="absolute inset-0 bg-slate-900/2 opacity-0 group-hover:opacity-100 transition-opacity rounded-[18px] pointer-events-none" />
+        <div className="absolute inset-0 bg-primary/2 opacity-0 group-hover:opacity-100 transition-opacity rounded-[18px] pointer-events-none" />
       </Link>
       {/* Chat Icon */}
       <Link 
         href="/messages" 
-        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-slate-100 hover:bg-primary transition-all duration-400 active:scale-95 shadow-[0_4px_10px_rgb(0,0,0,0.03)]"
+        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-light-white hover:bg-primary transition-all duration-400 active:scale-95 shadow-sm border border-border/50"
       >
         <MessageSquareMore 
           size={25} 
-          className="text-[#209fa9] group-hover:text-white transition-colors duration-300"
+          className="text-primary group-hover:text-white transition-colors duration-300"
           strokeWidth={2.2}
         />
         

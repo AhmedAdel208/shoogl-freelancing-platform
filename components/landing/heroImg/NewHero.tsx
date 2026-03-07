@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import newHero from "@/public/images/newHero.webp";
 import Image from "next/image";
-import { HERO_STATS } from "@/data/heroStats";
+import { HERO_STATS_AR, HERO_STATS_EN } from "@/data/heroStats";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const containerVariants = {
   hidden: {},
@@ -33,7 +34,7 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: "easeOut" as const },
   },
 };
 
@@ -59,26 +60,39 @@ const statVariants = {
   }),
 };
 
-const SEARCH_SUGGESTIONS = [
-  "تصميم شعار احترافي",
-  "تطوير موقع إلكتروني",
-  "ترجمة محتوى عربي",
-  "تصميم هوية بصرية",
-  "برمجة تطبيق جوال",
-  "كتابة محتوى تسويقي",
-  "تصميم UI/UX",
-  "تحسين محركات البحث SEO",
-];
 
 import { useUiStore } from "@/stores/useUiStore";
 
 export default function NewHero() {
   const router = useRouter();
+  const { t, isRtl } = useTranslation();
   const { heroAnimationPlayed, setHeroAnimationPlayed } = useUiStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const SEARCH_SUGGESTIONS = isRtl ? [
+    "تصميم شعار احترافي",
+    "تطوير موقع إلكتروني",
+    "ترجمة محتوى عربي",
+    "تصميم هوية بصرية",
+    "برمجة تطبيق جوال",
+    "كتابة محتوى تسويقي",
+    "تصميم UI/UX",
+    "تحسين محركات البحث SEO",
+  ] : [
+    "Professional Logo Design",
+    "Website Development",
+    "Arabic Translation",
+    "Visual Identity Design",
+    "Mobile App Programming",
+    "Marketing Content Writing",
+    "UI/UX Design",
+    "Search Engine Optimization SEO",
+  ];
+
+  const HERO_STATS = isRtl ? HERO_STATS_AR : HERO_STATS_EN;
 
   useEffect(() => {
     // Only play animation once per session/visit
@@ -120,14 +134,14 @@ export default function NewHero() {
 
   return (
     <section
-      dir="rtl"
-      className="relative min-h-[90vh] flex flex-col overflow-hidden font-cairo bg-slate-900"
+      dir={isRtl ? "rtl" : "ltr"}
+      className={`relative min-h-[90vh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? 'text-right' : 'text-left'}`}
     >
       {/* Background Image with slow zoom animation */}
       <motion.div
         initial={heroAnimationPlayed ? { scale: 1 } : { scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 8, ease: "easeOut" }}
+        transition={{ duration: 8, ease: "easeOut" as const }}
         className="absolute inset-0"
       >
         <Image
@@ -164,7 +178,7 @@ export default function NewHero() {
             transition={{
               duration: 4 + i,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut" as const,
               delay: i * 0.8,
             }}
           />
@@ -183,27 +197,25 @@ export default function NewHero() {
             {/* Badge */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-sm font-bold">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping shrink-0" />
-              الجيل القادم من منصات العمل الحر
+              {isRtl ? "الجيل القادم من منصات العمل الحر" : "Next Generation Freelance Platform"}
             </motion.div>
 
             {/* Headline */}
             <motion.div variants={fadeUp}>
               <h1 className="leading-[1.05] font-extrabold tracking-tight text-[32px] md:text-[48px] lg:text-[62px]">
-                <span className="text-white block">منصة شغل</span>
+                <span className="text-white block">{t.hero.title}</span>
               </h1>
               <motion.p
                 variants={fadeIn}
                 className="text-white mx-auto text-[22px] font-bold leading-relaxed mt-8 max-w-xl"
               >
-                منصة شغل تجمع بين نخبة المستقلين وأصحاب المشاريع الطموحة في
-                بيئة عمل ذكية، آمنة، ومحفزة للنجاح.
+                {t.hero.subtitle}
               </motion.p>
             </motion.div>
 
             {/* Search - Alive & Functional */}
             <motion.div variants={scaleIn}>
               <div className="relative group">
-                {/* Glow effect - intensifies on focus */}
                 <motion.div
                   className="absolute -inset-px bg-linear-to-l from-primary to-teal-400 rounded-[18px] blur-sm"
                   animate={{
@@ -214,9 +226,9 @@ export default function NewHero() {
                 <div
                   className={`relative flex items-center backdrop-blur-xl rounded-2xl p-2 pr-5 gap-2 transition-all duration-300 ${
                     isFocused
-                      ? "bg-white/12 border border-primary/30 shadow-[0_0_40px_rgba(28,178,185,0.15)]"
-                      : "bg-white/8 border border-white/15"
-                  }`}
+                      ? "bg-white/15 border border-primary/30 shadow-xl"
+                      : "bg-white/10 border border-white/10"
+                  } ${isRtl ? 'pr-5' : 'pl-5'}`}
                 >
                   {/* Input with animated placeholder */}
                   <div className="flex-1 relative min-h-[56px] flex items-center">
@@ -228,33 +240,33 @@ export default function NewHero() {
                       onFocus={() => setIsFocused(true)}
                       onBlur={() => setIsFocused(false)}
                       onKeyDown={handleKeyDown}
-                      dir="rtl"
-                      className="w-full bg-transparent border-none outline-none text-white text-base text-right min-w-0 font-medium relative z-10"
+                      dir={isRtl ? "rtl" : "ltr"}
+                      className={`w-full bg-transparent! border-none! outline-none text-white text-base min-w-0 font-medium relative z-10 ${isRtl ? 'text-right' : 'text-left'}`}
                     />
                     {/* Animated cycling placeholder */}
                     {!searchQuery && !isFocused && (
                       <div className="absolute inset-0 flex items-center pointer-events-none pr-1">
-                        <AnimatePresence mode="wait">
+                    <AnimatePresence mode="wait">
                           <motion.span
                             key={placeholderIndex}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.4, ease: "easeInOut" }}
-                            className="text-slate-400 text-base font-medium"
+                            transition={{ duration: 0.4, ease: "easeInOut" as const }}
+                            className="text-white/40! text-base font-medium"
                           >
                             {SEARCH_SUGGESTIONS[placeholderIndex]}
                           </motion.span>
                         </AnimatePresence>
                       </div>
-                    )}
-                    {!searchQuery && isFocused && (
-                      <div className="absolute inset-0 flex items-center pointer-events-none pr-1">
-                        <span className="text-slate-500 text-base font-medium">
-                          اكتب ما تبحث عنه...
-                        </span>
+                      )}
+                      {!searchQuery && isFocused && (
+                      <div className={`absolute inset-0 flex items-center pointer-events-none ${isRtl ? 'pr-1' : 'pl-1'}`}>
+                        <span className="text-white/50! text-base font-medium">
+                            {isRtl ? "اكتب ما تبحث عنه..." : "Type what you're looking for..."}
+                          </span>
                       </div>
-                    )}
+                      )}
                   </div>
 
                   {/* Search button */}
@@ -271,7 +283,7 @@ export default function NewHero() {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3">
+            <motion.div variants={fadeUp} className={`flex flex-col sm:flex-row gap-3 ${isRtl ? '' : 'sm:flex-row-reverse'}`}>
               <Link href="/announcements" className="flex-1 sm:flex-none">
                 <motion.button
                   whileHover={{ y: -2, scale: 1.02 }}
@@ -280,7 +292,7 @@ export default function NewHero() {
                 >
                   <div className="absolute backdrop-blur-sm inset-0 bg-linear-to-l from-primary via-teal-500 to-primary bg-size-[200%_auto] animate-[gradientShift_3s_linear_infinite]" />
                   <div className="relative flex items-center justify-center gap-2">
-                    استكشف المشاريع
+                    {isRtl ? "استكشف المشاريع" : "Explore Projects"}
                   </div>
                 </motion.button>
               </Link>
@@ -292,11 +304,14 @@ export default function NewHero() {
                   className="w-full cursor-pointer sm:w-auto px-9 py-4 rounded-[14px] font-black text-base text-white bg-white/8 backdrop-blur-xl border border-white/15 hover:bg-white/15 hover:border-white/30 transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <ArrowLeft
-                      size={18}
-                      className="group-hover:-translate-x-1 transition-transform"
-                    />
-                    استكشف المستقلين
+                    {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
+                    {isRtl && (
+                      <ArrowLeft
+                        size={18}
+                        className="group-hover:-translate-x-1 transition-transform"
+                      />
+                    )}
+                    {isRtl ? "استكشف المستقلين" : "Explore Freelancers"}
                   </div>
                 </motion.button>
               </Link>
@@ -312,17 +327,15 @@ export default function NewHero() {
                   key={i}
                   custom={i}
                   variants={statVariants}
-                  initial={heroAnimationPlayed ? "visible" : "hidden"}
-                  animate="visible"
-                  className="flex-1 flex flex-col items-center gap-1 relative"
+                  className="flex-1 flex flex-col items-center gap-1.5 relative"
                 >
                   {i !== 0 && (
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8 bg-white/10" />
+                    <div className={`absolute ${isRtl ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-px h-8 bg-white/10`} />
                   )}
-                  <span className="text-xl md:text-2xl font-black text-white">
+                  <span className="text-xl md:text-3xl font-black text-white">
                     {stat.value}
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-400 text-center leading-tight">
+                  <span className="text-[12px] font-semibold text-white/40 text-center leading-tight uppercase tracking-wider">
                     {stat.label}
                   </span>
                 </motion.div>

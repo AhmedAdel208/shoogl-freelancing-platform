@@ -1,16 +1,43 @@
 @import "tailwindcss";
 
+:root {
+  --theme-heading: #02385a;        /* Dark blue on light mode */
+  --theme-brand-dark: #02385a;     /* Pure Brand Dark */
+  --theme-gray-light: #fafafa;
+  --theme-gray-medium: #8f8f8f;
+  --theme-gray-dark: #37383b;
+  --theme-bg: #f8fafc;
+  --theme-border: #e2e8f0;
+  --theme-light-white: #fafafa;
+  --theme-card-bg: #ffffff;
+}
+
+.dark {
+  --theme-heading: #f1f5f9;        /* Slate-100 */
+  --theme-brand-dark: #0f172a;     /* Slate-900 */
+  --theme-gray-light: #1e293b;     /* Slate-800 */
+  --theme-gray-medium: #94a3b8;    /* Slate-400 */
+  --theme-gray-dark: #e2e8f0;      /* Slate-200 */
+  --theme-bg: #020617;             /* Ultra Deep Navy/Slate-950 */
+  --theme-border: #1e293b;         /* Slate-800 */
+  --theme-card-bg: #0f172a;        /* Slate-900 */
+  --theme-light-white: #1e293b;    /* Slate-800 variant */
+}
+
 @theme {
-  /*  colors */
+  /* Dynamic Theme Colors */
   --color-primary: #1eaaad;
   --color-accent: #fcbf29;
-  --color-dark: #02385a;
-  --color-gray-light: #fafafa;
-  --color-gray-medium: #8f8f8f;
-  --color-gray-dark: #37383b;
-  --color-bg: #f8fafc;
-  --color-border: #e9e9e9;
-  --color-light-white: #fafafa;
+  
+  --color-dark: var(--theme-brand-dark);
+  --color-heading: var(--theme-heading);
+  --color-gray-light: var(--theme-gray-light);
+  --color-gray-medium: var(--theme-gray-medium);
+  --color-gray-dark: var(--theme-gray-dark);
+  --color-bg: var(--theme-bg);
+  --color-border: var(--theme-border);
+  --color-light-white: var(--theme-light-white);
+  --color-card-bg: var(--theme-card-bg);
 
   /* Standard spacing */
   --spacing-0\.5: 0.125rem; /* 2px */
@@ -89,6 +116,7 @@
     max-width: 1920px;
     margin: 0 auto;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1,
@@ -97,7 +125,7 @@
   h4,
   h5,
   h6 {
-    @apply font-bold text-dark leading-tight;
+    @apply font-bold text-heading leading-tight;
   }
 
   /* Scale typography for Full HD */
@@ -113,6 +141,7 @@
   button {
     @apply cursor-pointer;
   }
+
 }
 
 @layer components {
@@ -258,6 +287,10 @@
   border: 2px solid #f8fafc;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  border: 2px solid #020617;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #1a9295;
 }
@@ -345,3 +378,122 @@
   animation: bounce-slow 3s infinite;
 }
 
+
+/* 
+ * ==========================================
+ * AUTOPILOT DARK MODE - PREMIUM VERSION
+ * ==========================================
+ */
+.dark .bg-white {
+  background-color: var(--theme-card-bg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* Light Backgrounds -> Ultra Deep Navy Background */
+.dark .bg-slate-50, 
+.dark .bg-gray-50, 
+.dark .bg-slate-100, 
+.dark .bg-gray-100, 
+.dark .bg-\[\#f8fafc\],
+.dark .bg-slate-50\/50,
+.dark .bg-slate-200\/20,
+.dark .bg-white\/80 {
+  background-color: var(--theme-bg) !important;
+  border-color: var(--theme-border) !important;
+}
+
+/* Text Colors Inversion */
+.dark .text-dark,
+.dark .text-slate-900, 
+.dark .text-gray-900, 
+.dark .text-gray-800, 
+.dark .text-slate-800,
+.dark .text-black {
+  color: var(--theme-heading) !important;
+}
+
+.dark .text-gray-700, 
+.dark .text-gray-600, 
+.dark .text-slate-700,
+.dark .text-slate-600 {
+  color: var(--theme-gray-dark) !important;
+}
+
+.dark .text-gray-500, 
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: var(--theme-gray-medium) !important;
+}
+
+/* Fix for light-white text (Used in Footer/Copyright) */
+.dark .text-light-white {
+  color: #f8fafc !important;
+}
+
+/* Borders and Shadows */
+.dark .border-slate-100,
+.dark .border-slate-200, 
+.dark .border-gray-100, 
+.dark .border-gray-200, 
+.dark .border {
+  border-color: var(--theme-border) !important;
+}
+
+.dark .shadow-sm, 
+.dark .shadow-md, 
+.dark .shadow-lg,
+.dark .shadow-xl,
+.dark .shadow-slate-200\/50 {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Special Case: Gradient Borders */
+.dark .from-slate-200 { --tw-gradient-from: #1e293b !important; }
+.dark .to-slate-50 { --tw-gradient-to: #020617 !important; }
+
+/* Invert Colored Light Backgrounds (Amber for Bio, Emerald for Skills, Primary for Buttons) */
+.dark .bg-amber-50, 
+.dark .bg-emerald-50,
+.dark .bg-primary\/5,
+.dark .bg-primary\/10,
+.dark .bg-primary\/20,
+.dark .bg-teal-400\/5,
+.dark .bg-\[\#EEF8F9\] {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Skill tags specific fix */
+.dark .bg-\[\#EEF8F9\] {
+  background-color: #1e293b !important;
+  color: #1eaaad !important;
+}
+
+/* Linear Gradients Inversion */
+.dark .bg-linear-to-r,
+.dark .bg-linear-to-br,
+.dark .bg-linear-to-tr {
+  --tw-gradient-from: rgba(15, 23, 42, 0.6) !important;
+  --tw-gradient-to: rgba(15, 23, 42, 0.1) !important;
+}
+
+/* Inputs and Selects focus states */
+.dark .focus\:bg-white:focus,
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+/* Modal and Tooltip Overlays */
+.dark .bg-slate-900\/60 {
+  background-color: rgba(2, 6, 23, 0.85) !important;
+}
+
+/* Ring colors */
+.dark .ring-slate-50,
+.dark .ring-white {
+  --tw-ring-color: #1e293b !important;
+}

@@ -13,9 +13,6 @@ import {
 
 import { useRouter } from "next/navigation";
 
-/**
- * Sidebar types and constants
- */
 interface SidebarItem {
   id: string;
   label: string;
@@ -73,9 +70,6 @@ interface RequestSidebarProps {
   };
 }
 
-/**
- * Reusable NavItem Component for Sidebar
- */
 const NavItem = ({ 
   item, 
   isActive, 
@@ -94,17 +88,17 @@ const NavItem = ({
       onClick={() => onClick(item)}
       className={`w-full group flex flex-row-reverse items-center justify-between px-5 py-3.5 rounded-2xl transition-all duration-300 ${
         isActive
-          ? "bg-[#dff0f0] text-primary shadow-sm ring-1 ring-primary"
-          : "bg-transparent text-gray-400 hover:bg-gray-50/50 hover:text-gray-600"
+          ? "bg-primary/10 text-primary shadow-sm ring-1 ring-primary/20"
+          : "bg-transparent text-gray-medium hover:bg-light-white hover:text-heading"
       }`}
       dir="ltr"
     >
       <div className="flex flex-row-reverse items-center gap-3">
         <Icon 
-          className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${isActive ? "text-primary" : "text-gray-400"}`} 
+          className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${isActive ? "text-primary" : "text-gray-medium"}`} 
           strokeWidth={isActive ? 2.5 : 2} 
         />
-        <span className={`text-sm transition-colors ${isActive ? "text-primary font-black" : "text-gray-400 font-bold"}`}>
+        <span className={`text-sm transition-colors ${isActive ? "text-primary font-black" : "text-gray-medium font-bold"}`}>
           {item.label}
         </span>
       </div>
@@ -114,7 +108,7 @@ const NavItem = ({
           <span className={`flex items-center justify-center w-[22px] h-[22px] text-[10px] font-black rounded-full shadow-sm transition-all ${
             isActive 
               ? "bg-primary text-white scale-110" 
-              : "bg-[#435365] text-white group-hover:bg-primary/80"
+              : "bg-gray-medium/20 text-gray-medium group-hover:bg-primary/80 group-hover:text-white"
           }`}>
             {count}
           </span>
@@ -159,13 +153,13 @@ export default function RequestSidebar({
 
   return (
     <aside className="w-full lg:w-85 sticky top-24">
-      <div className="bg-white/90 backdrop-blur-2xl rounded-3xl border border-gray-100 shadow-2xl shadow-black/5 overflow-hidden transition-all duration-500">
+      <div className="bg-card-bg rounded-3xl border border-border shadow-xl overflow-hidden transition-all duration-500">
         
         {/* Section: My Requests */}
         <div className="p-8">
           <div className="flex items-center justify-end gap-4 mb-8 px-4 group">
-             <h2 className="text-xl font-black text-gray-800 tracking-tight transition-colors group-hover:text-primary">طلباتي</h2>
-             <div className="bg-[#ccdcda]/50 p-2.5 rounded-2xl text-primary shadow-inner transition-transform duration-500 group-hover:rotate-6">
+             <h2 className="text-xl font-black text-heading tracking-tight transition-colors group-hover:text-primary">طلباتي</h2>
+             <div className="bg-primary/5 p-2.5 rounded-2xl text-primary shadow-inner transition-transform duration-500 group-hover:rotate-6">
                <ClipboardList className="w-6 h-6" />
              </div>
           </div>
@@ -183,9 +177,9 @@ export default function RequestSidebar({
           </nav>
         </div>
 
-        {/* Separator Line: Using a solid, high-detail border */}
+        {/* Separator */}
         <div className="flex justify-center w-full px-10">
-           <div className="w-full h-px bg-gray-200 shadow-[0px_0.5px_0px_white]" />
+           <div className="w-full h-px bg-border/50" />
         </div>
 
         {/* Section: Account Settings */}

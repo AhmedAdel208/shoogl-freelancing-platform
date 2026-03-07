@@ -2,20 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Navlinks() {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const links = [
-    { label: "الرئيسية", href: "/" },
-    { label: "الاعلانات", href: "/announcements" },
-    { label: "المشتغلين", href: "/workers" },
-    { label: "الطلبات", href: "/requests" },
-    { label: "تواصل معنا", href: "/contact" },
+    { label: t.header.home, href: "/" },
+    { label: t.header.announcements, href: "/announcements" },
+    { label: t.header.workers, href: "/workers" },
+    { label: t.header.requests, href: "/requests" },
+    { label: t.header.contact, href: "/contact" },
   ];
 
   return (
-    <ul className="flex gap-8 text-base">
+    <ul className="flex gap-8 text-base font-cairo">
       {links.map((link) => {
         const isActive =
           pathname === link.href ||
@@ -26,10 +28,11 @@ export default function Navlinks() {
             <Link
               href={link.href}
               className={`relative py-1 font-bold transition-colors duration-200 group
-                ${isActive ? "text-primary" : "text-gray-600 hover:text-primary"}
+                ${isActive ? "text-primary" : "text-gray-medium hover:text-primary"}
               `}
             >
               {link.label}
+         
             </Link>
           </li>
         );

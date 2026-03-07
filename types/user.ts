@@ -1,7 +1,7 @@
 export interface UpdateProfilePayload {
   firstName: string;
   lastName: string;
-  bio: string;
+  bio?: string;
   gender: string;
   nationality: string;
   companyName?: string | null;

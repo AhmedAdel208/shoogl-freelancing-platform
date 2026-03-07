@@ -45,21 +45,21 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
   };
 
   return (
-    <div className="p-4 sm:p-6 w-[90%] mx-auto bg-white border-t border-gray-100 space-y-3">
+    <div className="p-4 sm:p-6 w-full sm:w-[95%] lg:w-[90%] mx-auto bg-card-bg/50 backdrop-blur-md border-t border-border space-y-3">
       {/* Attachment preview */}
       {attachment && (
-        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+        <div className="flex items-center gap-3 p-3 bg-bg rounded-xl border border-border animate-in slide-in-from-bottom-2">
           <div className="flex-1 text-right">
-            <p className="text-xs font-bold text-gray-600 font-cairo truncate">
+            <p className="text-xs font-bold text-heading font-cairo truncate">
               {attachment.name}
             </p>
-            <p className="text-[10px] text-gray-400 font-cairo">
+            <p className="text-[10px] text-gray-medium font-cairo">
               {(attachment.size / 1024).toFixed(1)} KB
             </p>
           </div>
           <button
             onClick={() => setAttachment(null)}
-            className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+            className="p-1 text-gray-medium hover:text-red-500 transition-colors"
           >
             <X size={16} />
           </button>
@@ -68,10 +68,10 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
 
       {/* Input row */}
       <div className="relative flex items-center gap-3 sm:gap-4">
-        <div className="flex-1 relative flex items-center bg-gray-50 rounded-2xl border border-gray-300 px-3 sm:px-4 group focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+        <div className="flex-1 relative flex items-center bg-bg rounded-2xl border border-border px-3 sm:px-4 group focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all shadow-inner">
           <button
             onClick={() => fileRef.current?.click()}
-            className="p-3 text-gray-600 hover:text-primary transition-colors cursor-pointer"
+            className="p-3 text-gray-medium hover:text-primary transition-colors cursor-pointer"
           >
             <Paperclip size={18} />
           </button>
@@ -81,8 +81,8 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
             value={text}
             onChange={handleTextChange}
             onKeyDown={handleKeyDown}
-            placeholder="إرسال رسالة"
-            className="flex-1 bg-transparent border-none outline-none py-3 sm:py-4 px-2 text-right text-gray-700 font-medium font-cairo text-sm"
+            placeholder="اكتب رسالتك هنا..."
+            className="flex-1 bg-transparent border-none outline-none py-3 sm:py-4 px-2 text-right text-heading font-medium font-cairo text-sm placeholder:text-gray-medium/40"
           />
           <input
             ref={fileRef}
@@ -103,7 +103,7 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
           className={`shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-xl cursor-pointer ${
             text.trim() || attachment
               ? "bg-primary text-white shadow-primary/30 hover:scale-105 active:scale-95"
-              : "bg-gray-300 text-gray-400 shadow-none cursor-not-allowed"
+              : "bg-gray-medium/10 text-gray-medium/40 shadow-none cursor-not-allowed"
           }`}
         >
           {isSending ? (

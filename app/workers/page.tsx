@@ -23,7 +23,7 @@ export default function WorkersPage() {
   const totalCount = data?.totalCount || 0;
 
   return (
-    <div className="bg-white min-h-screen w-full">
+    <div className="bg-bg min-h-screen w-full">
       <Gradientline />
       <LinksHeader />
       <main className=" min-h-screen w-full">

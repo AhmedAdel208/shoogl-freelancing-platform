@@ -9,7 +9,7 @@ export default function Loading() {
         <div className="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
 
         {/* Inner Pulse Circle */}
-        <div className="absolute inset-6 bg-linear-to-tr from-primary to-[#6B79B9] rounded-full animate-pulse blur-[1px]"></div>
+        {/* <div className="absolute inset-6 bg-linear-to-tr from-primary to-[#6B79B9] rounded-full animate-pulse blur-[1px]"></div> */}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { ProposalDisplay } from "@/lib/validation/proposalSchema";
 import Image from "next/image";
@@ -6,35 +8,12 @@ import { useState } from "react";
 import { Star, Clock, Wallet, CheckCircle2, Briefcase, XCircle, Loader2, MessageSquare } from "lucide-react";
 import { toast } from "@/common/toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface ProposalCardProps {
   proposal: ProposalDisplay;
   isProjectOwner?: boolean;
 }
-
-const statusConfig = {
-  Pending: {
-    bg: "bg-amber-50",
-    text: "text-amber-600",
-    border: "border-amber-200",
-    icon: <Clock size={14} className="text-amber-500" />,
-    label: "قيد الانتظار"
-  },
-  Accepted: {
-    bg: "bg-emerald-50",
-    text: "text-emerald-600",
-    border: "border-emerald-200 shadow-sm shadow-emerald-100",
-    icon: <CheckCircle2 size={14} className="text-emerald-500" />,
-    label: "مقبول"
-  },
-  Rejected: {
-    bg: "bg-rose-50",
-    text: "text-rose-600",
-    border: "border-rose-200",
-    icon: <XCircle size={14} className="text-rose-500" />,
-    label: "مرفوض"
-  },
-};
 
 export default function ProposalCard({
   proposal,
@@ -43,6 +22,31 @@ export default function ProposalCard({
   const router = useRouter();
   const [accepting, setAccepting] = useState(false);
   const queryClient = useQueryClient();
+  const { t, isRtl } = useTranslation();
+
+  const statusConfig = {
+    Pending: {
+      bg: "bg-amber-500/10",
+      text: "text-amber-600 dark:text-amber-500",
+      border: "border-amber-500/20",
+      icon: <Clock size={14} strokeWidth={2.5} />,
+      label: isRtl ? "قيد الانتظار" : "Pending"
+    },
+    Accepted: {
+      bg: "bg-emerald-500/10",
+      text: "text-emerald-600 dark:text-emerald-500",
+      border: "border-emerald-500/20 shadow-xs",
+      icon: <CheckCircle2 size={14} strokeWidth={2.5} />,
+      label: isRtl ? "مقبول" : "Accepted"
+    },
+    Rejected: {
+      bg: "bg-rose-500/10",
+      text: "text-rose-600 dark:text-rose-500",
+      border: "border-rose-500/20",
+      icon: <XCircle size={14} strokeWidth={2.5} />,
+      label: isRtl ? "مرفوض" : "Rejected"
+    },
+  };
 
   const handleContactFreelancer = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -52,14 +56,13 @@ export default function ProposalCard({
   };
 
   const handleAcceptProposal = async () => {
-    if (!confirm("هل أنت متأكد من قبول هذا العرض؟")) return;
+    if (!confirm(isRtl ? "هل أنت متأكد من قبول هذا العرض؟" : "Are you sure you want to accept this proposal?")) return;
 
     setAccepting(true);
     try {
       await proposalApi.acceptProposal(proposal.id);
-      toast.success("تم قبول العرض بنجاح وبدء العمل!");
+      toast.success(isRtl ? "تم قبول العرض بنجاح وبدء العمل!" : "Proposal accepted successfully! Work started.");
       
-      // Update Cache Immediately Without Refreshing the Page!
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["proposals", proposal.jobRequestId] }),
         queryClient.invalidateQueries({ queryKey: ["project", proposal.jobRequestId] }),
@@ -67,155 +70,153 @@ export default function ProposalCard({
       ]);
     } catch (error) {
       console.error("Failed to accept proposal:", error);
-      toast.error("فشل قبول العرض، يرجى المحاولة مرة أخرى");
+      toast.error(isRtl ? "فشل قبول العرض، يرجى المحاولة مرة أخرى" : "Failed to accept proposal, please try again");
     } finally {
       setAccepting(false);
     }
   };
 
-  // Safe fallback to Pending if API returns something unexpected
   const status = statusConfig[proposal.status as keyof typeof statusConfig] || statusConfig.Pending;
 
   return (
     <div
-      className="group relative bg-[#ffffff] w-full text-right rounded-[24px] transition-all duration-400 ease-out hover:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.12)] shadow-[0_2px_10px_rgb(0,0,0,0.03)] border border-gray-100/80 overflow-hidden mb-4"
-      dir="rtl"
+      className={`group relative bg-card-bg w-full rounded-[32px] transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-primary/5 border border-border overflow-hidden mb-6 ${isRtl ? 'text-right' : 'text-left'}`}
     >
-      {/* Decorative Top Line Based on Status */}
+      {/* Visual Accent Line */}
       <div 
-        className={`absolute top-0 left-0 right-0 h-1.5 w-full ${
-          proposal.status === 'Accepted' ? 'bg-linear-to-r from-emerald-400 to-teal-500' : 
-          proposal.status === 'Rejected' ? 'bg-linear-to-r from-rose-400 to-red-500' : 
-          'bg-linear-to-r from-amber-300 to-orange-400'
+        className={`absolute top-0 left-0 right-0 h-1.5 w-full bg-linear-to-r ${
+          proposal.status === 'Accepted' ? 'from-emerald-400 to-teal-500' : 
+          proposal.status === 'Rejected' ? 'from-rose-400 to-red-500' : 
+          'from-amber-400 to-orange-500'
         }`} 
       />
 
-      <div className="p-6 sm:p-7">
-        {/* Header: Avatar, Info, Status Badge */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
-          
-          <div className="flex items-center gap-4">
-            {/* Elite Avatar Design - Clickable for Owner */}
+      <div className="p-7 md:p-9">
+        {/* Header Section */}
+        <div className={`flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div className={`flex items-center gap-5 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
             <div 
               onClick={isProjectOwner ? handleContactFreelancer : undefined}
-              className={`relative w-14 h-14 bg-slate-50 rounded-[18px] flex items-center justify-center shrink-0 ring-4 ring-white shadow-md shadow-gray-200/50 ${isProjectOwner ? 'cursor-pointer hover:ring-primary/20 transition-all' : ''}`}
+              className={`relative w-16 h-16 bg-bg rounded-2xl flex items-center justify-center shrink-0 ring-4 ring-border/30 shadow-xl transition-all duration-500 ${isProjectOwner ? 'cursor-pointer hover:ring-primary/30 group-hover:scale-105' : ''}`}
             >
               {proposal.freelancerAvatar ? (
                 <Image
                   src={proposal.freelancerAvatar}
                   alt={proposal.freelancerName}
-                  width={56}
-                  height={56}
+                  width={64}
+                  height={64}
                   className="w-full h-full rounded-[14px] object-cover"
                 />
               ) : (
-                <span className="text-slate-400 text-2xl font-black font-cairo">
+                <span className="text-primary/40 text-2xl font-black font-cairo">
                   {proposal.freelancerName?.charAt(0).toUpperCase() || "U"}
                 </span>
               )}
-              {/* Online Indicator Dot */}
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-sm z-10" />
+              {/* Status Dot */}
+              <div className="absolute -bottom-1.5 -right-1.5 w-5 h-5 bg-emerald-500 border-4 border-card-bg rounded-full shadow-lg z-10" />
             </div>
 
-            {/* Named & Stats */}
-            <div className="flex flex-col justify-center">
+            <div className={`flex flex-col ${isRtl ? 'items-start' : 'items-end'}`}>
               <div 
                 onClick={isProjectOwner ? handleContactFreelancer : undefined}
                 className={`flex items-center gap-2 group/name ${isProjectOwner ? 'cursor-pointer' : ''}`}
               >
-                <h3 className="font-extrabold text-gray-900 text-[1.15rem] leading-tight font-cairo mb-1.5 group-hover/name:text-primary transition-colors">
+                <h3 className="font-black text-heading text-xl md:text-2xl leading-tight font-cairo mb-2 group-hover/name:text-primary transition-colors">
                   {proposal.freelancerName}
                 </h3>
                 {isProjectOwner && (
-                  <MessageSquare size={14} className="text-primary opacity-0 group-hover/name:opacity-100 transition-opacity mb-1" />
+                  <MessageSquare size={16} className="text-primary opacity-0 group-hover/name:opacity-100 transition-opacity" />
                 )}
               </div>
               
-              <div className="flex flex-wrap items-center gap-2.5 text-sm font-medium">
-                {/* Stunning Premium Star Box */}
-                <div className="flex items-center gap-1.5 bg-amber-50/80 px-2 py-0.5 rounded-md border border-amber-200/50">
-                  <Star className="text-amber-500 fill-amber-400" size={14} />
-                  <span className="text-amber-700 font-bold mb-px">
-                    {proposal.freelancerRating?.toFixed(1) || "0.0"}
+              <div className={`flex flex-wrap items-center gap-3 text-sm font-bold ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+                <div className="flex items-center gap-1.5 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/10 shadow-xs">
+                  <Star className="text-amber-500 fill-amber-500" size={14} />
+                  <span className="text-amber-600 font-black">
+                    {proposal.freelancerRating?.toFixed(1) || "4.5"}
                   </span>
                 </div>
 
-                <span className="w-1 h-1 rounded-full bg-gray-300" /> {/* Divider */}
+                <span className="w-1.5 h-1.5 rounded-full bg-border" /> 
 
-                {/* Completed Jobs */}
-                <div className="flex items-center gap-1.5 text-gray-500">
-                  <Briefcase size={14} className="text-gray-400" />
-                  <span className="mb-px">{proposal.freelancerCompletedJobs || 0} مكتمل</span>
+                <div className={`flex items-center gap-1.5 text-gray-medium ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <Briefcase size={14} className="opacity-60" />
+                  <span className="mb-px whitespace-nowrap">{proposal.freelancerCompletedJobs || 0} {isRtl ? "مكتمل" : "Completed"}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Badge */}
-          <div className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border ${status.bg} ${status.text} ${status.border} shrink-0 self-start sm:self-auto shadow-xs`}>
+          {/* Status Badge */}
+          <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${status.bg} ${status.text} ${status.border} shrink-0 shadow-xs`}>
             {status.icon}
-            <span className="text-[13px] font-bold font-cairo mb-[2px]">{status.label}</span>
+            <span className="text-sm font-black font-cairo tracking-wide">{status.label}</span>
           </div>
         </div>
 
-        {/* Beautiful Text Presentation */}
-        <div className="relative mb-6">
-          <p className="text-gray-600 text-[15px] leading-8 font-cairo line-clamp-3 bg-slate-50 p-5 rounded-[16px] border border-slate-100 shadow-inner shadow-slate-200/20">
+        {/* Description Box */}
+        <div className="mb-8 relative">
+          <div className="absolute top-4 right-4 text-primary/5 -z-10">
+            <MessageSquare size={120} />
+          </div>
+          <p className={`text-gray-medium text-base md:text-lg leading-relaxed font-bold font-cairo bg-bg/50 p-6 rounded-3xl border border-border/50 shadow-inner min-h-[100px] ${isRtl ? 'text-right' : 'text-left'}`}>
             {proposal.description}
           </p>
         </div>
 
-        {/* Pricing & Duration (Elegant Metric Cards) */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-dashed border-gray-200">
-          
-          <div className="flex-1 flex items-center p-4 rounded-[16px] bg-slate-50 border border-slate-100 group-hover:bg-primary/5 group-hover:border-primary/20 transition-colors duration-300 shadow-xs shadow-slate-200/50">
-            <div className="w-11 h-11 rounded-[12px] bg-white shadow-sm flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shrink-0 ml-4 border border-gray-100">
-              <Wallet size={20} strokeWidth={2.5} />
+        {/* Pricing & Duration Layout */}
+        <div className={`flex flex-col sm:flex-row gap-5 pt-8 border-t border-dashed border-border ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div className={`flex-1 flex items-center p-6 rounded-3xl bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse text-left'}`}>
+            <div className={`w-14 h-14 rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border ${isRtl ? 'ml-5' : 'mr-5'}`}>
+              <Wallet size={24} strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="text-[13px] font-bold text-gray-400 font-cairo mb-0.5">العرض المالي</span>
-              <div className="flex items-baseline gap-1">
-                 <span className="text-xl font-black text-gray-900">{proposal.proposedPrice}</span>
-                 <span className="text-sm font-bold text-gray-500">ريال</span>
+              <span className="text-[14px] font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70">
+                {isRtl ? "العرض المالي" : "Financial Offer"}
+              </span>
+              <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+                 <span className="text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedPrice}</span>
+                 <span className="text-sm font-black text-gray-medium font-cairo uppercase">{t.common.riyal}</span>
               </div>
             </div>
           </div>
           
-          <div className="flex-1 flex items-center p-4 rounded-[16px] bg-slate-50 border border-slate-100 group-hover:bg-primary/5 group-hover:border-primary/20 transition-colors duration-300 shadow-xs shadow-slate-200/50">
-            <div className="w-11 h-11 rounded-[12px] bg-white shadow-sm flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300 shrink-0 ml-4 border border-gray-100">
-              <Clock size={20} strokeWidth={2.5} />
+          <div className={`flex-1 flex items-center p-6 rounded-3xl bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse text-left'}`}>
+            <div className={`w-14 h-14 rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border ${isRtl ? 'ml-5' : 'mr-5'}`}>
+              <Clock size={24} strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="text-[13px] font-bold text-gray-400 font-cairo mb-0.5">الوقت المتوقع</span>
-              <div className="flex items-baseline gap-1">
-                 <span className="text-xl font-black text-gray-900">{proposal.proposedDurationInDays}</span>
-                 <span className="text-sm font-bold text-gray-500">يوم</span>
+              <span className="text-[14px] font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70">
+                {isRtl ? "الوقت المتوقع" : "Expected Time"}
+              </span>
+              <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+                 <span className="text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedDurationInDays}</span>
+                 <span className="text-sm font-black text-gray-medium font-cairo uppercase">{t.common.days}</span>
               </div>
             </div>
           </div>
-
         </div>
 
-        {/* Accept Button - Elegant & Smooth */}
+        {/* Accept Button Logic */}
         {isProjectOwner && proposal.status === "Pending" && (
-          <div className="mt-6 pt-5 border-t border-gray-100">
+          <div className="mt-8 pt-8 border-t border-border/60">
             <button
-              className="relative w-full cursor-pointer overflow-hidden rounded-[14px] font-bold font-cairo text-base group/btn shadow-md shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none"
+              className="relative w-full cursor-pointer overflow-hidden rounded-2xl font-black font-cairo text-lg group/btn shadow-xl shadow-primary/20 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-500"
               onClick={handleAcceptProposal}
               disabled={accepting}
             >
-              <div className="absolute inset-0 bg-linear-to-r from-primary to-teal-500 transition-transform duration-500 group-hover/btn:scale-[1.05]" />
+              <div className="absolute inset-0 bg-linear-to-r from-primary via-teal-500 to-primary bg-size-[200%_auto] animate-[gradient_3s_linear_infinite] group-hover/btn:scale-105" />
               
-              <div className="relative flex items-center justify-center gap-2.5 py-4 px-6 text-white transition-all bg-black/5 hover:bg-black/10">
+              <div className={`relative flex items-center justify-center gap-3 py-5 px-8 text-white ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
                 {accepting ? (
                   <>
-                    <Loader2 size={20} className="animate-spin" />
-                    <span className="mb-px">جاري التأكيد...</span>
+                    <Loader2 size={24} className="animate-spin" />
+                    <span className="tracking-wide">{isRtl ? "جاري التأكيد..." : "Confirming..."}</span>
                   </>
                 ) : (
                   <>
-                    <CheckCircle2 size={20} strokeWidth={2.5} />
-                    <span className="mb-px tracking-wide">قبول العرض وبدء العمل</span>
+                    <CheckCircle2 size={24} strokeWidth={3} />
+                    <span className="tracking-wide uppercase">{t.projectDetails.acceptBtn}</span>
                   </>
                 )}
               </div>

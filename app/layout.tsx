@@ -32,7 +32,9 @@ export const metadata: Metadata = {
 };
 
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { Toaster } from "sonner"; 
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { Toaster } from "sonner";
+import { LocaleProvider } from "@/providers/LocaleProvider";
 
 export default function RootLayout({
   children,
@@ -40,11 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="ar"
-      dir="rtl"
-      className={`${cairo.variable} ${elMissiri.variable}`}
-    >
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <link
           rel="preload"
@@ -53,9 +51,13 @@ export default function RootLayout({
           type="image/webp"
         />
       </head>
-      <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-        <Toaster position="top-center" />
+      <body className={`${cairo.variable} ${elMissiri.variable}`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <LocaleProvider>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+            <Toaster position="top-center" />
+          </LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

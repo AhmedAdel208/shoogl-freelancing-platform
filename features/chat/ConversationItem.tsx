@@ -21,10 +21,10 @@ export default function ConversationItem({
   return (
     <button
       onClick={onSelect}
-      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 mb-1 group ${
+      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 mb-1 group border ${
         isSelected
-          ? "bg-primary/5 border border-primary/10"
-          : "hover:bg-gray-50 border border-transparent"
+          ? "bg-primary/10 border-primary/20"
+          : "hover:bg-bg border-transparent"
       }`}
     >
       <UserAvatar
@@ -37,17 +37,17 @@ export default function ConversationItem({
       <div className="flex-1 text-right overflow-hidden">
         <div className="flex items-center justify-between mb-1">
           <span
-            className={`font-black font-cairo text-sm transition-colors ${
-              isSelected ? "text-primary" : "text-gray-900"
+            className={`font-black font-cairo text-sm transition-colors md:truncate ${
+              isSelected ? "text-primary" : "text-heading"
             }`}
           >
             {conv.otherUserName}
           </span>
-          <span className="text-[10px] font-bold text-gray-400 mr-2">
+          <span className="text-[10px] font-bold text-gray-medium/60 mr-2 shrink-0">
             {formatLastSeen(conv.lastMessageTime)}
           </span>
         </div>
-        <p className={`text-xs truncate font-cairo ${conv.unreadCount > 0 ? "font-black text-primary" : "font-bold text-gray-500"}`}>
+        <p className={`text-[11px] truncate font-cairo ${conv.unreadCount > 0 ? "font-black text-primary" : "font-bold text-gray-medium"}`}>
           {conv.lastMessage || "مرفق..."}
         </p>
       </div>

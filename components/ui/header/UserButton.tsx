@@ -55,9 +55,9 @@ export const UserButton = () => {
            border-primary bg-[#1CB2B9]/5 
            `}
         >
-          {profile.profilePictureUrl || profile.profilePicture ? (
+          {profile.profilePictureUrl ? (
             <Image
-              src={profile.profilePictureUrl || profile.profilePicture}
+              src={profile.profilePictureUrl}
               alt={userName}
               width={50}
               height={50}
@@ -87,9 +87,9 @@ export const UserButton = () => {
             {/* Profile Avatar Repetition for context */}
             <div className="w-16 h-16 rounded-2xl bg-white/10 p-1 relative z-10 transition-transform duration-500 group-hover/profile:scale-105">
               <div className="w-full h-full rounded-[14px] overflow-hidden border border-white/10">
-                {profile.profilePictureUrl || profile.profilePicture ? (
+                {profile.profilePictureUrl ? (
                   <Image
-                    src={profile.profilePictureUrl || profile.profilePicture}
+                    src={profile.profilePictureUrl}
                     alt={userName}
                     width={64}
                     height={64}

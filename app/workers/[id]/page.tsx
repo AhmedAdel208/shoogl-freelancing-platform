@@ -19,18 +19,18 @@ export default function ProfilePage() {
 
   if (error || !data) {
     return (
-      <div className="bg-white min-h-screen w-full">
+      <div className="bg-bg min-h-screen w-full">
         <Gradientline />
         <LinksHeader />
         <div className="min-h-[60vh] flex items-center justify-center">
-          <div className="text-center p-10 bg-white rounded-3xl shadow-sm border border-slate-100 max-w-md mx-auto">
-            <div className="w-16 h-16 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="text-center p-10 bg-card-bg rounded-3xl shadow-sm border border-border max-w-md mx-auto">
+            <div className="w-16 h-16 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                <Info size={32} />
             </div>
-            <h2 className="text-xl font-black text-slate-800 font-cairo mb-2">
+            <h2 className="text-xl font-black text-heading font-cairo mb-2">
               {error ? "حدث خطأ ما" : "المستقل غير موجود"}
             </h2>
-            <p className="text-slate-500 font-bold font-cairo">{errorMessage || "عذراً، لم نتمكن من العثور على ملف هذا المستقل."}</p>
+            <p className="text-gray-medium font-bold font-cairo">{errorMessage || "عذراً، لم نتمكن من العثور على ملف هذا المستقل."}</p>
           </div>
         </div>
         <Footer />
@@ -39,7 +39,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="bg-white min-h-screen w-full">
+    <div className="bg-bg min-h-screen w-full">
       <Gradientline />
       <LinksHeader />
       <FreelancerProfileDetail data={data} />

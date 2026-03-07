@@ -8,7 +8,7 @@ import ContactCTA from "@/components/landing/contact/ContactCTA";
 
 export default function LandingPage() {
   return (
-    <div className="bg-white min-h-screen flex flex-col">
+    <div className="bg-bg min-h-screen flex flex-col">
       <Gradientline />
       <LinksHeader />
       

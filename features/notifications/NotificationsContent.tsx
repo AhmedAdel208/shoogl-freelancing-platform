@@ -27,8 +27,8 @@ export default function NotificationsContent() {
       {/* Header Match */}
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end mb-10 gap-6">
         <div className="text-center sm:text-right">
-          <h1 className="text-3xl font-black text-gray-900 mb-1">الإشعارات</h1>
-          <p className="text-gray-500 font-medium text-sm">
+          <h1 className="text-3xl font-black text-heading mb-1">الإشعارات</h1>
+          <p className="text-gray-medium font-medium text-sm">
             {unreadCount > 0 ? `لديك ${unreadCount} إشعارات غير مقروءة` : "ليس لديك إشعارات جديدة"}
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function NotificationsContent() {
           className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-sm font-bold transition-all duration-300 ${
             unreadCount > 0
               ? "border-primary text-primary hover:bg-primary/5 active:scale-95"
-              : "border-gray-200 text-gray-400 cursor-not-allowed"
+              : "border-border text-gray-medium cursor-not-allowed"
           }`}
         >
           <CheckCheck size={18} />
@@ -50,35 +50,35 @@ export default function NotificationsContent() {
       {/* List */}
       <div className="space-y-4">
         {unreadNotifications.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 bg-white border border-gray-100 rounded-2xl shadow-sm">
-            <Inbox className="w-16 h-16 text-gray-300 mb-4" />
-            <p className="text-gray-500 font-bold">لا توجد إشعارات حتى الآن</p>
+          <div className="flex flex-col items-center justify-center py-20 bg-card-bg border border-border rounded-2xl shadow-sm">
+            <Inbox className="w-16 h-16 text-gray-medium mb-4" />
+            <p className="text-gray-medium font-bold">لا توجد إشعارات حتى الآن</p>
           </div>
         ) : (
           unreadNotifications.map((notification) => (
             <div
               key={notification.id}
               onClick={() => handleNotificationClick(notification)}
-              className={`flex items-center justify-between p-4 sm:p-5 bg-white border rounded-lg transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-between p-4 sm:p-5 bg-card-bg border rounded-lg transition-all duration-300 cursor-pointer ${
                 notification.isRead
-                  ? "border-gray-200 hover:border-gray-300 hover:shadow-sm"
-                  : "border-gray-300 hover:border-primary/50 shadow-[0_2px_10px_rgb(0,0,0,0.04)]"
+                  ? "border-border hover:border-gray-medium hover:shadow-sm"
+                  : "border-primary/30 hover:border-primary/50 shadow-[0_2px_10px_rgb(0,0,0,0.04)]"
               }`}
             >
               {/* Right Side: Bell Icon */}
-              <div className="w-8 sm:w-10 flex justify-center text-gray-400 shrink-0">
-                <Bell size={20} className={notification.isRead ? "text-gray-300" : "text-gray-400"} />
+              <div className="w-8 sm:w-10 flex justify-center text-gray-medium shrink-0">
+                <Bell size={20} className={notification.isRead ? "text-gray-medium/50" : "text-gray-medium"} />
               </div>
 
               {/* Center Content */}
               <div className="flex-1 text-center px-4">
-                <h3 className={`text-sm sm:text-base mb-1 ${notification.isRead ? "font-bold text-gray-700" : "font-black text-gray-900"}`}>
+                <h3 className={`text-sm sm:text-base mb-1 ${notification.isRead ? "font-bold text-gray-medium" : "font-black text-heading"}`}>
                   {notification.title}
                 </h3>
-                <p className={`text-xs sm:text-sm mb-2 ${notification.isRead ? "text-gray-500" : "text-gray-600"}`}>
+                <p className={`text-xs sm:text-sm mb-2 ${notification.isRead ? "text-gray-medium/80" : "text-gray-medium"}`}>
                   {notification.message}
                 </p>
-                <div className="text-[11px] text-gray-400 font-medium">
+                <div className="text-[11px] text-gray-medium/60 font-medium">
                   {formatTimeAgo(notification.createdAt)}
                 </div>
               </div>
