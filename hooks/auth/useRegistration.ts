@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/lib/api/auth";
 import { UseRegistrationProps } from "@/types/registerForm";
+import { toast } from "@/common/toast";
 import {
   registerSchema,
   type RegisterFormData,
@@ -39,12 +40,14 @@ export function useRegistration({ initialAccountType }: UseRegistrationProps = {
     onSuccess: (response, variables) => {
       // Check for logical failure even on 200 OK
       if (response && (response.isSuccess === false || response.success === false)) {
+        toast.error(response.message || "فشل التسجيل. يرجى مراجعة البيانات", "خطأ في التسجيل");
         setError("root", {
           message: response.message || "فشل التسجيل",
         });
         return;
       }
 
+      toast.success("تم إنشاء حسابك بنجاح! مرحباً بك في شغل.", "شكراً لانضمامك");
       setSubmittedData(variables);
       setShowSuccess(true);
     },

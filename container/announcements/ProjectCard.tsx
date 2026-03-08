@@ -27,14 +27,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div
       onClick={handleClick}
-      className="group relative bg-card-bg w-full rounded-[40px] transition-all duration-500 ease-out hover:shadow-[0_40px_80px_-15px_rgba(30,170,173,0.12)] shadow-sm border border-border overflow-hidden cursor-pointer flex flex-col h-full"
+      className="group relative bg-card-bg w-full rounded-[20px] transition-all duration-500 ease-out hover:shadow-[0_40px_80px_-15px_rgba(30,170,173,0.12)] shadow-sm border border-border overflow-hidden cursor-pointer flex flex-col h-full"
     >
       {/* Visual Accent */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-primary/10 group-hover:bg-primary transition-all duration-500" />
 
-      <div className="p-7 flex flex-col h-full">
+      <div className="p-4 flex flex-col h-full">
         {/* Card Header & Status */}
-        <div className={`flex justify-between items-start mb-6 gap-4 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+        <div className={`flex justify-between items-start mb-4 gap-4 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
           <div className={`flex-1 min-w-0 ${isRtl ? 'text-right' : 'text-left'}`}>
             <h2 className="text-xl md:text-2xl font-black font-cairo text-heading leading-[1.3] line-clamp-2 group-hover:text-primary transition-colors duration-300">
               {project.title}
@@ -55,12 +55,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Description */}
-        <p className={`text-gray-medium leading-relaxed mb-8 line-clamp-3 font-cairo text-base font-bold opacity-80 ${isRtl ? 'text-right' : 'text-left'}`}>
+        <p className={`text-gray-medium leading-relaxed mb-4 line-clamp-3 font-cairo text-base font-bold opacity-80 ${isRtl ? 'text-right' : 'text-left'}`}>
           {project.description}
         </p>
 
         {/* Skills Tags */}
-        <div className={`flex flex-wrap items-center gap-2 mb-8 ${isRtl ? 'justify-end' : 'justify-start'}`}>
+        <div className={`flex flex-wrap items-center gap-2 mb-4 ${isRtl ? 'justify-end' : 'justify-start'}`}>
           {project.skills?.slice(0, 3).map((skill) => (
             <span
               key={skill.id}
@@ -77,7 +77,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Bottom Bar: Owner & Budget */}
-        <div className={`flex items-center justify-between mt-auto pt-6 border-t border-border/50 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+        <div className={`flex items-center justify-between mt-auto  flex-row-reverse`}>
           {/* Budget Info */}
           <div className="flex items-center gap-2 text-primary font-black font-cairo">
             <Wallet size={16} className="opacity-70" />
@@ -85,11 +85,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           {/* User Info */}
-          <div className={`flex items-center gap-3 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-            <span className="text-[13px] font-black text-heading font-cairo group-hover:text-primary transition-colors">
-              {project.clientName}
-            </span>
-            <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-card-bg border border-border shadow-xs flex items-center justify-center transition-transform group-hover:scale-105">
+          <div className={`flex items-center gap-3  `}>
+           
+            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-card-bg border border-border shadow-xs flex items-center justify-center transition-transform group-hover:scale-105">
               {project.clientAvatar ? (
                 <Image
                   src={project.clientAvatar}
@@ -101,6 +99,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 <User size={18} className="text-gray-medium/30" />
               )}
             </div>
+             <span className="text-[13px] font-black text-heading font-cairo group-hover:text-primary transition-colors">
+              {project.clientName}
+            </span>
           </div>
         </div>
       </div>

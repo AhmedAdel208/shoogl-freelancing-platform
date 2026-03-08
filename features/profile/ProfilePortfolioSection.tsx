@@ -1,14 +1,30 @@
-
 import { useState } from "react";
 import { Plus, LayoutGrid, Trash2, Loader2, ExternalLink } from "lucide-react";
-import { useUserPortfolios, useDeletePortfolio } from "@/hooks/profile/useUserPortfolios";
+import {
+  useUserPortfolios,
+  useDeletePortfolio,
+} from "@/hooks/profile/useUserPortfolios";
 import Image from "next/image";
-import AddPortfolioModal from "./AddPortfolioModal";
+import dynamic from "next/dynamic";
+
+// Dynamic import for heavy modal - only loads when needed
+const AddPortfolioModal = dynamic(() => import("./AddPortfolioModal"), {
+  loading: () => (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function ProfilePortfolioSection() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const { data: portfolios = [], isLoading } = useUserPortfolios();
-  const { mutate: deletePortfolio, isPending: isDeleting, variables: deletingId } = useDeletePortfolio();
+  const {
+    mutate: deletePortfolio,
+    isPending: isDeleting,
+    variables: deletingId,
+  } = useDeletePortfolio();
 
   const handleDelete = (id: number) => {
     if (window.confirm("هل أنت متأكد من حذف هذا العمل؟")) {
@@ -18,7 +34,7 @@ export default function ProfilePortfolioSection() {
 
   return (
     <>
-      <section className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+      <section className="bg-white rounded-4xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-xl font-black text-slate-900 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center">
@@ -26,7 +42,7 @@ export default function ProfilePortfolioSection() {
             </div>
             معرض الأعمال
           </h2>
-          <button 
+          <button
             onClick={() => setIsAddModalOpen(true)}
             className="flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-primary/10 text-primary rounded-xl font-black text-sm hover:bg-primary hover:text-white transition-all active:scale-[0.98]"
           >
@@ -37,29 +53,32 @@ export default function ProfilePortfolioSection() {
 
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[1, 2].map(i => (
-              <div key={i} className="bg-slate-50 rounded-3xl h-64 animate-pulse" />
+            {[1, 2].map((i) => (
+              <div
+                key={i}
+                className="bg-slate-50 rounded-3xl h-64 animate-pulse"
+              />
             ))}
           </div>
         ) : portfolios.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {portfolios.map((item: any) => (
-              <div 
-                key={item.id} 
-                className="group relative bg-white border border-slate-100 rounded-[32px] overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500"
+              <div
+                key={item.id}
+                className="group relative bg-white border border-slate-100 rounded-4xl overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500"
               >
                 {/* Image Container */}
                 <div className="relative h-56 w-full overflow-hidden">
-                  <Image 
-                    src={item.imageUrl} 
-                    alt={item.title} 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-700" 
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  
+
                   {/* Delete Button (On Hover) */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDelete(item.id);
@@ -88,9 +107,9 @@ export default function ProfilePortfolioSection() {
                       </p>
                     </div>
                     {item.projectUrl && (
-                      <a 
-                        href={item.projectUrl} 
-                        target="_blank" 
+                      <a
+                        href={item.projectUrl}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-all"
                       >
@@ -107,8 +126,10 @@ export default function ProfilePortfolioSection() {
             <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4">
               <LayoutGrid size={32} className="text-slate-200" />
             </div>
-            <p className="text-slate-400 font-bold text-sm">لا يوجد أعمال في معرضك حتى الآن</p>
-            <button 
+            <p className="text-slate-400 font-bold text-sm">
+              لا يوجد أعمال في معرضك حتى الآن
+            </p>
+            <button
               onClick={() => setIsAddModalOpen(true)}
               className="mt-4 text-primary font-black text-sm hover:underline"
             >
@@ -118,9 +139,9 @@ export default function ProfilePortfolioSection() {
         )}
       </section>
 
-      <AddPortfolioModal 
-        isOpen={isAddModalOpen} 
-        onClose={() => setIsAddModalOpen(false)} 
+      <AddPortfolioModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
       />
     </>
   );

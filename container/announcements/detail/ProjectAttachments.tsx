@@ -26,8 +26,8 @@ export default function ProjectAttachments({ attachments }: ProjectAttachmentsPr
   const title = isRtl ? "الملفات المرفقة" : "Attached Files";
 
   return (
-    <div className="pt-10 relative">
-      <div className={`flex items-center gap-3 mb-8 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
+    <div className="pt-4 relative">
+      <div className={`flex items-center gap-3 mb-4 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
         <h3 className="text-xl font-black text-heading font-cairo">
           {title}
         </h3>

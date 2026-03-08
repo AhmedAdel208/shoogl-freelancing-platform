@@ -175,14 +175,14 @@ export default function ModernServices() {
                       src={service.image}
                       alt={service.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
 
-                    {/* Float Badge */}
                     <div className={`absolute top-4 ${isRtl ? 'left-4' : 'right-4'} z-20`}>
-                      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg border border-white/20 dark:border-white/10">
+                      <div className="bg-white dark:bg-slate-900 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] border border-slate-200 dark:border-slate-800">
                         <Star size={14} className="text-amber-400 fill-amber-400" />
-                        <span className="text-[12px] font-black font-cairo text-heading">
+                        <span className="text-[14px] font-black font-cairo text-slate-900 dark:text-white relative top-px">
                           {service.rating}
                         </span>
                         <div className="bg-emerald-500 text-white rounded-full p-px ml-0.5 shadow-sm">
@@ -205,7 +205,7 @@ export default function ModernServices() {
                     <div className={`flex items-center gap-3 mb-5 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
                       <div className="w-11 h-11 rounded-[14px] bg-bg border border-border overflow-hidden relative shadow-inner">
                         {service.personImage ? (
-                          <Image src={service.personImage} alt={service.author} fill className="object-cover" />
+                          <Image src={service.personImage} alt={service.author} fill sizes="44px" className="object-cover" />
                         ) : (
                           <User size={20} className="text-gray-medium/30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                         )}
@@ -304,7 +304,7 @@ export default function ModernServices() {
                 {isRtl ? (
                   <>لماذا تختار <span className="text-primary italic">شُغل؟</span></>
                 ) : (
-                  <>Why Choose <span className="text-primary italic">SHOGOL?</span></>
+                  <>Why Choose <span className="text-primary italic">SHOGOL</span></>
                 )}
               </h3>
               <p className="text-gray-medium font-bold font-cairo text-lg sm:text-xl leading-relaxed opacity-80 max-w-lg">

@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { userService } from "@/lib/api/user";
 import { Freelancer } from "@/types/freelancers";
-
-interface FreelancersResponse {
-  freelancers: Freelancer[];
-  totalCount: number;
-  pageNumber: number;
-  pageSize: number;
-  totalPages: number;
-}
+import {
+  fetchFreelancersClient,
+  FreelancersResponse,
+} from "@/lib/api/freelancers";
 
 interface FreelancerSearchParams {
   searchTerm?: string;
@@ -19,9 +14,32 @@ interface FreelancerSearchParams {
   pageSize?: number;
 }
 
-export function useFreelancers(searchParams?: FreelancerSearchParams) {
+interface UseFreelancersOptions {
+  initialData?: {
+    freelancers: Freelancer[];
+    totalCount: number;
+  };
+}
+
+export function useFreelancers(
+  searchParams?: FreelancerSearchParams,
+  initialData?: UseFreelancersOptions["initialData"],
+) {
   return useQuery<FreelancersResponse>({
     queryKey: ["freelancers", searchParams],
-    queryFn: () => userService.searchFreelancers(searchParams || {}),
+    queryFn: () => fetchFreelancersClient(searchParams || {}),
+    staleTime: 60 * 1000, // 1 minute - don't refetch
+    gcTime: 5 * 60 * 1000, // 5 minutes cache
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    initialData: initialData
+      ? {
+          freelancers: initialData.freelancers,
+          totalCount: initialData.totalCount,
+          pageNumber: 1,
+          pageSize: 12,
+          totalPages: Math.ceil(initialData.totalCount / 12),
+        }
+      : undefined,
   });
 }

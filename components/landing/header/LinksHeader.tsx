@@ -26,7 +26,11 @@ export default function LinksHeader() {
 
         {/* Desktop Right: Icons + Buttons */}
         <div className="hidden md:flex items-center gap-6">
-          {isMounted && isAuthenticated && <Navicons />}
+          {isMounted && isAuthenticated && (
+            <div className="flex items-center gap-4 border-l border-border/40 pl-6 ltr:border-r ltr:border-l-0 ltr:pr-6 ltr:pl-0">
+               <Navicons />
+            </div>
+          )}
           <Navbuttons />
         </div>
 

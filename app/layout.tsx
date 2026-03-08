@@ -35,6 +35,7 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "sonner";
 import { LocaleProvider } from "@/providers/LocaleProvider";
+import OfflineModal from "@/components/ui/OfflineModal";
 
 export default function RootLayout({
   children,
@@ -52,10 +53,16 @@ export default function RootLayout({
         />
       </head>
       <body className={`${cairo.variable} ${elMissiri.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <LocaleProvider>
             <ReactQueryProvider>{children}</ReactQueryProvider>
             <Toaster position="top-center" />
+            <OfflineModal />
           </LocaleProvider>
         </ThemeProvider>
       </body>

@@ -14,8 +14,8 @@ export default function FormInput({
 }: FormInputProps) {
   const errorId = useId();
 
-  const baseInputClasses = "w-full bg-white border border-border rounded-xl px-4 py-3 pr-10 text-right text-dark placeholder-gray-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all group-hover:border-primary/50";
-  const errorClasses = error ? "border-red-500 ring-2 ring-red-500/10" : "";
+  const baseInputClasses = "w-full bg-bg/50 border border-border rounded-2xl px-5 py-4 text-right text-heading placeholder:text-gray-medium/40 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all group-hover:border-primary/40 shadow-inner";
+  const errorClasses = error ? "border-red-500/50 ring-4 ring-red-500/10 bg-red-500/5" : "";
 
   return (
     <div className={`text-right ${className}`}>

@@ -6,9 +6,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 import FacebookIcon from "@/public/icons/FacebookIcon";
-import TwitterIcon from "@/public/icons/TwitterIcon";
+import XIcon from "@/public/icons/XIcon";
 import InstagramIcon from "@/public/icons/InstagramIcon";
-import { Linkedin } from "lucide-react";
+import LinkedInIcon from "@/public/icons/LinkedInIcon";
 
 const columnVariants = {
   hidden: { opacity: 0, y: 25 },
@@ -23,14 +23,14 @@ export default function LinksFooter() {
   const { t, isRtl } = useTranslation();
 
   return (
-    <motion.div variants={columnVariants} className={`lg:col-span-1 mt-5 ${isRtl ? 'text-right' : 'text-left'}`}>
+    <motion.div variants={columnVariants} className={`lg:col-span-1 mt-5 `}>
       <Link href="/">
         <Image
           src={logo}
           alt={t.hero.title}
           width={130}
           height={50}
-          className={`object-contain -mt-8 mb-4 ${!isRtl && 'scale-x-[-1]'}`}
+          className={`object-contain -mt-8 mb-4 `}
         />
       </Link>
 
@@ -41,16 +41,16 @@ export default function LinksFooter() {
       {/* Social Links inside this column */}
       <div className={`flex items-center ${isRtl ? 'justify-start' : 'justify-start'} gap-3`}>
         <a href="#" className="w-8 h-8 bg-white/5 border border-white/5 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all hover:scale-110">
-          <Linkedin size={16} />
+          <LinkedInIcon className="w-4 h-4" />
         </a>
         <a href="#" className="w-8 h-8 bg-white/5 border border-white/5 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all hover:scale-110">
-          <InstagramIcon />
+          <InstagramIcon className="w-4 h-4" />
         </a>
         <a href="#" className="w-8 h-8 bg-white/5 border border-white/5 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all hover:scale-110">
-          <TwitterIcon />
+          <XIcon className="w-4 h-4" />
         </a>
         <a href="#" className="w-8 h-8 bg-white/5 border border-white/5 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all hover:scale-110">
-          <FacebookIcon />
+          <FacebookIcon className="w-4 h-4" />
         </a>
       </div>
     </motion.div>

@@ -23,7 +23,7 @@ export default function ProposalsList({
 
   if (proposals.length === 0) {
     return (
-      <div className="py-12">
+      <div className="py-2">
         <EmptyState 
           title={isRtl ? t.projectDetails.noProposals : "No proposals submitted yet"}
           description={isRtl ? t.projectDetails.beFirst : "Be the first to submit a proposal for this special project."}
@@ -34,16 +34,13 @@ export default function ProposalsList({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Header with Counter */}
-      <div className={`flex items-center justify-between mt-8 px-4 sm:px-6 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+      <div className={`flex items-center justify-between mt-4 px-4 sm:px-6 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
         <h2 className="text-2xl md:text-3xl font-black tracking-tight text-heading font-cairo">
           {displayTitle}
         </h2>
-        <div className="bg-primary px-4 py-1.5 rounded-2xl text-white text-sm font-black shadow-lg shadow-primary/20">
-          <span className="opacity-70 text-[10px] mr-1 uppercase tracking-wider">{isRtl ? "عدد" : "Qty"}</span>
-          {proposals.length}
-        </div>
+    
       </div>
       
       {/* Cards Grid/List */}

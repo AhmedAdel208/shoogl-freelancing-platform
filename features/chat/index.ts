@@ -6,3 +6,4 @@ export { default as MessageList } from "./MessageList";
 export { default as MessageBubble } from "./MessageBubble";
 export { default as ChatInput } from "./ChatInput";
 export { default as EmptyChatState } from "./EmptyChatState";
+export { default as NewConversation } from "./NewConversation";

@@ -60,7 +60,6 @@ const statVariants = {
   }),
 };
 
-
 import { useUiStore } from "@/stores/useUiStore";
 
 export default function NewHero() {
@@ -72,25 +71,27 @@ export default function NewHero() {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const SEARCH_SUGGESTIONS = isRtl ? [
-    "تصميم شعار احترافي",
-    "تطوير موقع إلكتروني",
-    "ترجمة محتوى عربي",
-    "تصميم هوية بصرية",
-    "برمجة تطبيق جوال",
-    "كتابة محتوى تسويقي",
-    "تصميم UI/UX",
-    "تحسين محركات البحث SEO",
-  ] : [
-    "Professional Logo Design",
-    "Website Development",
-    "Arabic Translation",
-    "Visual Identity Design",
-    "Mobile App Programming",
-    "Marketing Content Writing",
-    "UI/UX Design",
-    "Search Engine Optimization SEO",
-  ];
+  const SEARCH_SUGGESTIONS = isRtl
+    ? [
+        "تصميم شعار احترافي",
+        "تطوير موقع إلكتروني",
+        "ترجمة محتوى عربي",
+        "تصميم هوية بصرية",
+        "برمجة تطبيق جوال",
+        "كتابة محتوى تسويقي",
+        "تصميم UI/UX",
+        "تحسين محركات البحث SEO",
+      ]
+    : [
+        "Professional Logo Design",
+        "Website Development",
+        "Arabic Translation",
+        "Visual Identity Design",
+        "Mobile App Programming",
+        "Marketing Content Writing",
+        "UI/UX Design",
+        "Search Engine Optimization SEO",
+      ];
 
   const HERO_STATS = isRtl ? HERO_STATS_AR : HERO_STATS_EN;
 
@@ -135,7 +136,7 @@ export default function NewHero() {
   return (
     <section
       dir={isRtl ? "rtl" : "ltr"}
-      className={`relative min-h-[95dvh] md:min-h-[90dvh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? 'text-right' : 'text-left'}`}
+      className={`relative min-h-[95dvh] md:min-h-[90dvh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? "text-right" : "text-left"}`}
     >
       {/* Background Image with slow zoom animation */}
       <motion.div
@@ -195,19 +196,24 @@ export default function NewHero() {
             animate="visible"
           >
             {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold">
+            <motion.div
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold"
+            >
               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-ping shrink-0" />
-              {isRtl ? "الجيل القادم من منصات العمل الحر" : "Next Generation Freelance Platform"}
+              {isRtl
+                ? "الجيل القادم من منصات العمل الحر"
+                : "Next Generation Freelance Platform"}
             </motion.div>
 
             {/* Headline */}
             <motion.div variants={fadeUp}>
-              <h1 className="leading-[1.15] sm:leading-[1.1] font-extrabold tracking-tight text-[32px] sm:text-[40px] md:text-[52px] lg:text-[64px] xl:text-[76px] 2xl:text-[88px]">
+              <h1 className="leading-[1.15] sm:leading-[1.1] font-extrabold tracking-tight text-[32px] sm:text-[40px] md:text-[52px] lg:text-[64px] ">
                 <span className="text-white block">{t.hero.title}</span>
               </h1>
               <motion.p
                 variants={fadeIn}
-                className="text-white/90 mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] xl:text-[24px] 2xl:text-[28px] font-medium sm:font-bold leading-relaxed mt-4 sm:mt-6 lg:mt-8 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl"
+                className="text-white/90 mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] xl:text-[24px]  font-medium sm:font-bold leading-relaxed mt-4 sm:mt-6 lg:mt-8 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl"
               >
                 {t.hero.subtitle}
               </motion.p>
@@ -228,7 +234,7 @@ export default function NewHero() {
                     isFocused
                       ? "bg-white/15 border border-primary/30 shadow-xl"
                       : "bg-white/10 border border-white/10"
-                  } ${isRtl ? 'pr-5' : 'pl-5'}`}
+                  } ${isRtl ? "pr-5" : "pl-5"}`}
                 >
                   {/* Input with animated placeholder */}
                   <div className="flex-1 relative min-h-[56px] flex items-center">
@@ -241,32 +247,39 @@ export default function NewHero() {
                       onBlur={() => setIsFocused(false)}
                       onKeyDown={handleKeyDown}
                       dir={isRtl ? "rtl" : "ltr"}
-                      className={`w-full bg-transparent! border-none! outline-none text-white text-sm sm:text-base min-w-0 font-medium relative z-10 ${isRtl ? 'text-right' : 'text-left'}`}
+                      className={`w-full bg-transparent! border-none! outline-none text-white text-sm sm:text-base min-w-0 font-medium relative z-10 ${isRtl ? "text-right" : "text-left"}`}
                     />
                     {/* Animated cycling placeholder */}
                     {!searchQuery && !isFocused && (
                       <div className="absolute inset-0 flex items-center pointer-events-none pr-1">
-                    <AnimatePresence mode="wait">
+                        <AnimatePresence mode="wait">
                           <motion.span
                             key={placeholderIndex}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.4, ease: "easeInOut" as const }}
+                            transition={{
+                              duration: 0.4,
+                              ease: "easeInOut" as const,
+                            }}
                             className="text-white/40! text-sm sm:text-base font-medium truncate"
                           >
                             {SEARCH_SUGGESTIONS[placeholderIndex]}
                           </motion.span>
                         </AnimatePresence>
                       </div>
-                      )}
-                      {!searchQuery && isFocused && (
-                      <div className={`absolute inset-0 flex items-center pointer-events-none ${isRtl ? 'pr-1' : 'pl-1'}`}>
+                    )}
+                    {!searchQuery && isFocused && (
+                      <div
+                        className={`absolute inset-0 flex items-center pointer-events-none ${isRtl ? "pr-1" : "pl-1"}`}
+                      >
                         <span className="text-white/50! text-base font-medium">
-                            {isRtl ? "اكتب ما تبحث عنه..." : "Type what you're looking for..."}
-                          </span>
+                          {isRtl
+                            ? "اكتب ما تبحث عنه..."
+                            : "Type what you're looking for..."}
+                        </span>
                       </div>
-                      )}
+                    )}
                   </div>
 
                   {/* Search button */}
@@ -283,7 +296,10 @@ export default function NewHero() {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div variants={fadeUp} className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-0 ${isRtl ? '' : 'sm:flex-row-reverse'}`}>
+            <motion.div
+              variants={fadeUp}
+              className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-0 ${isRtl ? "" : "sm:flex-row-reverse"}`}
+            >
               <Link href="/announcements" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ y: -2, scale: 1.02 }}
@@ -304,7 +320,12 @@ export default function NewHero() {
                   className="w-full cursor-pointer sm:w-auto px-6 py-3.5 sm:px-9 sm:py-4 rounded-[14px] font-black text-[15px] sm:text-base xl:text-lg text-white bg-white/8 backdrop-blur-xl border border-white/15 hover:bg-white/15 hover:border-white/30 transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-center gap-2">
-                    {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
+                    {!isRtl && (
+                      <ArrowRight
+                        size={18}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    )}
                     {isRtl && (
                       <ArrowLeft
                         size={18}
@@ -331,9 +352,11 @@ export default function NewHero() {
                 >
                   {/* Desktop divider */}
                   {i !== 0 && (
-                    <div className={`hidden md:block absolute ${isRtl ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-px h-10 bg-white/10`} />
+                    <div
+                      className={`hidden md:block absolute ${isRtl ? "right-0" : "left-0"} top-1/2 -translate-y-1/2 w-px h-10 bg-white/10`}
+                    />
                   )}
-                  <span className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white">
+                  <span className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl  font-black text-white">
                     {stat.value}
                   </span>
                   <span className="text-[11px] sm:text-xs xl:text-sm font-semibold text-white/50 text-center uppercase tracking-wider">
