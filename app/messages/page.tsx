@@ -9,10 +9,9 @@ import {
   MessageList,
   ChatInput,
   EmptyChatState,
-} from "@/components/chat";
+} from "@/features/chat";
 import Gradientline from "@/components/ui/header/Gradientline";
 import LinksHeader from "@/components/landing/header/LinksHeader";
-
 
 export default function MessagesPage() {
   const [showChatMobile, setShowChatMobile] = useState(false);
@@ -46,18 +45,18 @@ export default function MessagesPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-bg" dir="rtl">
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div className="sticky top-0 z-50">
         <Gradientline />
         <LinksHeader />
-      </header>
+      </div>
 
-      <main className="flex-1  mx-auto w-full">
-        <div className="bg-white shadow-sm border-t sm:border border-gray-100 overflow-hidden flex h-[calc(100vh-140px)] sm:h-[calc(100vh-180px)] min-h-[500px]">
+      <main className="flex-1 mx-auto w-full p-4 sm:p-6 lg:p-10">
+        <div className="bg-card-bg shadow-xl border border-border rounded-3xl overflow-hidden flex h-[calc(100vh-140px)] sm:h-[calc(100vh-220px)] min-h-[600px]">
           {/* Sidebar */}
           <div
             className={`${
               showChatMobile ? "hidden md:flex" : "flex"
-            } w-full md:w-[350px] border-l border-gray-100 flex-col transition-all duration-300`}
+            } w-full md:w-[380px] border-l border-border flex-col transition-all duration-300 shadow-sm z-10`}
           >
             <ConversationList
               conversations={conversations}
@@ -74,7 +73,7 @@ export default function MessagesPage() {
           <div
             className={`${
               showChatMobile ? "flex" : "hidden md:flex"
-            } flex-1 flex-col bg-slate-50/30 transition-all duration-300`}
+            } flex-1 flex-col bg-bg/30 backdrop-blur-sm transition-all duration-300`}
           >
             {selectedConversation ? (
               <>
@@ -115,7 +114,6 @@ export default function MessagesPage() {
           </div>
         </div>
       </main>
-
     </div>
   );
 }

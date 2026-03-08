@@ -1,10 +1,8 @@
 
 "use client";
-
 import { useEffect } from "react";
 import { useProfile } from "@/hooks/profile/useProfile";
 import { useRouter } from "next/navigation";
-
 import Loading from "@/common/Loading";
 import Gradientline from "@/components/ui/header/Gradientline";
 import LinksHeader from "@/components/landing/header/LinksHeader";
@@ -28,10 +26,11 @@ export default function ProfileSettingsPage() {
   }, [user, router]);
 
   if (isLoading) return <Loading />;
+  if (!safeProfile) return null;
 
 
   return (
-    <div className="bg-slate-50/50 min-h-screen w-full font-cairo flex flex-col" dir="rtl">
+    <div className="bg-bg min-h-screen w-full font-cairo flex flex-col" dir="rtl">
       <Gradientline />
       <LinksHeader />
 
@@ -43,7 +42,7 @@ export default function ProfileSettingsPage() {
         {user?.isFreelancer && (
           <>
             {/* Cover Image Section Component */}
-            <ProfileCoverSection profileId={safeProfile?.id} />
+            <ProfileCoverSection profileId={safeProfile.id} />
 
             {/* Skills Section */}
             <ProfileSkillsSection />
@@ -54,7 +53,7 @@ export default function ProfileSettingsPage() {
         )}
 
         {/* Bio Section - shown for both */}
-        <ProfileBioSection bio={safeProfile.bio} />
+        <ProfileBioSection bio={safeProfile.bio || ""} />
 
       </main>
 

@@ -115,7 +115,7 @@ export default function PendingPage() {
 
   return (
     <RequestsLayout>
-      <div className="bg-gray-50 min-h-screen">
+      <div className="bg-bg min-h-screen">
         {/* Header Section */}
         <UserProfileHeader
           userProfile={profile}
@@ -133,19 +133,19 @@ export default function PendingPage() {
               />
             </aside>
 
-             {/* Left Column: Main Content (on the Left in RTL, now moving to Right) */}
+             {/* Left Column: Main Content */}
              <main className="flex-1 min-w-0 transition-all duration-500 w-full">
-               <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden min-h-[450px]">
-                 {/* Inner Section Header (Inside Content Card) */}
+               <div className="bg-card-bg rounded-3xl border border-border shadow-sm overflow-hidden min-h-[450px]">
+                 {/* Inner Section Header */}
                  <div className="px-8 pt-8 pb-4 flex items-center justify-end">
-                    <h2 className="text-xl font-black text-gray-800 tracking-tight">{sectionContent.title}</h2>
+                    <h2 className="text-xl font-black text-heading tracking-tight">{sectionContent.title}</h2>
                  </div>
 
                  <div className="p-6 pt-0">
                    {isLoading ? (
                      <div className="space-y-6">
                        {[1, 2, 3].map((i) => (
-                         <div key={i} className="h-48 bg-gray-50 rounded-3xl animate-pulse" />
+                         <div key={i} className="h-48 bg-card-bg/50 rounded-3xl animate-pulse" />
                        ))}
                      </div>
                    ) : (

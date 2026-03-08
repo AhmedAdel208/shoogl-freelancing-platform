@@ -1,5 +1,5 @@
 export interface Notification {
-  id: string | number;  // رقم أو سترينج حسب API
+  id: string | number;  
   title: string;
   message: string;
   type: 'project' | 'message' | 'review' | 'system' | 'payment' | 'JobCompleted' | 'ProposalReceived' | 'JobRequestCreated';

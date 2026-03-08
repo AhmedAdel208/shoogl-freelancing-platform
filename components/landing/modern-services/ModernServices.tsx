@@ -7,6 +7,7 @@ import {
   Clock,
   Wallet,
   ArrowLeft,
+  ArrowRight,
   ArrowUpRight,
   ShieldCheck,
   Sparkles,
@@ -16,6 +17,8 @@ import {
 } from "lucide-react";
 import { services } from "@/data/mockDataServiceSection";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/hooks/useTranslation";
+import { useUiStore } from "@/stores/useUiStore";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -44,14 +47,14 @@ const fadeUp = {
   },
 };
 
-const slideInRight = {
-  hidden: { opacity: 0, x: 40 },
+const slideInSide = (isRtl: boolean) => ({
+  hidden: { opacity: 0, x: isRtl ? 40 : -40 },
   visible: {
     opacity: 1,
     x: 0,
     transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
   },
-};
+});
 
 const scaleUp = {
   hidden: { opacity: 0, scale: 0.92 },
@@ -75,48 +78,55 @@ const whyBoxVariants = {
   }),
 };
 
-import { useUiStore } from "@/stores/useUiStore";
-
 export default function ModernServices() {
   const { servicesAnimationPlayed, setServicesAnimationPlayed } = useUiStore();
+  const { t, isRtl } = useTranslation();
 
   return (
-    <section className="py-24 bg-white select-none overflow-hidden">
+    <section className="py-24 bg-bg select-none overflow-hidden transition-colors duration-500">
       <div className="max-w-8xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <motion.div
-          className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16"
-          dir="rtl"
+          className={`flex flex-col md:flex-row items-end justify-between gap-8 mb-16 ${isRtl ? 'md:flex-row' : 'md:flex-row-reverse'}`}
           variants={sectionHeader}
           initial={servicesAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"
           onViewportEnter={() => setServicesAnimationPlayed(true)}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.div variants={fadeUp} className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full text-primary text-xs font-black font-cairo tracking-widest">
+          <motion.div variants={fadeUp} className={`space-y-4 max-w-2xl ${isRtl ? 'text-right' : 'text-left'}`}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full text-primary text-[11px] font-black font-cairo tracking-widest uppercase">
               <Sparkles size={14} className="animate-pulse" />
-              الخدمات الأكثر طلباً
+              {isRtl ? "الخدمات الأكثر طلباً" : "Most Requested Services"}
             </div>
-            <h2 className="text-[38px] md:text-[48px] font-black text-slate-900 font-cairo leading-tight">
-              استكشف أفضل <span className="text-primary">الخدمات</span>
-              <br />
-              التي تقدمها منصة شُغل
+            <h2 className="text-[34px] md:text-[44px] lg:text-[52px] font-black text-heading font-cairo leading-[1.15]">
+              {isRtl ? (
+                <>
+                  استكشف أفضل <span className="text-primary">الخدمات</span>
+                  <br />
+                  التي تقدمها منصة شُغل
+                </>
+              ) : (
+                <>
+                  Explore the Best <span className="text-primary">Services</span>
+                  <br />
+                  Offered by SHOGOL
+                </>
+              )}
             </h2>
-            <p className="text-slate-500 font-bold font-cairo text-lg leading-relaxed">
-              نخبة من المستقلين المبدعين جاهزون لتحويل أفكارك إلى واقع ملموس
-              بدقة عالية وميزانية تناسب تطلعاتك.
+            <p className="text-gray-medium font-bold font-cairo text-lg leading-relaxed max-w-xl">
+              {isRtl 
+                ? "نخبة من المستقلين المبدعين جاهزون لتحويل أفكارك إلى واقع ملموس بدقة عالية وميزانية تناسب تطلعاتك."
+                : "A selection of creative freelancers ready to turn your ideas into a tangible reality with high precision and a budget that suits your aspirations."}
             </p>
           </motion.div>
 
-          <motion.div variants={slideInRight}>
+          <motion.div variants={slideInSide(isRtl)}>
             <Link href="/workers">
-              <button className="hidden md:flex cursor-pointer items-center gap-3 px-8 py-4 bg-slate-50 border border-slate-200 rounded-[20px] text-slate-700 font-black font-cairo text-base hover:bg-white hover:border-primary/20 hover:text-primary transition-all duration-300 group">
-                استكشف كافة الخدمات
-                <ArrowLeft
-                  size={18}
-                  className="group-hover:-translate-x-1 transition-transform"
-                />
+              <button className="hidden md:flex cursor-pointer items-center gap-3 px-8 py-4.5 bg-card-bg border border-border rounded-[22px] text-gray-medium font-black font-cairo text-base hover:bg-bg hover:border-primary/40 hover:text-primary transition-all duration-300 group shadow-sm">
+                {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
+                {isRtl ? "استكشف كافة الخدمات" : "Explore All Services"}
+                {isRtl && <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />}
               </button>
             </Link>
           </motion.div>
@@ -125,7 +135,6 @@ export default function ModernServices() {
         {/* Services Slider */}
         <motion.div
           className="relative mb-16"
-          dir="rtl"
           variants={scaleUp}
           initial={servicesAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"
@@ -136,6 +145,7 @@ export default function ModernServices() {
             modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={32}
             slidesPerView={1}
+            dir={isRtl ? 'rtl' : 'ltr'}
             navigation={{
               prevEl: ".swiper-button-prev-custom",
               nextEl: ".swiper-button-next-custom",
@@ -150,17 +160,17 @@ export default function ModernServices() {
               1024: { slidesPerView: 3 },
               1280: { slidesPerView: 4 },
             }}
-            className="pb-16"
+            className="pb-20"
           >
-            {services.map((service, index) => (
+            {services.map((service) => (
               <SwiperSlide key={service.id}>
                 <Link
                   href="/workers"
-                  className="group block relative bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2 h-full cursor-pointer"
+                  className="group block relative bg-card-bg rounded-[32px] overflow-hidden border border-border shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2 h-full cursor-pointer"
                 >
                   {/* Image Area */}
                   <div className="relative h-56 overflow-hidden">
-                    <div className="absolute inset-0 bg-slate-900/10 z-10 group-hover:bg-transparent transition-colors duration-500" />
+                    <div className="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-500" />
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -169,13 +179,10 @@ export default function ModernServices() {
                     />
 
                     {/* Float Badge */}
-                    <div className="absolute top-4 left-4 z-20">
-                      <div className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg shadow-black/5 border border-white/20">
-                        <Star
-                          size={14}
-                          className="text-amber-400 fill-amber-400"
-                        />
-                        <span className="text-[12px] font-black font-cairo text-slate-800">
+                    <div className={`absolute top-4 ${isRtl ? 'left-4' : 'right-4'} z-20`}>
+                      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg border border-white/20 dark:border-white/10">
+                        <Star size={14} className="text-amber-400 fill-amber-400" />
+                        <span className="text-[12px] font-black font-cairo text-heading">
                           {service.rating}
                         </span>
                         <div className="bg-emerald-500 text-white rounded-full p-px ml-0.5 shadow-sm">
@@ -185,60 +192,52 @@ export default function ModernServices() {
                     </div>
 
                     {/* Role Badge */}
-                    <div className="absolute bottom-4 right-4 z-20">
-                      <div className="bg-primary/90 backdrop-blur-md text-white px-4 py-1.5 rounded-xl text-[11px] font-black font-cairo shadow-lg shadow-primary/20">
-                        {service.badge}
+                    <div className={`absolute bottom-4 ${isRtl ? 'right-4' : 'left-4'} z-20`}>
+                      <div className="bg-primary backdrop-blur-md text-white px-4 py-1.5 rounded-xl text-[11px] font-black font-cairo shadow-lg shadow-primary/30">
+                        {isRtl ? service.badge : (service.badgeEn || service.badge)}
                       </div>
                     </div>
                   </div>
 
                   {/* Content Area */}
-                  <div className="p-6">
+                  <div className="p-7">
                     {/* Author Info */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-[12px] bg-slate-50 border border-slate-100 overflow-hidden relative shadow-sm">
+                    <div className={`flex items-center gap-3 mb-5 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
+                      <div className="w-11 h-11 rounded-[14px] bg-bg border border-border overflow-hidden relative shadow-inner">
                         {service.personImage ? (
-                          <Image
-                            src={service.personImage}
-                            alt={service.author}
-                            fill
-                            className="object-cover"
-                          />
+                          <Image src={service.personImage} alt={service.author} fill className="object-cover" />
                         ) : (
-                          <User
-                            size={20}
-                            className="text-slate-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                          />
+                          <User size={20} className="text-gray-medium/30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                         )}
                       </div>
-                      <div>
-                        <h4 className="text-sm font-black font-cairo text-slate-900 leading-tight">
+                      <div className={isRtl ? 'text-right' : 'text-left'}>
+                        <h4 className="text-sm font-black font-cairo text-heading leading-tight">
                           {service.author}
                         </h4>
-                        <p className="text-[10px] font-bold font-cairo text-slate-400">
-                          مستقل معتمد
+                        <p className="text-[11px] font-bold font-cairo text-gray-medium/60 uppercase tracking-tighter">
+                          {isRtl ? "مستقل معتمد" : "Verified Expert"}
                         </p>
                       </div>
                     </div>
 
-                    <h3 className="text-[19px] font-black font-cairo text-slate-800 mb-3 line-clamp-1 group-hover:text-primary transition-colors">
-                      {service.title}
+                    <h3 className={`text-[19px] font-black font-cairo text-heading mb-3 line-clamp-1 group-hover:text-primary transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
+                      {isRtl ? service.title : (service.titleEn || service.title)}
                     </h3>
 
-                    <p className="text-sm font-bold font-cairo text-slate-500 leading-relaxed line-clamp-2 mb-6 h-10">
-                      {service.description}
+                    <p className={`text-sm font-bold font-cairo text-gray-medium leading-relaxed line-clamp-2 mb-6 h-10 ${isRtl ? 'text-right' : 'text-left'}`}>
+                      {isRtl ? service.description : (service.descriptionEn || service.description)}
                     </p>
 
                     {/* Footer Metrics */}
-                    <div className="pt-5 border-t border-slate-50 flex items-center justify-between">
+                    <div className={`pt-6 border-t border-border flex items-center justify-between ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
                       <div className="flex items-center gap-2 text-primary font-black font-cairo">
                         <Wallet size={16} />
-                        <span className="text-lg">{service.price}</span>
+                        <span className="text-xl">{service.price} <span className="text-[10px] font-bold text-gray-medium/60">{t.common.riyal}</span></span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-slate-400 font-bold font-cairo text-xs">
-                        <Clock size={14} />
-                        <span>{service.duration}</span>
+                      <div className={`flex items-center gap-1.5 text-gray-medium font-bold font-cairo text-xs ${isRtl ? '' : 'flex-row-reverse'}`}>
+                        <Clock size={14} className="opacity-60" />
+                        <span>{isRtl ? service.duration : (service.durationEn || service.duration)}</span>
                       </div>
                     </div>
                   </div>
@@ -251,110 +250,95 @@ export default function ModernServices() {
           </Swiper>
 
           {/* Custom Navigation Controls */}
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button className="swiper-button-next-custom w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm z-10">
-              <ArrowLeft size={20} />
+          <div className="flex items-center justify-center gap-6 mt-4">
+            <button className="swiper-button-next-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl active:scale-95 z-20">
+              <ArrowLeft size={22} strokeWidth={2.5} />
             </button>
             <div className="swiper-pagination-custom w-fit! static! flex gap-2"></div>
-            <button className="swiper-button-prev-custom w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm z-10">
-              <ArrowLeft size={20} className="rotate-180" />
+            <button className="swiper-button-prev-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl active:scale-95 z-20">
+              <ArrowLeft size={22} strokeWidth={2.5} className="rotate-180" />
             </button>
           </div>
         </motion.div>
 
-        {/* Mobile View CTA */}
+        {/* Why Shogol Info Box */}
         <motion.div
-          className="flex md:hidden justify-center"
-          dir="rtl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link href="/services" className="w-full">
-            <button className="w-full py-5 bg-slate-900 text-white rounded-[24px] font-black font-cairo text-lg shadow-xl active:scale-95 transition-all">
-              استكشف كافة الخدمات
-            </button>
-          </Link>
-        </motion.div>
-
-        {/* Why Shogol Info Box (Premium Light Design) */}
-        <motion.div
-          className="mt-24 p-16 bg-slate-50 rounded-[50px] relative overflow-hidden group border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)]"
-          dir="rtl"
+          className="mt-32 p-8 md:p-20 bg-card-bg rounded-[60px] relative overflow-hidden group border border-border shadow-md"
           variants={{
-            hidden: { opacity: 0, y: 40 },
+            hidden: { opacity: 0, y: 50 },
             visible: { 
               opacity: 1, 
               y: 0,
               transition: { 
-                duration: 0.7, 
+                duration: 0.8, 
                 ease: [0.25, 0.4, 0.25, 1] as const 
               }
             }
           }}
           initial={servicesAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"
-          onViewportEnter={() => setServicesAnimationPlayed(true)}
           viewport={{ once: true, amount: 0.2 }}
         >
           {/* Decorative Elements */}
-          <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
-          <div className="absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] group-hover:opacity-100 transition-opacity" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
+          <div className={`absolute -bottom-1/2 ${isRtl ? '-right-1/4' : '-left-1/4'} w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center ${isRtl ? '' : 'text-left'}`}>
             <motion.div
-              className="lg:col-span-4 space-y-4"
+              className={`lg:col-span-4 space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}
               variants={{
-                hidden: { opacity: 0, x: 30 },
+                hidden: { opacity: 0, x: isRtl ? 50 : -50 },
                 visible: { 
                   opacity: 1, 
                   x: 0,
-                  transition: { 
-                    duration: 0.6, 
-                    delay: 0.2, 
-                    ease: [0.25, 0.4, 0.25, 1] as const 
-                  }
+                  transition: { duration: 0.6, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] as const }
                 }
               }}
               initial={servicesAnimationPlayed ? "visible" : "hidden"}
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
             >
-              <div className="w-16 h-16 bg-primary/10 rounded-[24px] flex items-center justify-center text-primary mb-6 ring-1 ring-primary/20 shadow-sm">
-                <UserCheck size={32} />
+              <div className="w-20 h-20 bg-primary/10 rounded-[28px] flex items-center justify-center text-primary mb-8 ring-1 ring-primary/20 shadow-xl shadow-primary/5">
+                <UserCheck size={36} strokeWidth={2.2} />
               </div>
-              <h3 className="text-3xl font-black text-slate-900 font-cairo leading-tight">
-                لماذا تختار{" "}
-                <span className="text-primary italic">شُغل؟</span>
+              <h3 className="text-[32px] md:text-[40px] font-black text-heading font-cairo leading-[1.2]">
+                {isRtl ? (
+                  <>لماذا تختار <span className="text-primary italic">شُغل؟</span></>
+                ) : (
+                  <>Why Choose <span className="text-primary italic">SHOGOL?</span></>
+                )}
               </h3>
-              <p className="text-slate-500 font-bold font-cairo text-lg leading-relaxed">
-                نحن لا نوفر منصة عمل فقط، بل نبني علاقات مهنية ناجحة بين
-                المبدعين وأصحاب الأعمال.
+              <p className="text-gray-medium font-bold font-cairo text-xl leading-relaxed opacity-80">
+                {isRtl 
+                  ? "نحن لا نوفر منصة عمل فقط، بل نبني علاقات مهنية ناجحة بين المبدعين وأصحاب الأعمال."
+                  : "We don't just provide a work platform; we build successful professional relationships between creators and business owners."}
               </p>
             </motion.div>
 
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 {
-                  icon: <ShieldCheck size={24} />,
-                  title: "أمان كامل لبياناتك",
-                  desc: "نستخدم أحدث تقنيات التشفير لضمان سرية معلوماتك المالية والشخصية.",
+                  icon: <ShieldCheck size={28} />,
+                  title: isRtl ? "أمان كامل لبياناتك" : "Full Data Security",
+                  desc: isRtl ? "نستخدم أحدث تقنيات التشفير لضمان سرية معلوماتك المالية والشخصية." : "We use the latest encryption technologies to ensure the confidentiality of your financial and personal info.",
+                  color: "bg-emerald-500/10 text-emerald-500 ring-emerald-500/20"
                 },
                 {
-                  icon: <Sparkles size={24} />,
-                  title: "جودة احترافية",
-                  desc: "نخبة من المستقلين الذين تم اختيارهم بعناية لضمان أعلى جودة في التنفيذ.",
+                  icon: <Sparkles size={28} />,
+                  title: isRtl ? "جودة احترافية" : "Professional Quality",
+                  desc: isRtl ? "نخبة من المستقلين الذين تم اختيارهم بعناية لضمان أعلى جودة في التنفيذ." : "A selection of freelancers carefully chosen to ensure the highest quality of execution.",
+                  color: "bg-amber-500/10 text-amber-500 ring-amber-500/20"
                 },
                 {
-                  icon: <Wallet size={24} />,
-                  title: "دفعات آمنة",
-                  desc: "نظام حماية الدفعات يضمن حقوق الطرفين حتى إتمام العمل بنجاح.",
+                  icon: <Wallet size={28} />,
+                  title: isRtl ? "دفعات آمنة" : "Secure Payments",
+                  desc: isRtl ? "نظام حماية الدفعات يضمن حقوق الطرفين حتى إتمام العمل بنجاح." : "The payment protection system guarantees the rights of both parties until the work is successfully completed.",
+                  color: "bg-primary/10 text-primary ring-primary/20"
                 },
                 {
-                  icon: <ArrowUpRight size={24} />,
-                  title: "دعم فني 24/7",
-                  desc: "فريق دعم متخصص متواجد دائماً لمساعدتك في أي وقت وبكل احترافية.",
+                  icon: <ArrowUpRight size={28} />,
+                  title: isRtl ? "دعم فني 24/7" : "24/7 Technical Support",
+                  desc: isRtl ? "فريق دعم متخصص متواجد دائماً لمساعدتك في أي وقت وبكل احترافية." : "A specialized support team is always available to assist you at any time with full professionalism.",
+                  color: "bg-blue-500/10 text-blue-500 ring-blue-500/20"
                 },
               ].map((box, i) => (
                 <motion.div
@@ -364,15 +348,15 @@ export default function ModernServices() {
                   initial={servicesAnimationPlayed ? "visible" : "hidden"}
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/10 hover:-translate-y-1 transition-all duration-300"
+                  className="bg-bg p-8 rounded-[40px] border border-border shadow-sm hover:shadow-2xl hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group/box"
                 >
-                  <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary mb-4 ring-1 ring-primary/10">
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ring-1 ${box.color} group-hover/box:scale-110 transition-transform duration-500`}>
                     {box.icon}
                   </div>
-                  <h4 className="text-slate-900 font-black font-cairo text-lg mb-2">
+                  <h4 className={`text-heading font-black font-cairo text-xl mb-3 ${isRtl ? 'text-right' : 'text-left'}`}>
                     {box.title}
                   </h4>
-                  <p className="text-slate-500 text-sm font-bold font-cairo leading-relaxed">
+                  <p className={`text-gray-medium text-[15px] font-bold font-cairo leading-relaxed opacity-70 ${isRtl ? 'text-right' : 'text-left'}`}>
                     {box.desc}
                   </p>
                 </motion.div>

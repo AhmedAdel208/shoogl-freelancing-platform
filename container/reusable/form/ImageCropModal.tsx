@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import Cropper, { Area } from "react-easy-crop";
+import Cropper, { Area } from "react-easy-crop"; 
 import { X, ZoomIn, ZoomOut, RotateCw } from "lucide-react";
 import getCroppedImg from "@/utils/cropImage";
 import type { ImageCropModalProps } from "@/types/imageCropModal";

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { Notification } from '../types';
+import { Notification } from '@/types/notification';
 import { useRouter } from 'next/navigation';
-import { NOTIFICATION_TYPES, NOTIFICATION_ROUTES } from '../constants';
+import { NOTIFICATION_TYPES, NOTIFICATION_ROUTES } from '@/components/notifications/constants';
 
 export const useNotificationHandlers = (
   markAsRead: (notificationId: string) => Promise<void>

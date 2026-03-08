@@ -7,7 +7,7 @@ export default function RequestsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div dir="rtl" className="min-h-screen bg-gray-50 flex flex-col">
+    <div dir="rtl" className="min-h-screen bg-bg flex flex-col">
       <LinksHeader />
       <main className="flex-1">
         {children}

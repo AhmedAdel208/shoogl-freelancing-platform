@@ -1,5 +1,5 @@
 import { apiClient } from "./apiClient";
-import { Notification } from "@/components/notifications/types";
+import { Notification } from "@/types/notification";
 
 const BASE = "/Notification";
 

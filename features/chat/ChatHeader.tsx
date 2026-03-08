@@ -24,11 +24,11 @@ export default function ChatHeader({
   isDeleting,
 }: Props) {
   return (
-    <div className="px-4 sm:px-6 py-4 bg-white border-b border-gray-100 flex items-center justify-between">
+    <div className="px-4 sm:px-6 py-4 bg-card-bg/80 backdrop-blur-md border-b border-border flex items-center justify-between">
       <div className="flex items-center gap-3 sm:gap-4">
         <button
           onClick={onBack}
-          className="md:hidden p-2 -mr-2 text-gray-400 hover:text-gray-600 transition-colors"
+          className="md:hidden p-2 -mr-2 text-gray-medium hover:text-heading transition-colors"
         >
           <ArrowRight size={24} />
         </button>
@@ -36,12 +36,12 @@ export default function ChatHeader({
         <UserAvatar name={name} image={getImageUrl(image)} isOnline={isOnline} size="sm" />
 
         <div>
-          <h2 className="text-xs sm:text-sm font-black text-gray-900 font-cairo leading-tight">
+          <h2 className="text-sm sm:text-base font-black text-heading font-cairo leading-tight">
             {name}
           </h2>
           <p
-            className={`text-[9px] sm:text-[10px] font-bold font-cairo ${
-              isOnline ? "text-emerald-500" : "text-gray-400"
+            className={`text-[10px] sm:text-[11px] font-bold font-cairo ${
+              isOnline ? "text-emerald-500" : "text-gray-medium/60"
             }`}
           >
             {isOnline ? "متصل الآن" : lastSeen || "غير متصل"}
@@ -57,7 +57,7 @@ export default function ChatHeader({
             }
           }}
           disabled={isDeleting}
-          className="p-2 text-gray-400 hover:text-red-500 transition-colors hover:bg-red-50 rounded-xl disabled:opacity-50 flex shrink-0"
+          className="p-2 text-gray-medium hover:text-red-500 transition-colors hover:bg-rose-500/10 rounded-xl disabled:opacity-50 flex shrink-0"
           title="حذف المحادثة"
         >
           {isDeleting ? (
