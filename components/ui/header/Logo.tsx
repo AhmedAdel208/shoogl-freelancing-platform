@@ -13,8 +13,7 @@ export default function Logo() {
         src={logo}
         alt="شغل - منصة العمل الحر"
         priority
-        height={60}
-        className="relative z-10 transition-transform duration-300 "
+        className="relative z-10 transition-transform duration-300 h-10 w-auto md:h-[60px]"
       />
     </Link>
   );

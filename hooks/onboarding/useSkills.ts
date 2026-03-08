@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAllSkills, useAddSkills } from "@/hooks/profile/useSkills";
+import { toast } from "@/common/toast";
 import { SkillCategory } from "@/types/skills";
 
 export function useSkills() {
@@ -56,7 +57,7 @@ export function useSkills() {
 
   const handleNext = () => {
     if (selectedSkillIds.length === 0) {
-      alert("يرجى اختيار مهارة واحدة على الأقل");
+      toast.error("يرجى اختيار مهارة واحدة على الأقل");
       return;
     }
     

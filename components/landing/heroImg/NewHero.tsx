@@ -135,7 +135,7 @@ export default function NewHero() {
   return (
     <section
       dir={isRtl ? "rtl" : "ltr"}
-      className={`relative min-h-[90vh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? 'text-right' : 'text-left'}`}
+      className={`relative min-h-[95dvh] md:min-h-[90dvh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? 'text-right' : 'text-left'}`}
     >
       {/* Background Image with slow zoom animation */}
       <motion.div
@@ -186,28 +186,28 @@ export default function NewHero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 flex items-center">
-        <div className="w-full max-w-7xl mx-auto text-center px-6 md:px-16 py-28 md:py-36">
+      <div className="relative flex-1 flex items-center justify-center">
+        <div className="w-full max-w-[1440px] mx-auto text-center px-4 sm:px-6 md:px-12 lg:px-16 py-20 sm:py-28 lg:py-36 xl:py-48 2xl:py-56">
           <motion.div
-            className="max-w-4xl mx-auto space-y-12"
+            className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12 2xl:space-y-16"
             variants={containerVariants}
             initial={heroAnimationPlayed ? "visible" : "hidden"}
             animate="visible"
           >
             {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-sm font-bold">
-              <span className="w-2 h-2 rounded-full bg-primary animate-ping shrink-0" />
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-ping shrink-0" />
               {isRtl ? "الجيل القادم من منصات العمل الحر" : "Next Generation Freelance Platform"}
             </motion.div>
 
             {/* Headline */}
             <motion.div variants={fadeUp}>
-              <h1 className="leading-[1.05] font-extrabold tracking-tight text-[32px] md:text-[48px] lg:text-[62px]">
+              <h1 className="leading-[1.15] sm:leading-[1.1] font-extrabold tracking-tight text-[32px] sm:text-[40px] md:text-[52px] lg:text-[64px] xl:text-[76px] 2xl:text-[88px]">
                 <span className="text-white block">{t.hero.title}</span>
               </h1>
               <motion.p
                 variants={fadeIn}
-                className="text-white mx-auto text-[22px] font-bold leading-relaxed mt-8 max-w-xl"
+                className="text-white/90 mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] xl:text-[24px] 2xl:text-[28px] font-medium sm:font-bold leading-relaxed mt-4 sm:mt-6 lg:mt-8 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl"
               >
                 {t.hero.subtitle}
               </motion.p>
@@ -241,7 +241,7 @@ export default function NewHero() {
                       onBlur={() => setIsFocused(false)}
                       onKeyDown={handleKeyDown}
                       dir={isRtl ? "rtl" : "ltr"}
-                      className={`w-full bg-transparent! border-none! outline-none text-white text-base min-w-0 font-medium relative z-10 ${isRtl ? 'text-right' : 'text-left'}`}
+                      className={`w-full bg-transparent! border-none! outline-none text-white text-sm sm:text-base min-w-0 font-medium relative z-10 ${isRtl ? 'text-right' : 'text-left'}`}
                     />
                     {/* Animated cycling placeholder */}
                     {!searchQuery && !isFocused && (
@@ -253,7 +253,7 @@ export default function NewHero() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.4, ease: "easeInOut" as const }}
-                            className="text-white/40! text-base font-medium"
+                            className="text-white/40! text-sm sm:text-base font-medium truncate"
                           >
                             {SEARCH_SUGGESTIONS[placeholderIndex]}
                           </motion.span>
@@ -274,21 +274,21 @@ export default function NewHero() {
                     onClick={handleSearch}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-primary cursor-pointer text-white w-14 h-14 rounded-xl flex items-center justify-center hover:bg-primary/90 transition-all shadow-lg shadow-primary/30 shrink-0"
+                    className="bg-primary cursor-pointer text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center hover:bg-primary/90 transition-all shadow-lg shadow-primary/30 shrink-0"
                   >
-                    <Search size={24} />
+                    <Search className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.button>
                 </div>
               </div>
             </motion.div>
 
             {/* CTAs */}
-            <motion.div variants={fadeUp} className={`flex flex-col sm:flex-row gap-3 ${isRtl ? '' : 'sm:flex-row-reverse'}`}>
-              <Link href="/announcements" className="flex-1 sm:flex-none">
+            <motion.div variants={fadeUp} className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-0 ${isRtl ? '' : 'sm:flex-row-reverse'}`}>
+              <Link href="/announcements" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="relative w-full sm:w-auto group overflow-hidden px-9 py-4 rounded-[14px] font-black text-base text-white cursor-pointer shadow-primary/25 hover:shadow-primary/45 transition-all duration-300"
+                  className="relative w-full sm:w-auto overflow-hidden px-6 py-3.5 sm:px-9 sm:py-4 rounded-[14px] font-black text-[15px] sm:text-base xl:text-lg text-white cursor-pointer shadow-primary/25 hover:shadow-primary/45 transition-all duration-300"
                 >
                   <div className="absolute backdrop-blur-sm inset-0 bg-linear-to-l from-primary via-teal-500 to-primary bg-size-[200%_auto] animate-[gradientShift_3s_linear_infinite]" />
                   <div className="relative flex items-center justify-center gap-2">
@@ -297,11 +297,11 @@ export default function NewHero() {
                 </motion.button>
               </Link>
 
-              <Link href="/workers" className="flex-1 sm:flex-none">
+              <Link href="/workers" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full cursor-pointer sm:w-auto px-9 py-4 rounded-[14px] font-black text-base text-white bg-white/8 backdrop-blur-xl border border-white/15 hover:bg-white/15 hover:border-white/30 transition-all duration-300 group"
+                  className="w-full cursor-pointer sm:w-auto px-6 py-3.5 sm:px-9 sm:py-4 rounded-[14px] font-black text-[15px] sm:text-base xl:text-lg text-white bg-white/8 backdrop-blur-xl border border-white/15 hover:bg-white/15 hover:border-white/30 transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-center gap-2">
                     {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
@@ -320,22 +320,23 @@ export default function NewHero() {
             {/* Stats */}
             <motion.div
               variants={fadeIn}
-              className="flex items-center pt-6 border-t border-white/10"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-10 lg:pt-12 border-t border-white/10"
             >
               {HERO_STATS.map((stat, i) => (
                 <motion.div
                   key={i}
                   custom={i}
                   variants={statVariants}
-                  className="flex-1 flex flex-col items-center gap-1.5 relative"
+                  className="flex flex-col items-center justify-center gap-1.5 relative p-4 rounded-2xl bg-white/5 md:bg-transparent md:p-0 backdrop-blur-md md:backdrop-blur-none"
                 >
+                  {/* Desktop divider */}
                   {i !== 0 && (
-                    <div className={`absolute ${isRtl ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-px h-8 bg-white/10`} />
+                    <div className={`hidden md:block absolute ${isRtl ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-px h-10 bg-white/10`} />
                   )}
-                  <span className="text-xl md:text-3xl font-black text-white">
+                  <span className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white">
                     {stat.value}
                   </span>
-                  <span className="text-[12px] font-semibold text-white/40 text-center leading-tight uppercase tracking-wider">
+                  <span className="text-[11px] sm:text-xs xl:text-sm font-semibold text-white/50 text-center uppercase tracking-wider">
                     {stat.label}
                   </span>
                 </motion.div>

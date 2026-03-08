@@ -11,7 +11,7 @@ import {
   type CreateProjectFormData,
 } from "@/lib/validation/projectSchema";
 import { Skill } from "@/types/skills";
-import { toast } from "sonner";
+import { toast } from "@/common/toast";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 

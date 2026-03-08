@@ -51,9 +51,7 @@ export const UserButton = () => {
         }`}
       >
         <div
-          className={`w-12 h-12 rounded-full overflow-hidden border  transition-all duration-500 flex  items-center justify-center 
-           border-primary bg-[#1CB2B9]/5 
-           `}
+          className={`w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border transition-all duration-500 flex items-center justify-center border-primary bg-[#1CB2B9]/5`}
         >
           {profile.profilePictureUrl ? (
             <Image
@@ -75,7 +73,7 @@ export const UserButton = () => {
 
       {/* Modern Calm Elite Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-18 md:top-20 left-0 w-80 bg-slate-900/95 backdrop-blur-2xl rounded-[36px] shadow-[0_40px_100px_-12px_rgba(0,0,0,0.4)] border border-white/10 p-4 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-6 duration-500 overflow-hidden">
+        <div className="absolute top-16 md:top-20 left-0 w-72 sm:w-80 max-w-[calc(100vw-24px)] bg-slate-900/95 backdrop-blur-2xl rounded-[36px] shadow-[0_40px_100px_-12px_rgba(0,0,0,0.4)] border border-white/10 p-4 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-6 duration-500 overflow-hidden">
           {/* Decorative Background Elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -z-10 -translate-y-1/2 translate-x-1/2" />
 
