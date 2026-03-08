@@ -31,7 +31,7 @@ export default function ProposalModal({
     formState: { errors, isValid },
     reset,
     setValue,
-  } = useForm<ProposalFormInput>({
+  } = useForm<ProposalFormInput, any, ProposalFormData>({
     resolver: zodResolver(proposalSchema),
     mode: "onChange",
     defaultValues: {

@@ -18,7 +18,7 @@ export default function AccountType({ onSelectType }: AccountTypeProps) {
       <div className="max-w-8xl mx-auto grow flex flex-col">
         <div className="text-center mb-16">
           <div className="relative inline-block mb-6">
-            <h2 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-primary via-dark to-primary bg-clip-text text-transparent mb-4 relative z-10">
+            <h2 className="text-4xl lg:text-5xl font-bold bg-linear-to-r from-primary via-dark dark:via-heading to-primary bg-clip-text text-transparent mb-4 relative z-10">
               إنشاء حساب
             </h2>
             {/* Gradient glow effect */}

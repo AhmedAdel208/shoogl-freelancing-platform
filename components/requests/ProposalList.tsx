@@ -8,7 +8,7 @@ interface ProposalListProps {
     subtitle: string;
     data: any[];
   };
-  onDeleteProposal: (proposalId: number) => void;
+  onDeleteProposal: (proposalId: number, jobRequestId?: number) => void;
   isClient?: boolean;
   onDeleteJobRequest?: (jobRequestId: number) => void;
   onEditJobRequest?: (jobRequestId: number) => void;

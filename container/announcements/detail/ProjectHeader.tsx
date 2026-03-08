@@ -11,9 +11,9 @@ export default function ProjectHeader({ project }: ProjectHeaderProps) {
   const isAccepted = project.status === "Accepted";
 
   return (
-    <div className="mb-6 relative">
+    <div className="mb-2 relative">
       {/* Top Meta Area */}
-      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 ${isRtl ? 'text-right' : 'text-left'}`}>
+      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 ${isRtl ? 'text-right' : 'text-left'}`}>
         {/* Status Pill */}
         <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl border w-fit shadow-xs ${
           isPending 

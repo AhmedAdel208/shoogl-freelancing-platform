@@ -5,12 +5,19 @@ import { useRouter } from "next/navigation";
 import { ClientInfoProps } from "@/types/detailComponents";
 import { MessageSquareMore } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 export default function ClientInfo({ project }: ClientInfoProps) {
   const router = useRouter();
   const { t, isRtl } = useTranslation();
+  const { isAuthenticated } = useAuth();
 
   const handleContactClient = () => {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+    
     if (project.clientId) {
       router.push(`/messages?user=${project.clientId}`);
     }

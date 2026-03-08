@@ -48,9 +48,21 @@ export function useRequestsData() {
  
   // Mutations
   const deleteProposalMutation = useMutation({
-    mutationFn: (proposalId: number) => proposalApi.deleteProposal(proposalId),
-    onSuccess: () => {
+    mutationFn: ({ proposalId }: { proposalId: number; jobRequestId?: number }) => 
+      proposalApi.deleteProposal(proposalId),
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: REQUESTS_QUERY_KEYS.all });
+      
+      // Also invalidate the specific project cache so the submission state reflects accurately
+      if (variables.jobRequestId) {
+        queryClient.invalidateQueries({
+          queryKey: ["project", variables.jobRequestId],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["project", String(variables.jobRequestId)],
+        });
+      }
+      
       toast.success("تم حذف العرض بنجاح");
     },
     onError: (error: any) => {
@@ -102,7 +114,8 @@ export function useRequestsData() {
     isLoading: isLoadingRequests || isLoadingProposals ,
     currentUser,
     isAuthChecking: !isAuthenticated,
-    handleDeleteProposal: (id: number) => deleteProposalMutation.mutate(id),
+    handleDeleteProposal: (id: number, jobRequestId?: number) => 
+      deleteProposalMutation.mutate({ proposalId: id, jobRequestId }),
     handleDeleteJobRequest: (id: number) => deleteJobRequestMutation.mutate(id),
     handleDeliverRequest: (id: number) => deliverRequestMutation.mutate(id),
     handleEditJobRequest,

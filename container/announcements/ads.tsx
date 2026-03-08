@@ -8,7 +8,6 @@ import SearchAndFilters from "./SearchAndFilters";
 import ProjectCard from "./ProjectCard";
 import EmptyState from "@/common/EmptyState";
 import ErrorState from "@/common/ErrorState";
-import ResultsCounter from "./ResultsCounter";
 import Loading from "@/common/Loading";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -60,8 +59,7 @@ export default function AdsSection() {
             onFilterChange={updateFilter}
           />
 
-        {/* Results Counter */}
-          <ResultsCounter currentCount={projects.length} />
+  
 
         {error && (
           <div className="py-12">

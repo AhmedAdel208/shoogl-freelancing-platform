@@ -91,7 +91,7 @@ export default function ProposalCard({
         }`} 
       />
 
-      <div className="p-7 md:p-9">
+      <div className="p-4 md:p-9">
         {/* Header Section */}
         <div className={`flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
           <div className={`flex items-center gap-5 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
@@ -155,7 +155,7 @@ export default function ProposalCard({
         </div>
 
         {/* Description Box */}
-        <div className="mb-8 relative">
+        <div className="mb-4 relative">
           <div className="absolute top-4 right-4 text-primary/5 -z-10">
             <MessageSquare size={120} />
           </div>
@@ -165,7 +165,7 @@ export default function ProposalCard({
         </div>
 
         {/* Pricing & Duration Layout */}
-        <div className={`flex flex-col sm:flex-row gap-5 pt-8 border-t border-dashed border-border ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+        <div className={`flex flex-col sm:flex-row gap-5 pt-2 border-t border-dashed border-border ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
           <div className={`flex-1 flex items-center p-6 rounded-3xl bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse text-left'}`}>
             <div className={`w-14 h-14 rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border ${isRtl ? 'ml-5' : 'mr-5'}`}>
               <Wallet size={24} strokeWidth={2.5} />

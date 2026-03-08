@@ -8,7 +8,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 interface ProposalCardProps {
   offer: any;
-  onDeleteProposal: (proposalId: number) => void;
+  onDeleteProposal: (proposalId: number, jobRequestId?: number) => void;
   isClient?: boolean;
   onDeleteJobRequest?: (jobRequestId: number) => void;
   onEditJobRequest?: (jobRequestId: number) => void;
@@ -68,7 +68,7 @@ export default function ProposalCard({
     if (isClient) {
       onDeleteJobRequest?.(offer.id);
     } else {
-      onDeleteProposal(offer.id);
+      onDeleteProposal(offer.id, offer.jobRequestId);
     }
   };
 

@@ -23,7 +23,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
       {/* Budget Card */}
       <div className="bg-card-bg rounded-2xl border border-border p-5 flex items-center gap-4 hover:shadow-lg transition-all duration-300 group shadow-sm">
         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-6">
@@ -40,7 +40,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
       </div>
 
       {/* Deadline Card */}
-      <div className="bg-card-bg rounded-2xl border border-border p-5 flex items-center gap-4 hover:shadow-lg transition-all duration-300 group shadow-sm">
+      <div className="bg-card-bg rounded-2xl border border-border p-4 flex items-center gap-4 hover:shadow-lg transition-all duration-300 group shadow-sm">
         <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-all transform group-hover:rotate-6">
           <CalendarDays className="w-6 h-6 text-orange-500 group-hover:text-white" strokeWidth={2.5} />
         </div>

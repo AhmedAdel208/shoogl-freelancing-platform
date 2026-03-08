@@ -24,7 +24,7 @@ export default function AnnouncementDetailPage() {
   const params = useParams();
   const router = useRouter();
   const projectId = params.id as string;
-  const { isAuthenticated, user } = useAuth();
+  const {  user } = useAuth();
   const [showProposalForm, setShowProposalForm] = useState(false);
   const { t, isRtl } = useTranslation();
 
@@ -36,7 +36,7 @@ export default function AnnouncementDetailPage() {
     id: projectId,
   });
 
-  // Check if current user is the owner of this project
+
   const isOwner = user?.id === project?.clientId;
   const isFreelancer = user?.isFreelancer;
 
@@ -66,7 +66,7 @@ export default function AnnouncementDetailPage() {
       </header>
 
       <section
-        className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto py-10 md:py-16 w-full"
+        className="px-4 md:px-6 lg:px-8 max-w-8xl mx-auto py-8 md:py-12 w-full"
       >
         <div className={`flex flex-col lg:flex-row gap-8 lg:gap-12 ${isRtl ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
           
@@ -82,12 +82,12 @@ export default function AnnouncementDetailPage() {
               <ProjectDetails project={project} />
 
               {/* Description Section */}
-              <div className="mb-10 group" dir={isRtl ? "rtl" : "ltr"}>
+              <div className="mb-6 group" dir={isRtl ? "rtl" : "ltr"}>
                 <h3 className={`text-xl font-black text-heading mb-6 flex items-center gap-3 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
                   {t.projectDetails.description}
-                  <div className="w-1.5 h-6 bg-primary rounded-full opacity-50" />
+              
                 </h3>
-                <div className={`text-[17px] text-gray-medium leading-loose font-bold bg-bg/50 p-8 rounded-3xl border border-border transition-all duration-300 group-hover:bg-card-bg shadow-inner ${isRtl ? 'text-right' : 'text-left'}`}>
+                <div className={`text-[17px] text-gray-medium leading-loose font-bold bg-bg/50 p-6 rounded-3xl border border-border transition-all duration-300 group-hover:bg-card-bg shadow-inner ${isRtl ? 'text-right' : 'text-left'}`}>
                   {project.description}
                 </div>
               </div>
@@ -106,7 +106,7 @@ export default function AnnouncementDetailPage() {
               )}
             </div>
 
-            <div className="mt-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="mt-2 animate-in fade-in slide-in-from-bottom-8 duration-1000">
               <ProjectProposals jobRequestId={project.id.toString()} />
             </div>
           </main>
