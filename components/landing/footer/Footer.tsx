@@ -39,9 +39,9 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#1d4766] text-white overflow-hidden mt-12">
       
-      <div className="relative z-10 max-w-8xl mx-auto px-6 sm:px-12 py-16">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-16">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8"
           variants={footerVariants}
           initial={footerAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"

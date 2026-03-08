@@ -83,23 +83,23 @@ export default function ModernServices() {
   const { t, isRtl } = useTranslation();
 
   return (
-    <section className="py-24 bg-bg select-none overflow-hidden transition-colors duration-500">
+    <section className="py-16 sm:py-20 md:py-24 bg-bg select-none overflow-hidden transition-colors duration-500">
       <div className="max-w-8xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <motion.div
-          className={`flex flex-col md:flex-row items-end justify-between gap-8 mb-16 ${isRtl ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+          className={`flex flex-col md:flex-row items-start md:items-end justify-between gap-6 md:gap-8 mb-12 sm:mb-16 ${isRtl ? 'md:flex-row' : 'md:flex-row-reverse'}`}
           variants={sectionHeader}
           initial={servicesAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"
           onViewportEnter={() => setServicesAnimationPlayed(true)}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.div variants={fadeUp} className={`space-y-4 max-w-2xl ${isRtl ? 'text-right' : 'text-left'}`}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full text-primary text-[11px] font-black font-cairo tracking-widest uppercase">
+          <motion.div variants={fadeUp} className={`space-y-4 sm:space-y-5 max-w-2xl w-full ${isRtl ? 'text-right' : 'text-left'}`}>
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 bg-primary/10 rounded-full text-primary text-[10px] sm:text-[11px] font-black font-cairo tracking-widest uppercase">
               <Sparkles size={14} className="animate-pulse" />
               {isRtl ? "الخدمات الأكثر طلباً" : "Most Requested Services"}
             </div>
-            <h2 className="text-[34px] md:text-[44px] lg:text-[52px] font-black text-heading font-cairo leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black text-heading font-cairo leading-[1.2] sm:leading-[1.15]">
               {isRtl ? (
                 <>
                   استكشف أفضل <span className="text-primary">الخدمات</span>
@@ -114,16 +114,16 @@ export default function ModernServices() {
                 </>
               )}
             </h2>
-            <p className="text-gray-medium font-bold font-cairo text-lg leading-relaxed max-w-xl">
+            <p className="text-gray-medium font-bold font-cairo text-base sm:text-lg lg:text-xl leading-relaxed max-w-xl opacity-90">
               {isRtl 
                 ? "نخبة من المستقلين المبدعين جاهزون لتحويل أفكارك إلى واقع ملموس بدقة عالية وميزانية تناسب تطلعاتك."
                 : "A selection of creative freelancers ready to turn your ideas into a tangible reality with high precision and a budget that suits your aspirations."}
             </p>
           </motion.div>
 
-          <motion.div variants={slideInSide(isRtl)}>
-            <Link href="/workers">
-              <button className="hidden md:flex cursor-pointer items-center gap-3 px-8 py-4.5 bg-card-bg border border-border rounded-[22px] text-gray-medium font-black font-cairo text-base hover:bg-bg hover:border-primary/40 hover:text-primary transition-all duration-300 group shadow-sm">
+          <motion.div variants={slideInSide(isRtl)} className="w-full md:w-auto mt-2 md:mt-0">
+            <Link href="/workers" className="block w-full">
+              <button className="flex w-full md:w-auto justify-center cursor-pointer items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4.5 bg-card-bg border border-border rounded-[18px] sm:rounded-[22px] text-gray-medium font-black font-cairo text-sm sm:text-base hover:bg-bg hover:border-primary/40 hover:text-primary transition-all duration-300 group shadow-sm">
                 {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
                 {isRtl ? "استكشف كافة الخدمات" : "Explore All Services"}
                 {isRtl && <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />}
@@ -145,7 +145,7 @@ export default function ModernServices() {
             modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={32}
             slidesPerView={1}
-            dir={isRtl ? 'rtl' : 'ltr'}
+            dir= 'rtl'
             navigation={{
               prevEl: ".swiper-button-prev-custom",
               nextEl: ".swiper-button-next-custom",
@@ -263,7 +263,7 @@ export default function ModernServices() {
 
         {/* Why Shogol Info Box */}
         <motion.div
-          className="mt-32 p-8 md:p-20 bg-card-bg rounded-[60px] relative overflow-hidden group border border-border shadow-md"
+          className="mt-20 sm:mt-24 md:mt-32 p-6 sm:p-10 lg:p-16 xl:p-20 bg-card-bg rounded-[40px] md:rounded-[60px] relative overflow-hidden group border border-border shadow-md"
           variants={{
             hidden: { opacity: 0, y: 50 },
             visible: { 
@@ -283,9 +283,9 @@ export default function ModernServices() {
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
           <div className={`absolute -bottom-1/2 ${isRtl ? '-right-1/4' : '-left-1/4'} w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
 
-          <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center ${isRtl ? '' : 'text-left'}`}>
+          <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center ${isRtl ? '' : 'text-left'}`}>
             <motion.div
-              className={`lg:col-span-4 space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}
+              className={`lg:col-span-4 space-y-4 sm:space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}
               variants={{
                 hidden: { opacity: 0, x: isRtl ? 50 : -50 },
                 visible: { 
@@ -297,24 +297,24 @@ export default function ModernServices() {
               initial={servicesAnimationPlayed ? "visible" : "hidden"}
               whileInView="visible"
             >
-              <div className="w-20 h-20 bg-primary/10 rounded-[28px] flex items-center justify-center text-primary mb-8 ring-1 ring-primary/20 shadow-xl shadow-primary/5">
-                <UserCheck size={36} strokeWidth={2.2} />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 rounded-[20px] sm:rounded-[28px] flex items-center justify-center text-primary mb-6 sm:mb-8 ring-1 ring-primary/20 shadow-xl shadow-primary/5">
+                <UserCheck className="w-8 h-8 sm:w-9 sm:h-9" strokeWidth={2.2} />
               </div>
-              <h3 className="text-[32px] md:text-[40px] font-black text-heading font-cairo leading-[1.2]">
+              <h3 className="text-3xl sm:text-4xl md:text-[40px] font-black text-heading font-cairo leading-tight sm:leading-[1.2]">
                 {isRtl ? (
                   <>لماذا تختار <span className="text-primary italic">شُغل؟</span></>
                 ) : (
                   <>Why Choose <span className="text-primary italic">SHOGOL?</span></>
                 )}
               </h3>
-              <p className="text-gray-medium font-bold font-cairo text-xl leading-relaxed opacity-80">
+              <p className="text-gray-medium font-bold font-cairo text-lg sm:text-xl leading-relaxed opacity-80 max-w-lg">
                 {isRtl 
                   ? "نحن لا نوفر منصة عمل فقط، بل نبني علاقات مهنية ناجحة بين المبدعين وأصحاب الأعمال."
                   : "We don't just provide a work platform; we build successful professional relationships between creators and business owners."}
               </p>
             </motion.div>
 
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {[
                 {
                   icon: <ShieldCheck size={28} />,
@@ -348,15 +348,15 @@ export default function ModernServices() {
                   initial={servicesAnimationPlayed ? "visible" : "hidden"}
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  className="bg-bg p-8 rounded-[40px] border border-border shadow-sm hover:shadow-2xl hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group/box"
+                  className="bg-bg p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-border shadow-sm hover:shadow-2xl hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group/box"
                 >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ring-1 ${box.color} group-hover/box:scale-110 transition-transform duration-500`}>
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ring-1 ${box.color} group-hover/box:scale-110 transition-transform duration-500`}>
                     {box.icon}
                   </div>
-                  <h4 className={`text-heading font-black font-cairo text-xl mb-3 ${isRtl ? 'text-right' : 'text-left'}`}>
+                  <h4 className={`text-heading font-black font-cairo text-lg sm:text-xl mb-2 sm:mb-3 ${isRtl ? 'text-right' : 'text-left'}`}>
                     {box.title}
                   </h4>
-                  <p className={`text-gray-medium text-[15px] font-bold font-cairo leading-relaxed opacity-70 ${isRtl ? 'text-right' : 'text-left'}`}>
+                  <p className={`text-gray-medium text-sm sm:text-[15px] font-bold font-cairo leading-relaxed opacity-80 ${isRtl ? 'text-right' : 'text-left'}`}>
                     {box.desc}
                   </p>
                 </motion.div>

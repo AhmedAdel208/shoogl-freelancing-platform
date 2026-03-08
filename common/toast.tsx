@@ -1,10 +1,7 @@
 import { toast as sonnerToast } from "sonner";
 import { Check, X, Bell, ShieldAlert, CircleAlert, Info, Loader2 } from "lucide-react";
 
-/**
- * Modern, Calm Toast Component
- * No shadows, focused on UX/UI and premium aesthetic.
- */
+
 const CustomToast = ({ 
   t, 
   message, 
