@@ -17,4 +17,6 @@ export interface UserProfile extends UpdateProfilePayload {
   isFreelancer: boolean;
   phoneNumber?: string;
   createdAt: string;
+  languages?: any[];
+  certificates?: any[];
 }

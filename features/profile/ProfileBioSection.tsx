@@ -36,6 +36,14 @@ export default function ProfileBioSection({ bio }: ProfileBioSectionProps) {
   }, [isEditing]);
 
   const handleSave = () => {
+    if (!editedBio || editedBio.trim().length === 0) {
+      toast.error("النبذة التعريفية لا يمكن أن تكون فارغة");
+      return;
+    }
+    if (editedBio.trim().length < 10) {
+      toast.error("النبذة التعريفية يجب أن تكون 10 أحرف على الأقل");
+      return;
+    }
     if (editedBio.length > 500) {
       toast.error("السيرة الذاتية لا يمكن أن تتجاوز 500 حرف");
       return;

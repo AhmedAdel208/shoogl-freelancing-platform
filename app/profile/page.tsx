@@ -13,6 +13,8 @@ import ProfileCoverSection from "@/features/profile/ProfileCoverSection";
 import ProfileSkillsSection from "@/features/profile/ProfileSkillsSection";
 import ProfileBioSection from "@/features/profile/ProfileBioSection";
 import ProfilePortfolioSection from "@/features/profile/ProfilePortfolioSection";
+import ProfileLanguagesSection from "@/features/profile/ProfileLanguagesSection";
+import ProfileCertificatesSection from "@/features/profile/ProfileCertificatesSection";
 
 export default function ProfileSettingsPage() {
   const router = useRouter();
@@ -46,6 +48,16 @@ export default function ProfileSettingsPage() {
 
             {/* Skills Section */}
             <ProfileSkillsSection />
+
+            {/* Languages Section */}
+            <ProfileLanguagesSection 
+              languages={safeProfile.languages || (safeProfile as any).userLanguages || (safeProfile as any).UserLanguages || (safeProfile as any).Languages || []} 
+            />
+
+            {/* Certificates Section */}
+            <ProfileCertificatesSection 
+              certificates={safeProfile.certificates || (safeProfile as any).userCertificates || (safeProfile as any).UserCertificates || (safeProfile as any).Certificates || []} 
+            />
 
             {/* Portfolio Section */}
             <ProfilePortfolioSection />

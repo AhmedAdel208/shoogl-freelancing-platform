@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/lib/api/auth";
 import { UseRegistrationProps } from "@/types/registerForm";
 import { toast } from "@/common/toast";
+import { setCookie } from "@/utils/cookies";
 import {
   registerSchema,
   type RegisterFormData,

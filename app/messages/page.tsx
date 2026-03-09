@@ -120,7 +120,6 @@ export default function MessagesPage() {
               <NewConversation
                 onSend={(content) => {
                   sendMessage(pendingUserId, content);
-                  clearPendingUser();
                 }}
                 isSending={isSending}
               />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, El_Messiri } from "next/font/google";
 
 import "./globals.css";
@@ -17,12 +17,22 @@ const elMissiri = El_Messiri({
   preload: false,
 });
 
+export const viewport: Viewport = {
+  themeColor: "#3b82f6",
+};
+
 export const metadata: Metadata = {
   title: "شغل | منصة العمل الحر الأولى",
   description:
     "منصة شُغل تجمع بين نُخبة المستقلين وأصحاب المشاريع الطموحة في بيئة عمل ذكية وآمنة",
   keywords: ["عمل حر", "مستقلين", "مشاريع", "تصميم", "برمجة", "شغل"],
   authors: [{ name: "شغل" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "شغل",
+  },
   openGraph: {
     title: "شغل | منصة العمل الحر الأولى",
     description: "منصة شُغل تجمع بين نُخبة المستقلين وأصحاب المشاريع",
