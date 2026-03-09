@@ -199,6 +199,9 @@ export function useChat() {
     (c) => c.id === selectedConversationId,
   );
 
+  // Track who we just sent a first message to, so we can auto-select the new conversation
+  const pendingRecipientRef = useRef<string | null>(null);
+
   // ─── Mutations ────────────────────────────────────────────────
   const sendMutation = useMutation({
     mutationFn: ({
@@ -210,7 +213,12 @@ export function useChat() {
       content: string;
       attachment?: File;
     }) => chatApi.sendMessage(receiverId, content, attachment),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      // If we were sending to a pending (new) user, track them for auto-select
+      if (pendingUserId && variables.receiverId.toLowerCase() === pendingUserId.toLowerCase()) {
+        pendingRecipientRef.current = variables.receiverId.toLowerCase();
+        setPendingUserId(null);
+      }
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.conversations });
       if (selectedIdRef.current) {
         queryClient.invalidateQueries({
@@ -301,6 +309,19 @@ export function useChat() {
       }
     }
   }, [searchParams, conversations, conversationsQuery.isSuccess, user?.id]);
+
+  // Auto-select newly created conversation after first message
+  useEffect(() => {
+    if (pendingRecipientRef.current && conversations.length > 0) {
+      const newConv = conversations.find(
+        (c) => String(c.otherUserId).toLowerCase() === pendingRecipientRef.current,
+      );
+      if (newConv) {
+        pendingRecipientRef.current = null;
+        setSelectedConversationId(newConv.id);
+      }
+    }
+  }, [conversations]);
 
   // Auto mark-as-read when viewing a conversation with unread messages
   useEffect(() => {

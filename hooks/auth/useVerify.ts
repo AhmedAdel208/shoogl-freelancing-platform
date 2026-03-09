@@ -8,6 +8,7 @@ import { toast } from "@/common/toast";
 import { useOtpInput } from "@/hooks/auth/useOtpInput";
 import { VerifyOtpData } from "@/types/auth";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { setCookie } from "@/utils/cookies";
 
 export function useVerify() {
   const router = useRouter();
@@ -45,6 +46,7 @@ export function useVerify() {
       if (token) {
         
         localStorage.setItem("token", token)
+        setCookie("token", token, 7);
         useAuthStore.getState().setToken(token);
       }
 

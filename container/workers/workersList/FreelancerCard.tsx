@@ -69,7 +69,7 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
           </div>
 
           {/* Location */}
-          <div className="flex items-center gap-1.5 text-gray-medium mb-2.5 sm:mb-3 truncate w-full">
+          <div className="flex items-center gap-1.5 text-gray-medium mb-2 sm:mb-3 truncate w-full">
             <LocationIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-60 shrink-0" />
             <span className="text-[13px] sm:text-sm font-bold font-cairo truncate">
               {f.nationality || (isRtl ? "غير محدد" : "Not specified")}
@@ -95,12 +95,12 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
       </div>
 
       {/* Divider Line */}
-      <div className="h-px w-full bg-border mb-3 sm:mb-4 opacity-50 block" />
+      <div className="h-px w-full bg-border mb-2 sm:mb-4 opacity-50 block" />
 
       {/* Bio Section */}
       {f.bio && (
         <p
-          className={`text-[14px] sm:text-[15px] text-gray-medium font-bold font-cairo leading-relaxed line-clamp-2 mb-3 sm:mb-4 h-10.5 sm:h-11.25 opacity-80 ${isRtl ? "text-right" : "text-left"}`}
+          className={`text-[14px] sm:text-[15px] text-gray-medium font-bold font-cairo leading-relaxed line-clamp-2 mb-2 sm:mb-4 h-10.5 sm:h-11.25 opacity-80 ${isRtl ? "text-right" : "text-left"}`}
         >
           {f.bio}
         </p>
@@ -109,7 +109,7 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
       {/* Skills Section */}
       {f.skills && f.skills.length > 0 && (
         <div
-          className={`flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5 ${isRtl ? "justify-start" : "justify-end"}`}
+          className={`flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-5 ${isRtl ? "justify-start" : "justify-end"}`}
         >
           {f.skills.slice(0, 3).map((skill) => (
             <span
@@ -128,7 +128,7 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
       )}
 
       {/* Footer Section */}
-      <div className="mt-auto pt-3 sm:pt-4 flex items-center justify-between border-t border-border">
+      <div className="mt-auto pt-2 sm:pt-4 flex items-center justify-between border-t border-border">
         <div
           className={`flex items-center gap-2 sm:gap-3 text-gray-medium group-hover:text-primary transition-colors ${isRtl ? "flex-row" : "flex-row-reverse"}`}
         >

@@ -17,6 +17,11 @@ export default async function WorkersPage() {
     pageSize: 12,
   });
 
+  // Filter out freelancers who don't have a bio (null, undefined, or empty string)
+  const freelancers = initialData.freelancers.filter((f) => f.bio && f.bio.trim() !== "");
+  
+
+
   return (
     <div className="bg-bg min-h-screen w-full">
       <Gradientline />
@@ -25,7 +30,7 @@ export default async function WorkersPage() {
         <Suspense fallback={<PremiumSkeletonGrid count={6} />}>
           <WorkersClient
             initialData={{
-              freelancers: initialData.freelancers,
+              freelancers: freelancers,
               totalCount: initialData.totalCount,
             }}
           />

@@ -7,11 +7,12 @@ import { useRouter } from "next/navigation";
 import { authService } from "@/lib/api/auth";
 import { loginSchema, type LoginFormData } from "@/lib/validation/loginSchema";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { setCookie } from "@/utils/cookies";
 import { toast } from "@/common/toast";
 
 export function useLogin() {
   const router = useRouter();
-  const queryClient = useQueryClient();
+ 
 
   const {
     register,
@@ -27,6 +28,7 @@ export function useLogin() {
     onSuccess: (data) => {
       if (data.token) {
         localStorage.setItem("token", data.token);
+        setCookie("token", data.token, 7); // Set cookie for middleware
        
         useAuthStore.getState().setToken(data.token);
         toast.success("تم تسجيل الدخول بنجاح. مرحباً بك مجدداً!", "دخول ناجح");
