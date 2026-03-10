@@ -44,7 +44,7 @@ export default function Navicons() {
             strokeWidth={2.2}
           />
           {unreadNotificationsCount > 0 && (
-            <div className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-red-500 text-white text-[9px] font-black rounded-full shadow-lg shadow-red-500/20 z-10 transition-transform animate-in zoom-in">
+            <div className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-red-500 text-white text-[11px] font-black rounded-full shadow-lg shadow-red-500/20 z-10 transition-transform animate-in zoom-in">
               {unreadNotificationsCount > 9 ? "+9" : unreadNotificationsCount}
             </div>
           )}

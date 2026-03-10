@@ -56,11 +56,11 @@ export default function ProfileCertificatesSection({ certificates = [] }: Profil
 
   return (
     <>
-      <section className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-black text-slate-900 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center">
-              <Award size={20} />
+      <section className="bg-card-bg rounded-[32px] p-8 shadow-sm border border-border">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-2xl font-black text-heading flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-inner">
+              <Award size={24} />
             </div>
             الشهادات
           </h2>
@@ -76,14 +76,17 @@ export default function ProfileCertificatesSection({ certificates = [] }: Profil
         </div>
 
         {isAdding && (
-          <div className="mb-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4 animate-in fade-in slide-in-from-top-2">
-            <input
-              type="text"
-              placeholder="عنوان الشهادة"
-              value={formData.title}
-              onChange={(e) => setFormData({...formData, title: e.target.value})}
-              className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none"
-            />
+          <div className="mb-10 p-8 bg-bg/50 rounded-[28px] border border-border space-y-5 animate-in fade-in slide-in-from-top-4 duration-500">
+            <div className="space-y-2">
+              <label className="text-sm font-black text-heading mr-1">عنوان الشهادة</label>
+              <input
+                type="text"
+                placeholder="مثال: شهادة احترافية في تصميم الواجهات"
+                value={formData.title}
+                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                className="w-full px-5 py-4 bg-card-bg border border-border rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -130,20 +133,20 @@ export default function ProfileCertificatesSection({ certificates = [] }: Profil
             certificates.map((cert: any) => (
               <div
                 key={cert.id || cert.Id}
-                className="relative group p-4 bg-slate-50 border border-slate-200 rounded-2xl hover:border-purple-200 hover:bg-purple-50/30 transition-all"
+                className="relative group p-6 bg-bg/40 border border-border rounded-[28px] hover:border-primary/30 hover:bg-primary/2 transition-all duration-300"
               >
                 <button
                   onClick={() => handleDelete(cert.id || cert.Id)}
-                  className="absolute top-4 left-4 text-slate-300 hover:text-rose-500 transition-colors"
+                  className="absolute top-6 left-6 text-gray-medium/40 hover:text-rose-500 transition-all hover:scale-110 active:scale-90"
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={18} />
                 </button>
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-purple-400 shrink-0 shadow-sm">
-                    <Award size={24} />
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-primary shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    <Award size={28} />
                   </div>
-                  <div>
-                    <h4 className="font-black text-slate-800 text-sm mb-1">{cert.title || cert.Title}</h4>
+                  <div className="space-y-1.5 pt-1">
+                    <h4 className="font-black text-heading text-base group-hover:text-primary transition-colors">{cert.title || cert.Title}</h4>
                     {(cert.issuer || cert.Issuer) && (
                       <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold mb-1">
                         <User size={12} />

@@ -52,7 +52,7 @@ export function useVerify() {
 
       if (userRole === "client") {
         toast.success("تم تفعيل حسابك بنجاح! مرحباً بك في شغل");
-        router.replace("/");
+        router.replace("/workers");
       } else {
         router.replace("/onboarding/skills");
       }

@@ -16,10 +16,13 @@ export default function LoginForm() {
       <div className="absolute bottom-20 -right-20 w-96 h-96 bg-teal-400/5 rounded-full blur-[100px] animate-pulse delay-700" />
 
       <div className="w-full max-w-120 relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-  
-
         {/* Form Card */}
         <div className="bg-white/95 backdrop-blur-xl rounded-[40px] shadow-[0_25px_80px_-20px_rgba(0,0,0,0.08)] border border-white/60 p-8 lg:p-12 relative overflow-hidden group hover:shadow-[0_45px_100px_-30px_rgba(0,0,0,0.1)] transition-all duration-700">
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-black text-slate-800 mb-3 tracking-tight font-cairo">تسجيل الدخول</h1>
+           
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <FormInput
               label="البريد الإلكتروني أو رقم الجوال"
@@ -28,6 +31,7 @@ export default function LoginForm() {
               icon={<Mail className="w-5 h-5 text-primary/70" />}
               registration={register("EmailOrPhone")}
               error={errors.EmailOrPhone?.message}
+              className="text-right"
             />
 
             <div className="space-y-4">

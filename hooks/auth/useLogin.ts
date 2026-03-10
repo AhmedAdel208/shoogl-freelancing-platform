@@ -31,9 +31,19 @@ export function useLogin() {
         setCookie("token", data.token, 7); // Set cookie for middleware
        
         useAuthStore.getState().setToken(data.token);
+        
+        // Redirect based on user role
+        const user = useAuthStore.getState().user;
+        if (user?.isClient) {
+          router.push("/workers");
+        } else if (user?.isFreelancer) {
+          router.push("/announcements");
+        } else {
+          router.push("/");
+        }
+
         toast.success("تم تسجيل الدخول بنجاح. مرحباً بك مجدداً!", "دخول ناجح");
       }
-      router.push("/");
     },
     onError: (error) => {
       toast.error(error.message || "حدث خطأ أثناء تسجيل الدخول", "فشل الدخول");

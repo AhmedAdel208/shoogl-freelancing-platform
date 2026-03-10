@@ -98,13 +98,11 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
       <div className="h-px w-full bg-border mb-2 sm:mb-4 opacity-50 block" />
 
       {/* Bio Section */}
-      {f.bio && (
-        <p
-          className={`text-[14px] sm:text-[15px] text-gray-medium font-bold font-cairo leading-relaxed line-clamp-2 mb-2 sm:mb-4 h-10.5 sm:h-11.25 opacity-80 ${isRtl ? "text-right" : "text-left"}`}
-        >
-          {f.bio}
-        </p>
-      )}
+      <p
+        className={`text-[14px] sm:text-[15px] text-gray-medium font-bold font-cairo leading-relaxed line-clamp-2 mb-2 sm:mb-4 h-10.5 sm:h-11.25 opacity-80 ${isRtl ? "text-right" : "text-left"}`}
+      >
+        {f.bio?.trim() || (isRtl ? "هذا المستقل يفضل العمل في صمت.. لم يتم إضافة نبذة بعد." : "This freelancer prefers to work in silence.. no bio added yet.")}
+      </p>
 
       {/* Skills Section */}
       {f.skills && f.skills.length > 0 && (
@@ -166,9 +164,11 @@ const FreelancerCard = memo(function FreelancerCard({ freelancer: f, index }: Fr
     </Link>
   );
 }, (prevProps, nextProps) => {
-  // Only re-render if freelancer data changed
+  // Only re-render if essential freelancer data changed
   return prevProps.freelancer.id === nextProps.freelancer.id &&
          prevProps.freelancer.rating === nextProps.freelancer.rating &&
+         prevProps.freelancer.profilePictureUrl === nextProps.freelancer.profilePictureUrl &&
+         prevProps.freelancer.fullName === nextProps.freelancer.fullName &&
          prevProps.index === nextProps.index;
 });
 

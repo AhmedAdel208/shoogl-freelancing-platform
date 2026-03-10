@@ -24,6 +24,9 @@ export const useProposal = () => {
       });
   
       queryClient.invalidateQueries({
+        queryKey: ["requests", "my-proposals"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["my-proposals"],
       });
     },

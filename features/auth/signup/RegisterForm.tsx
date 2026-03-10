@@ -30,16 +30,16 @@ export default function RegisterForm({
         {/* Progress Indicator */}
         <div className="mb-10 px-8">
           <div className="flex items-center justify-between mb-4">
-            <span className={`text-sm font-bold transition-colors duration-300 ${step >= 1 ? "text-[#29B1BE]" : "text-gray-300"}`}>
+            <span className={`text-sm font-black transition-colors duration-300 font-cairo ${step >= 1 ? "text-primary" : "text-gray-medium"}`}>
               المعلومات الأساسية
             </span>
-            <span className={`text-sm font-bold transition-colors duration-300 ${step >= 2 ? "text-[#6B79B9]" : "text-gray-300"}`}>
+            <span className={`text-sm font-black transition-colors duration-300 font-cairo ${step >= 2 ? "text-primary" : "text-gray-medium"}`}>
               التفاصيل الإضافية
             </span>
           </div>
-          <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2.5 bg-gray-light rounded-full overflow-hidden border border-border/10">
             <div 
-              className="h-full bg-linear-to-r from-[#29B1BE] to-[#6B79B9] transition-all duration-500 ease-out rounded-full"
+              className="h-full bg-linear-to-r from-primary to-teal-500 transition-all duration-500 ease-out rounded-full shadow-[0_0_10px_rgba(30,170,173,0.3)]"
               style={{ width: step === 1 ? "50%" : "100%" }}
             ></div>
           </div>

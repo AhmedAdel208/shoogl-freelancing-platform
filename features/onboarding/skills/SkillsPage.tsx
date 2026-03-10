@@ -21,14 +21,17 @@ export default function SkillsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
-        <div className="bg-red-50 p-6 rounded-2xl border border-red-100 flex flex-col items-center gap-4 max-w-md text-center">
-          <p className="text-red-600 font-bold" dir="rtl">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-bg gap-4">
+        <div className="bg-rose-50/10 p-8 rounded-3xl border border-rose-500/20 flex flex-col items-center gap-5 max-w-md text-center shadow-2xl shadow-rose-500/5">
+          <div className="w-16 h-16 bg-rose-500/20 rounded-full flex items-center justify-center">
+             <X className="text-rose-500 w-8 h-8" />
+          </div>
+          <p className="text-heading text-lg font-black font-cairo" dir="rtl">
             عذراً، حدث خطأ أثناء تحميل البيانات. يرجى المحاولة مرة أخرى.
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-2 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors"
+            className="px-8 py-3 bg-rose-500 text-white rounded-2xl font-black font-cairo hover:bg-rose-600 transition-all active:scale-95 shadow-lg shadow-rose-500/20"
           >
             إعادة المحاولة
           </button>
@@ -39,10 +42,13 @@ export default function SkillsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
-        <Loader2 className="w-12 h-12 text-[#1eaaad] animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-bg gap-6">
+        <div className="relative">
+          <div className="w-20 h-20 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+          <Loader2 className="w-10 h-10 text-primary animate-spin absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        </div>
         <p
-          className="text-gray-500 font-medium text-lg animate-pulse"
+          className="text-gray-medium font-black text-xl animate-pulse font-cairo"
           dir="rtl"
         >
           جاري تحميل المهارات...
@@ -53,15 +59,15 @@ export default function SkillsPage() {
 
   return (
     <div
-      className="min-h-screen bg-gray-50 flex flex-col items-center py-16 px-4 font-sans"
+      className="min-h-screen bg-bg flex flex-col items-center py-16 px-4 font-sans"
       dir="rtl"
     >
       {/* Header Section */}
       <div className="text-center mb-8 space-y-3">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#1eaaad] tracking-wide">
+        <h1 className="text-4xl md:text-5xl font-black text-primary tracking-wide font-cairo">
           اختر مهاراتك
         </h1>
-        <p className="text-gray-500 text-lg font-medium max-w-xl mx-auto">
+        <p className="text-gray-medium text-lg font-bold max-w-xl mx-auto font-cairo">
           حدد المهارات التي تتقنها لمساعدة العملاء في العثور عليك بسهولة بناءً
           على تخصصك
         </p>
@@ -70,19 +76,19 @@ export default function SkillsPage() {
       {/* Search Bar Section */}
       <div className="w-full max-w-2xl mb-12 relative group">
         <div className="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-gray-400 group-focus-within:text-[#1eaaad] transition-colors" />
+          <Search className="h-5 w-5 text-gray-medium/60 group-focus-within:text-primary transition-colors" />
         </div>
         <input
           type="text"
           placeholder="ابحث عن مهارة أو فئة بمهولة..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full py-4 pr-14 pl-12 bg-white rounded-2xl shadow-sm border-2 border-transparent focus:border-[#1eaaad]/30 focus:ring-4 focus:ring-[#1eaaad]/5 outline-none transition-all text-dark font-bold text-lg placeholder:text-gray-300 placeholder:font-medium"
+          className="w-full py-4 pr-14 pl-12 bg-card-bg rounded-2xl shadow-sm border-2 border-transparent focus:border-primary/30 focus:ring-4 focus:ring-primary/5 outline-none transition-all text-heading font-black text-lg placeholder:text-gray-medium/40 font-cairo"
         />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery("")}
-            className="absolute inset-y-0 left-0 pl-4 flex items-center hover:text-red-500 text-gray-400 transition-colors"
+            className="absolute inset-y-0 left-0 pl-4 flex items-center hover:text-red-500 text-gray-medium/60 transition-colors"
           >
             <X size={20} />
           </button>
@@ -90,19 +96,19 @@ export default function SkillsPage() {
       </div>
 
       {/* Main Card */}
-      <div className="w-full max-w-4xl bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] overflow-hidden mb-12 border border-gray-100">
+      <div className="w-full max-w-4xl bg-card-bg rounded-4xl shadow-xl overflow-hidden mb-12 border border-border">
         {/* Card Header (Stats) */}
-        <div className="bg-[#F8FAFF] px-8 py-6 flex justify-between items-center border-b border-gray-100">
+        <div className="bg-bg/40 px-8 py-6 flex justify-between items-center border-b border-border">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center min-w-[32px] h-8 px-2 rounded-full bg-[#1eaaad] text-white text-sm font-bold shadow-md shadow-[#1eaaad]/20">
+            <div className="flex items-center justify-center min-w-[32px] h-8 px-2 rounded-full bg-primary text-white text-sm font-black shadow-lg shadow-primary/20">
               {selectedSkillIds.length}
             </div>
-            <span className="text-gray-400 text-sm font-medium">
+            <span className="text-gray-medium text-sm font-black font-cairo">
               مهارة مختارة
             </span>
           </div>
 
-          <span className="text-dark font-extrabold text-lg">
+          <span className="text-heading font-black text-lg font-cairo">
             {searchQuery ? "نتائج البحث" : "فئات المهارات المتاحة"}
           </span>
         </div>
@@ -124,7 +130,7 @@ export default function SkillsPage() {
                   key={category.id}
                   className={`
                     border-2 rounded-2xl overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-2
-                    ${isExpanded ? "border-[#1eaaad]/30 shadow-lg shadow-[#1eaaad]/5" : "border-gray-50 hover:border-gray-100 hover:bg-gray-50/50"}
+                    ${isExpanded ? "border-primary/30 shadow-lg shadow-primary/5" : "border-bg hover:border-border hover:bg-bg/50"}
                   `}
                 >
                   {/* Category Header */}
@@ -132,18 +138,18 @@ export default function SkillsPage() {
                     onClick={() => toggleCategory(category.id)}
                     className={`
                       group flex justify-between items-center p-6 cursor-pointer transition-all duration-300
-                      ${isExpanded ? "bg-[#F8FAFF]" : "bg-white"}
+                      ${isExpanded ? "bg-primary/5" : "bg-card-bg"}
                     `}
                   >
                     <div className="flex items-center gap-4">
                       <span
-                        className={`text-xl font-bold transition-colors select-none ${isExpanded ? "text-[#1eaaad]" : "text-gray-700"}`}
+                        className={`text-xl font-black font-cairo transition-colors select-none ${isExpanded ? "text-primary" : "text-heading"}`}
                       >
                         {category.nameAr}
                       </span>
 
                       {selectedInCategory > 0 && (
-                        <div className="bg-[#1eaaad] text-white text-xs px-3 py-1 rounded-full font-bold shadow-sm">
+                        <div className="bg-primary text-white text-xs px-3 py-1 rounded-full font-black shadow-sm">
                           {selectedInCategory}
                         </div>
                       )}
@@ -151,13 +157,13 @@ export default function SkillsPage() {
                       {!searchQuery && (
                         <ChevronDown
                           size={20}
-                          className={`text-gray-400 transition-transform duration-500 ${isExpanded ? "rotate-180 text-[#1eaaad]" : "group-hover:text-gray-600"}`}
+                          className={`text-gray-medium/60 transition-transform duration-500 ${isExpanded ? "rotate-180 text-primary" : "group-hover:text-heading"}`}
                         />
                       )}
                     </div>
 
                     <span
-                      className={`text-sm font-bold italic tracking-wide transition-colors select-none ${isExpanded ? "text-[#1eaaad]" : "text-gray-300"}`}
+                      className={`text-sm font-black italic tracking-wide transition-colors select-none font-cairo ${isExpanded ? "text-primary/70" : "text-gray-medium/30"}`}
                       dir="ltr"
                     >
                       {category.nameEn}
@@ -166,7 +172,7 @@ export default function SkillsPage() {
 
                   {/* Skills Grid (Visible when expanded) */}
                   {isExpanded && (
-                    <div className="p-6 bg-white border-t border-gray-100 animate-in fade-in slide-in-from-top-4 duration-500">
+                    <div className="p-6 bg-card-bg border-t border-border animate-in fade-in slide-in-from-top-4 duration-500">
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {category.skills.map((skill: Skill) => {
                           const isSkillSelected = selectedSkillIds.includes(
@@ -183,8 +189,8 @@ export default function SkillsPage() {
                                 group/skill flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all border-2
                                 ${
                                   isSkillSelected
-                                    ? "bg-[#1eaaad]/5 border-[#1eaaad] shadow-sm"
-                                    : "bg-white border-transparent hover:border-gray-100 hover:bg-gray-50"
+                                    ? "bg-primary/5 border-primary shadow-sm"
+                                    : "bg-bg/30 border-transparent hover:border-border hover:bg-bg/50"
                                 }
                               `}
                             >
@@ -194,8 +200,8 @@ export default function SkillsPage() {
                                   w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300
                                   ${
                                     isSkillSelected
-                                      ? "bg-[#1eaaad] border-[#1eaaad] rotate-[360deg]"
-                                      : "bg-white border-gray-200 group-hover/skill:border-[#1eaaad]/40"
+                                      ? "bg-primary border-primary rotate-360"
+                                      : "bg-bg border-border group-hover/skill:border-primary/40"
                                   }
                                 `}
                                 >
@@ -206,14 +212,14 @@ export default function SkillsPage() {
                                   />
                                 </div>
                                 <span
-                                  className={`text-[15px] font-bold transition-colors ${isSkillSelected ? "text-dark" : "text-gray-600"}`}
+                                  className={`text-[15px] font-black font-cairo transition-colors ${isSkillSelected ? "text-heading" : "text-gray-medium"}`}
                                 >
                                   {skill.nameAr}
                                 </span>
                               </div>
 
                               <span
-                                className={`text-[10px] font-bold italic transition-colors ${isSkillSelected ? "text-[#1eaaad]" : "text-gray-400"}`}
+                                className={`text-[10px] font-black italic font-cairo transition-colors ${isSkillSelected ? "text-primary" : "text-gray-medium/40"}`}
                                 dir="ltr"
                               >
                                 {skill.nameEn}
@@ -254,9 +260,9 @@ export default function SkillsPage() {
         <button
           onClick={handleNext}
           disabled={isSubmitting || selectedSkillIds.length === 0}
-          className="relative w-full py-5 bg-[#1eaaad] text-white rounded-2xl font-black text-xl shadow-2xl shadow-[#1eaaad]/30 
-            hover:shadow-[#1eaaad]/50 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] 
-            transition-all duration-300 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
+          className="relative w-full py-5 bg-primary text-white rounded-2xl font-black text-xl shadow-2xl shadow-primary/30 
+            hover:shadow-primary/50 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] 
+            transition-all duration-300 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 font-cairo"
         >
           {isSubmitting && <Loader2 className="w-7 h-7 animate-spin" />}
           <span>
