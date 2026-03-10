@@ -7,6 +7,9 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig: NextConfig = {
+  webpack: (config) => {
+    return config;
+  },
   images: {
     qualities: [60, 75],
     minimumCacheTTL: 60 * 60 * 24 * 30,

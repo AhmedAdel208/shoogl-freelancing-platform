@@ -31,8 +31,8 @@ export default function CreateProposalForm({
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm<ProposalFormInput, any, ProposalFormData>({
-    resolver: zodResolver(proposalSchema),
+  } = useForm<ProposalFormData>({
+    resolver: zodResolver(proposalSchema) as any,
     mode: "onChange",
     defaultValues: {
       jobRequestId: Number(jobRequestId),
