@@ -7,56 +7,24 @@ import appstore from "@/public/images/appstore.png";
 import LinksFooter from "./LinksFooter";
 import Copyright from "./Copywright";
 import { useAuth } from "@/hooks/auth/useAuth";
-import { motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useUiStore } from "@/stores/useUiStore";
 import { Apple, Play } from "lucide-react";
-
-const footerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const columnVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
-  },
-};
 
 export default function Footer() {
   const { isAuthenticated, isMounted } = useAuth();
-  const { footerAnimationPlayed, setFooterAnimationPlayed } = useUiStore();
   const { t, isRtl } = useTranslation();
 
   return (
     <footer className="relative bg-[#02385A] text-white overflow-hidden mt-12">
       <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-16">
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8"
-          variants={footerVariants}
-          initial={footerAnimationPlayed ? "visible" : "hidden"}
-          whileInView="visible"
-          onViewportEnter={() => setFooterAnimationPlayed(true)}
-          viewport={{ once: true, amount: 0.15 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8">
           {/* Column 1 - Logo & Social */}
           <div className="lg:col-span-1">
             <LinksFooter />
           </div>
 
           {/* Column 2 - Quick Links */}
-          <motion.div
-            variants={columnVariants}
-            className={isRtl ? "text-right" : "text-left"}
-          >
+          <div className={isRtl ? "text-right" : "text-left"}>
             <h4 className="text-white font-black text-xl font-cairo mb-6">
               {t.footer.quickLinks}
             </h4>
@@ -94,13 +62,10 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
           {/* Column 3 - Pages */}
-          <motion.div
-            variants={columnVariants}
-            className={isRtl ? "text-right" : "text-left ml-24"}
-          >
+          <div className={isRtl ? "text-right" : "text-left ml-24"}>
             <h4 className="text-white font-black text-xl font-cairo mb-6">
               {isRtl ? "صفحات" : "Pages"}
             </h4>
@@ -161,13 +126,10 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
           {/* Column 4 - App Download */}
-          <motion.div
-            variants={columnVariants}
-            className={isRtl ? "text-right" : "text-left"}
-          >
+          <div className={isRtl ? "text-right" : "text-left"}>
             <h4 className="text-white font-black text-xl font-cairo mb-2">
               {t.footer.downloadApp}
             </h4>
@@ -181,7 +143,7 @@ export default function Footer() {
                 href="#"
                 className="flex items-center gap-4 px-6 py-3 bg-[#244b70] border border-white/5 rounded-xl hover:bg-[#2e5d8a] transition-all group overflow-hidden"
               >
-                <div className="text-white group-hover:scale-110 transition-transform">
+                <div className="text-white">
                   <svg
                     viewBox="0 0 24 24"
                     width="28"
@@ -202,7 +164,7 @@ export default function Footer() {
                 href="#"
                 className="flex items-center gap-4 px-6 py-3 bg-[#244b70] border border-white/5 rounded-xl hover:bg-[#2e5d8a] transition-all group overflow-hidden"
               >
-                <div className="text-white group-hover:scale-110 transition-transform">
+                <div className="text-white">
                   <svg
                     viewBox="0 0 24 24"
                     width="28"
@@ -220,8 +182,8 @@ export default function Footer() {
                 </div>
               </Link>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       <Copyright />

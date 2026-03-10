@@ -2,7 +2,7 @@
 
 import type { ChatMessage } from "@/types/chat";
 import MessageBubble from "./MessageBubble";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 interface Props {
   messages: ChatMessage[];
@@ -22,17 +22,50 @@ export default function MessageList({
   isLoading 
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isNearBottomRef = useRef(true);
 
-  // Auto-scroll to bottom
+  // Check if user is scrolled near the bottom
+  const checkIfNearBottom = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const threshold = 150; // px from bottom
+    isNearBottomRef.current =
+      el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
+  }, []);
+
+  // Scroll to bottom helper
+  const scrollToBottom = useCallback((instant?: boolean) => {
+    bottomRef.current?.scrollIntoView({
+      behavior: instant ? "instant" : "smooth",
+    });
+  }, []);
+
+  // Track scroll position
   useEffect(() => {
     const el = containerRef.current;
-    if (el) {
-      el.scrollTo({
-        top: el.scrollHeight,
-        behavior: "smooth"
-      });
+    if (!el) return;
+    el.addEventListener("scroll", checkIfNearBottom, { passive: true });
+    return () => el.removeEventListener("scroll", checkIfNearBottom);
+  }, [checkIfNearBottom]);
+
+  // Derive last message id to detect real new messages
+  const lastMsgId = messages.length > 0 ? messages[messages.length - 1]?.id : null;
+
+  // Auto-scroll when new messages arrive (if user is near bottom)
+  useEffect(() => {
+    if (isNearBottomRef.current) {
+      scrollToBottom();
     }
-  }, [messages.length, isTyping, isLoading]);
+  }, [lastMsgId, isTyping, scrollToBottom]);
+
+  // Always scroll to bottom on first load of messages
+  useEffect(() => {
+    if (messages.length > 0) {
+      scrollToBottom(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [!!messages.length]);
 
   if (isLoading && messages.length === 0) {
     return (
@@ -94,7 +127,9 @@ export default function MessageList({
             </div>
           </div>
         )}
+        <div ref={bottomRef} />
       </div>
     </div>
   );
 }
+

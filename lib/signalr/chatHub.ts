@@ -78,8 +78,13 @@ export function onReceiveMessage(
   callback: (message: any) => void
 ): () => void {
   const conn = getConnection();
+  // Listen on both event names — backend sends "messagesent"
   conn.on("ReceiveMessage", callback);
-  return () => conn.off("ReceiveMessage", callback);
+  conn.on("messagesent", callback);
+  return () => {
+    conn.off("ReceiveMessage", callback);
+    conn.off("messagesent", callback);
+  };
 }
 
 export function onUserOnline(

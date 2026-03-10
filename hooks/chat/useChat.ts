@@ -12,7 +12,7 @@ import {
   onMessageRead,
 } from "@/lib/signalr/chatHub";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { toast } from "@/common/toast";
+
 
 const QUERY_KEYS = {
   conversations: ["chat-conversations"] as const,
@@ -68,8 +68,8 @@ export function useChat() {
           onReceiveMessage(() => {
             const activeId = selectedIdRef.current;
             if (activeId) {
-              // User is viewing this chat → refresh messages + auto mark-as-read
-              queryClient.invalidateQueries({
+              // User is viewing this chat → force refetch messages immediately
+              queryClient.refetchQueries({
                 queryKey: QUERY_KEYS.messages(activeId),
               });
               chatApi
@@ -80,12 +80,11 @@ export function useChat() {
                   }),
                 )
                 .catch(() => {});
-            } else {
-              // User is NOT in a chat → just refresh conversations for badge
-              queryClient.refetchQueries({
-                queryKey: QUERY_KEYS.conversations,
-              });
             }
+            // Always refresh conversations for badge / last message
+            queryClient.refetchQueries({
+              queryKey: QUERY_KEYS.conversations,
+            });
           }),
         );
 
@@ -182,13 +181,15 @@ export function useChat() {
     queryKey: QUERY_KEYS.messages(selectedConversationId!),
     queryFn: () => chatApi.getMessages(selectedConversationId!),
     enabled: isAuthenticated && selectedConversationId !== null,
+    staleTime: 0,
+    refetchInterval: 5_000,
   });
 
   const onlineUsersQuery = useQuery({
     queryKey: QUERY_KEYS.onlineUsers,
     queryFn: chatApi.getOnlineUsers,
     enabled: isAuthenticated,
-    refetchInterval: 60_000,
+    refetchInterval: 30_000,
   });
 
   const conversations = Array.isArray(conversationsQuery.data)
@@ -235,18 +236,7 @@ export function useChat() {
     },
   });
 
-  const deleteMutation = useMutation({
-    mutationFn: (conversationId: number) =>
-      chatApi.deleteConversation(conversationId),
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: QUERY_KEYS.conversations });
-      setSelectedConversationId(null);
-      toast.success("تم حذف المحادثة بنجاح");
-    },
-    onError: () => {
-      toast.error("فشل في حذف المحادثة. حاول مرة أخرى.");
-    },
-  });
+
 
   // ─── Sync online status from API ──────────────────────────────
   useEffect(() => {
@@ -366,12 +356,7 @@ export function useChat() {
     [sendMutation],
   );
 
-  const deleteConversation = useCallback(
-    (conversationId: number) => {
-      deleteMutation.mutate(conversationId);
-    },
-    [deleteMutation],
-  );
+
 
   const refetchConversations = useCallback(() => {
     queryClient.refetchQueries({ queryKey: QUERY_KEYS.conversations });
@@ -408,8 +393,6 @@ export function useChat() {
     sendMessage,
     refetchConversations,
     sendTypingStatus,
-    deleteConversation,
-    isDeleting: deleteMutation.isPending,
     clearPendingUser: () => setPendingUserId(null),
   };
 }

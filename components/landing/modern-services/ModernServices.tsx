@@ -16,9 +16,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { services } from "@/data/mockDataServiceSection";
-import { motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useUiStore } from "@/stores/useUiStore";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -27,74 +25,19 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 // Import Swiper modules
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
-// ── Animation Variants ──────────────────────────────────────
-const sectionHeader = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
-
-const slideInSide = (isRtl: boolean) => ({
-  hidden: { opacity: 0, x: isRtl ? 20 : -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-});
-
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
-
-const whyBoxVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      delay: i * 0.1,
-    },
-  }),
-};
+import { Navigation, Pagination } from "swiper/modules";
 
 export default function ModernServices() {
-  const { servicesAnimationPlayed, setServicesAnimationPlayed } = useUiStore();
   const { t, isRtl } = useTranslation();
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-bg select-none overflow-hidden transition-colors duration-500">
+    <section className="py-16 sm:py-20 md:py-24 bg-bg select-none overflow-hidden">
       <div className="max-w-8xl mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <motion.div
-          className={`flex flex-col md:flex-row items-start md:items-end justify-between gap-6 md:gap-8 mb-12 sm:mb-16 ${isRtl ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-          variants={sectionHeader}
-          initial={servicesAnimationPlayed ? "visible" : "hidden"}
-          whileInView="visible"
-          onViewportEnter={() => setServicesAnimationPlayed(true)}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div variants={fadeUp} className={`space-y-4 sm:space-y-5 max-w-2xl w-full ${isRtl ? 'text-right' : 'text-left'}`}>
+        <div className={`flex flex-col md:flex-row items-start md:items-end justify-between gap-6 md:gap-8 mb-12 sm:mb-16 ${isRtl ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+          <div className={`space-y-4 sm:space-y-5 max-w-2xl w-full ${isRtl ? 'text-right' : 'text-left'}`}>
             <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 bg-primary/10 rounded-full text-primary text-[10px] sm:text-[11px] font-black font-cairo tracking-widest uppercase">
-              <Sparkles size={14} className="animate-pulse" />
+              <Sparkles size={14} />
               {isRtl ? "الخدمات الأكثر طلباً" : "Most Requested Services"}
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black text-heading font-cairo leading-[1.2] sm:leading-[1.15]">
@@ -117,9 +60,9 @@ export default function ModernServices() {
                 ? "نخبة من المستقلين المبدعين جاهزون لتحويل أفكارك إلى واقع ملموس بدقة عالية وميزانية تناسب تطلعاتك."
                 : "A selection of creative freelancers ready to turn your ideas into a tangible reality with high precision and a budget that suits your aspirations."}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div variants={slideInSide(isRtl)} className="w-full md:w-auto mt-2 md:mt-0">
+          <div className="w-full md:w-auto mt-2 md:mt-0">
             <Link href="/workers" className="block w-full">
               <button className="flex w-full md:w-auto justify-center cursor-pointer items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4.5 bg-card-bg border border-border rounded-[18px] sm:rounded-[22px] text-gray-medium font-black font-cairo text-sm sm:text-base hover:bg-bg hover:border-primary/40 hover:text-primary transition-all duration-300 group shadow-sm">
                 {!isRtl && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
@@ -127,20 +70,13 @@ export default function ModernServices() {
                 {isRtl && <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />}
               </button>
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Services Slider */}
-        <motion.div
-          className="relative mb-16"
-          variants={scaleUp}
-          initial={servicesAnimationPlayed ? "visible" : "hidden"}
-          whileInView="visible"
-          onViewportEnter={() => setServicesAnimationPlayed(true)}
-          viewport={{ once: true, amount: 0.15 }}
-        >
+        <div className="relative mb-16">
           <Swiper
-            modules={[Navigation, Autoplay, Pagination]}
+            modules={[Navigation, Pagination]}
             spaceBetween={32}
             slidesPerView={1}
             dir= 'rtl'
@@ -148,7 +84,6 @@ export default function ModernServices() {
               prevEl: ".swiper-button-prev-custom",
               nextEl: ".swiper-button-next-custom",
             }}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
             pagination={{
               clickable: true,
               el: ".swiper-pagination-custom",
@@ -164,17 +99,17 @@ export default function ModernServices() {
               <SwiperSlide key={service.id}>
                 <Link
                   href="/workers"
-                  className="group block relative bg-card-bg rounded-[32px] overflow-hidden border border-border shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2 h-full cursor-pointer"
+                  className="group block relative bg-card-bg rounded-[32px] overflow-hidden border border-border shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 h-full cursor-pointer"
                 >
                   {/* Image Area */}
                   <div className="relative h-56 overflow-hidden">
-                    <div className="absolute inset-0 bg-black/5 z-10 group-hover:bg-transparent transition-colors duration-500" />
+                    <div className="absolute inset-0 bg-black/5 z-10" />
                     <Image
                       src={service.image}
                       alt={service.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover"
                     />
 
                     <div className={`absolute top-4 ${isRtl ? 'left-4' : 'right-4'} z-20`}>
@@ -218,7 +153,7 @@ export default function ModernServices() {
                       </div>
                     </div>
 
-                    <h3 className={`text-[19px] font-black font-cairo text-heading mb-3 line-clamp-1 group-hover:text-primary transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
+                    <h3 className={`text-[19px] font-black font-cairo text-heading mb-3 line-clamp-1 h-7 ${isRtl ? 'text-right' : 'text-left'}`}>
                       {isRtl ? service.title : (service.titleEn || service.title)}
                     </h3>
 
@@ -240,8 +175,8 @@ export default function ModernServices() {
                     </div>
                   </div>
 
-                  {/* Hover Glow Effect */}
-                  <div className="absolute inset-0 ring-2 ring-primary/0 group-hover:ring-primary/40 rounded-[32px] transition-all duration-500 pointer-events-none" />
+                  {/* Hover Border Effect */}
+                  <div className="absolute inset-0 ring-2 ring-primary/0 group-hover:ring-primary/40 rounded-[32px] transition-all duration-300 pointer-events-none" />
                 </Link>
               </SwiperSlide>
             ))}
@@ -249,52 +184,23 @@ export default function ModernServices() {
 
           {/* Custom Navigation Controls */}
           <div className="flex items-center justify-center gap-6 mt-4">
-            <button className="swiper-button-next-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl active:scale-95 z-20">
+            <button className="swiper-button-next-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm active:scale-95 z-20">
               <ArrowLeft size={22} strokeWidth={2.5} />
             </button>
             <div className="swiper-pagination-custom w-fit! static! flex gap-2"></div>
-            <button className="swiper-button-prev-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl active:scale-95 z-20">
+            <button className="swiper-button-prev-custom w-14 h-14 rounded-2xl bg-card-bg border border-border flex items-center justify-center text-gray-medium hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer shadow-sm active:scale-95 z-20">
               <ArrowLeft size={22} strokeWidth={2.5} className="rotate-180" />
             </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Why Shogol Info Box */}
-        <motion.div
-          className="mt-20 sm:mt-24 md:mt-32 p-6 sm:p-10 lg:p-16 xl:p-20 bg-card-bg rounded-[40px] md:rounded-[60px] relative overflow-hidden group border border-border shadow-md"
-          variants={{
-            hidden: { opacity: 0, y: 50 },
-            visible: { 
-              opacity: 1, 
-              y: 0,
-              transition: { 
-                duration: 0.8, 
-                ease: [0.25, 0.4, 0.25, 1] as const 
-              }
-            }
-          }}
-          initial={servicesAnimationPlayed ? "visible" : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        <div className="mt-20 sm:mt-24 md:mt-32 p-6 sm:p-10 lg:p-16 xl:p-20 bg-card-bg rounded-[40px] md:rounded-[60px] relative overflow-hidden group border border-border shadow-md">
           {/* Decorative Elements */}
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
-          <div className={`absolute -bottom-1/2 ${isRtl ? '-right-1/4' : '-left-1/4'} w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
 
           <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center ${isRtl ? '' : 'text-left'}`}>
-            <motion.div
-              className={`lg:col-span-4 space-y-4 sm:space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}
-              variants={{
-                hidden: { opacity: 0, x: isRtl ? 50 : -50 },
-                visible: { 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { duration: 0.6, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] as const }
-                }
-              }}
-              initial={servicesAnimationPlayed ? "visible" : "hidden"}
-              whileInView="visible"
-            >
+            <div className={`lg:col-span-4 space-y-4 sm:space-y-6 ${isRtl ? 'text-right' : 'text-left'}`}>
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 rounded-[20px] sm:rounded-[28px] flex items-center justify-center text-primary mb-6 sm:mb-8 ring-1 ring-primary/20 shadow-xl shadow-primary/5">
                 <UserCheck className="w-8 h-8 sm:w-9 sm:h-9" strokeWidth={2.2} />
               </div>
@@ -310,7 +216,7 @@ export default function ModernServices() {
                   ? "نحن لا نوفر منصة عمل فقط، بل نبني علاقات مهنية ناجحة بين المبدعين وأصحاب الأعمال."
                   : "We don't just provide a work platform; we build successful professional relationships between creators and business owners."}
               </p>
-            </motion.div>
+            </div>
 
             <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {[
@@ -339,16 +245,11 @@ export default function ModernServices() {
                   color: "bg-blue-500/10 text-blue-500 ring-blue-500/20"
                 },
               ].map((box, i) => (
-                <motion.div
+                <div
                   key={i}
-                  custom={i}
-                  variants={whyBoxVariants}
-                  initial={servicesAnimationPlayed ? "visible" : "hidden"}
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  className="bg-bg p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-border shadow-sm hover:shadow-2xl hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group/box"
+                  className="bg-bg p-6 sm:p-8 rounded-[32px] sm:rounded-[40px] border border-border shadow-sm hover:border-primary/20 transition-all duration-300 group/box"
                 >
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ring-1 ${box.color} group-hover/box:scale-110 transition-transform duration-500`}>
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 ring-1 ${box.color}`}>
                     {box.icon}
                   </div>
                   <h4 className={`text-heading font-black font-cairo text-lg sm:text-xl mb-2 sm:mb-3 ${isRtl ? 'text-right' : 'text-left'}`}>
@@ -357,11 +258,11 @@ export default function ModernServices() {
                   <p className={`text-gray-medium text-sm sm:text-[15px] font-bold font-cairo leading-relaxed opacity-80 ${isRtl ? 'text-right' : 'text-left'}`}>
                     {box.desc}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

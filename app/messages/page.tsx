@@ -36,9 +36,6 @@ export default function MessagesPage() {
     sendMessage,
     refetchConversations,
     sendTypingStatus,
-    deleteConversation,
-    isDeleting,
-  
   } = useChat();
 
   const handleSelectConversation = (id: number) => {
@@ -53,8 +50,8 @@ export default function MessagesPage() {
         <LinksHeader />
       </div>
 
-      <main className="flex-1 mx-auto w-full p-4 sm:p-6 lg:p-10">
-        <div className="bg-card-bg shadow-xl border border-border rounded-3xl overflow-hidden flex h-[calc(100vh-140px)] sm:h-[calc(100vh-220px)] min-h-[600px]">
+      <main className="flex-1 w-full">
+        <div className="bg-card-bg border-t border-border overflow-hidden flex h-[calc(100vh-64px)]">
           {/* Sidebar */}
           <div
             className={`${
@@ -88,8 +85,6 @@ export default function MessagesPage() {
                     onlineUsers.has(selectedConversation.otherUserId)
                   }
                   onBack={() => setShowChatMobile(false)}
-                  onDelete={() => deleteConversation(selectedConversation.id)}
-                  isDeleting={isDeleting}
                 />
 
                 <MessageList

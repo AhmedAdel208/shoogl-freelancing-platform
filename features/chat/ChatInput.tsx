@@ -45,7 +45,7 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
   };
 
   return (
-    <div className="p-4 sm:p-6 w-full sm:w-[95%] lg:w-[90%] mx-auto bg-card-bg/50 backdrop-blur-md border-t border-border space-y-3">
+    <div className="p-4 sticky bottom-5 sm:p-6 w-full sm:w-[95%] lg:w-[90%] mx-auto bg-card-bg/50 backdrop-blur-md border-t border-border space-y-3">
       {/* Attachment preview */}
       {attachment && (
         <div className="flex items-center gap-3 p-3 bg-bg rounded-xl border border-border animate-in slide-in-from-bottom-2">
