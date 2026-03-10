@@ -143,8 +143,9 @@ export default function NewHero() {
           fill
           className="absolute inset-0 w-full h-full object-cover"
           priority
-          quality={60}
+          quality={70}
           sizes="100vw"
+          fetchPriority="high"
           placeholder="blur"
         />
       </div>
@@ -221,18 +222,18 @@ export default function NewHero() {
                     />
                     {/* Animated cycling placeholder */}
                     {!searchQuery && !isFocused && (
-                      <div className="absolute inset-0 flex items-center pointer-events-none pr-1">
-                        <AnimatePresence mode="wait">
+                      <div className="absolute inset-0 flex items-center pointer-events-none pr-1 overflow-hidden">
+                        <AnimatePresence mode="wait" initial={false}>
                           <motion.span
                             key={placeholderIndex}
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
+                            exit={{ opacity: 0, y: -15 }}
                             transition={{
-                              duration: 0.4,
-                              ease: "easeInOut" as const,
+                              duration: 0.35,
+                              ease: [0.23, 1, 0.32, 1], // Custom cubic-bezier for snappy feel
                             }}
-                            className="text-white/40! text-sm sm:text-base font-medium truncate"
+                            className="text-white/40! text-sm sm:text-base font-medium truncate will-change-transform"
                           >
                             {SEARCH_SUGGESTIONS[placeholderIndex]}
                           </motion.span>
@@ -243,7 +244,7 @@ export default function NewHero() {
                       <div
                         className={`absolute inset-0 flex items-center pointer-events-none ${isRtl ? "pr-1" : "pl-1"}`}
                       >
-                        <span className="text-white/50! text-base font-medium">
+                        <span className="text-white/50! text-sm sm:text-base font-medium">
                           {isRtl
                             ? "اكتب ما تبحث عنه..."
                             : "Type what you're looking for..."}
