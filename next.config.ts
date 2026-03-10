@@ -1,11 +1,5 @@
 import type { NextConfig } from "next";
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
-  buildExcludes: [/app-build-manifest\.json$/],
-});
+import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig: NextConfig = {
   images: {
@@ -22,4 +16,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default process.env.NODE_ENV === "development" ? nextConfig : withPWA(nextConfig);
+export default withPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+})(nextConfig);
