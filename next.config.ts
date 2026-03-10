@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
     typescript: {
     ignoreBuildErrors: true, // ✅ skips TypeScript errors during build
   },
-  // eslint: {
-  //   ignoreDuringBuilds: true, // ✅ skips ESLint errors too
-  // },
+
   images: {
     qualities: [60, 75],
     minimumCacheTTL: 60 * 60 * 24 * 30,
@@ -19,6 +17,14 @@ const nextConfig: NextConfig = {
         pathname: "/api/File/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api-proxy/:path*",
+        destination: "https://shogol.runasp.net/api/:path*",
+      },
+    ];
   },
 };
 
