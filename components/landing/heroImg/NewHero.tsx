@@ -21,12 +21,11 @@ const containerVariants = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
@@ -34,28 +33,26 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: "easeOut" as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.98 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const statVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0 },
   visible: (i: number) => ({
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.5,
-      delay: 1.2 + i * 0.1,
-      ease: [0.25, 0.4, 0.25, 1] as const,
+      duration: 0.3,
+      delay: 0.2 + i * 0.05,
     },
   }),
 };
@@ -138,13 +135,8 @@ export default function NewHero() {
       dir={isRtl ? "rtl" : "ltr"}
       className={`relative min-h-[95dvh] md:min-h-[90dvh] flex flex-col overflow-hidden font-cairo bg-slate-900 ${isRtl ? "text-right" : "text-left"}`}
     >
-      {/* Background Image with slow zoom animation */}
-      <motion.div
-        initial={heroAnimationPlayed ? { scale: 1 } : { scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 8, ease: "easeOut" as const }}
-        className="absolute inset-0"
-      >
+      {/* Background Image */}
+      <div className="absolute inset-0">
         <Image
           src={newHero}
           alt="منصة شغل - خلفية"
@@ -155,36 +147,14 @@ export default function NewHero() {
           sizes="100vw"
           placeholder="blur"
         />
-      </motion.div>
+      </div>
 
       {/* Overlays */}
       <div className="absolute inset-0 bg-slate-950/70" />
       <div className="absolute inset-0 bg-linear-to-b from-slate-950/30 via-transparent to-slate-950/90" />
       <div className="absolute inset-0 bg-linear-to-l from-primary/10 via-transparent to-teal-900/60" />
 
-      {/* Animated floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            style={{
-              left: `${20 + i * 30}%`,
-              top: `${30 + i * 15}%`,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              ease: "easeInOut" as const,
-              delay: i * 0.8,
-            }}
-          />
-        ))}
-      </div>
+      {/* No particles for better performance */}
 
       {/* Content */}
       <div className="relative flex-1 flex items-center justify-center">
@@ -200,7 +170,7 @@ export default function NewHero() {
               variants={fadeUp}
               className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold"
             >
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-ping shrink-0" />
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary shrink-0" />
               {isRtl
                 ? "الجيل القادم من منصات العمل الحر"
                 : "Next Generation Freelance Platform"}
@@ -306,7 +276,7 @@ export default function NewHero() {
                   whileTap={{ scale: 0.98 }}
                   className="relative w-full sm:w-auto overflow-hidden px-6 py-3.5 sm:px-9 sm:py-4 rounded-[14px] font-black text-[15px] sm:text-base xl:text-lg text-white cursor-pointer shadow-primary/25 hover:shadow-primary/45 transition-all duration-300"
                 >
-                  <div className="absolute backdrop-blur-sm inset-0 bg-linear-to-l from-primary via-teal-500 to-primary bg-size-[200%_auto] animate-[gradientShift_3s_linear_infinite]" />
+                  <div className="absolute backdrop-blur-sm inset-0 bg-linear-to-l from-primary via-teal-500 to-primary bg-size-[200%_auto]" />
                   <div className="relative flex items-center justify-center gap-2">
                     {isRtl ? "استكشف المشاريع" : "Explore Projects"}
                   </div>

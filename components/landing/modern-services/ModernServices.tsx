@@ -38,42 +38,40 @@ const sectionHeader = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const slideInSide = (isRtl: boolean) => ({
-  hidden: { opacity: 0, x: isRtl ? 40 : -40 },
+  hidden: { opacity: 0, x: isRtl ? 20 : -20 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 });
 
 const scaleUp = {
-  hidden: { opacity: 0, scale: 0.92 },
+  hidden: { opacity: 0, scale: 0.98 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const whyBoxVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      delay: 0.2 + i * 0.12,
-      ease: [0.25, 0.4, 0.25, 1] as const,
+      duration: 0.4,
+      delay: i * 0.1,
     },
   }),
 };
