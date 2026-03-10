@@ -36,7 +36,7 @@ export default function ProposalList({
           description="لم تقم بإنشاء أي طلبات عمل بعد. ابدأ بإنشاء طلب جديد للعثور على المستقلين المناسبين لمشروعك."
           buttonText="إنشاء طلب جديد"
           buttonIcon={Plus}
-          href="/announcements/create"
+          href="/projects/create"
         />
       );
     }

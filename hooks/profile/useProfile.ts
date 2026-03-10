@@ -75,6 +75,7 @@ export function useUploadProfilePicture() {
     onSuccess: () => {
       toast.success("تم تحديث الصورة الشخصية بنجاح");
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["freelancers"] });
     },
     onError: () => {
       toast.error("فشل في تحميل الصورة الشخصية");

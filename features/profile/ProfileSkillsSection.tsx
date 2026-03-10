@@ -40,30 +40,30 @@ export default function ProfileSkillsSection() {
 
   return (
     <>
-      <section className="bg-white rounded-4xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-black text-slate-900 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center">
-              <Briefcase size={20} />
+      <section className="bg-card-bg rounded-4xl p-8 shadow-sm border border-border">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-black text-heading flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-inner">
+              <Briefcase size={24} />
             </div>
             المهارات
           </h2>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-primary/10 text-primary rounded-xl font-black text-sm hover:bg-primary hover:text-white transition-all active:scale-[0.98]"
+            className="flex items-center cursor-pointer gap-2 px-6 py-3 bg-primary/10 text-primary rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all active:scale-[0.98] shadow-xs"
           >
-            <Plus size={16} />
+            <Plus size={18} />
             إضافة مهارة
           </button>
         </div>
 
-        <div className="flex items-center flex-wrap gap-3">
+        <div className="flex items-center flex-wrap gap-4">
           {isLoading ? (
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="w-20 h-8 bg-slate-100 animate-pulse rounded-xl"
+                  className="w-24 h-10 bg-bg animate-pulse rounded-2xl border border-border/50"
                 />
               ))}
             </div>
@@ -71,17 +71,15 @@ export default function ProfileSkillsSection() {
             skillsList.map((skill: UserSkill) => (
               <div
                 key={skill.id}
-                className="group flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-bold text-sm hover:border-rose-200 hover:bg-rose-50/50 transition-colors"
+                className="group flex items-center gap-4 px-5 py-3 bg-bg border border-border rounded-2xl text-heading font-black text-[15px] hover:border-rose-500/30 hover:bg-rose-500/5 transition-all duration-300"
               >
-                <span>
-                  {(skill.skillNameAr || "") +
-                    " / " +
-                    (skill.skillNameEn || "")}
+                <span className="opacity-90">
+                  {skill.skillNameAr || skill.skillNameEn}
                 </span>
                 <button
                   onClick={() => handleDelete(skill.id)}
                   disabled={deleteMutation.isPending}
-                  className="text-slate-400 hover:text-rose-500 transition-colors cursor-pointer disabled:opacity-50"
+                  className="text-gray-medium/40 hover:text-rose-500 transition-all hover:scale-110 active:scale-90 cursor-pointer disabled:opacity-50"
                 >
                   {deleteMutation.isPending &&
                   deleteMutation.variables === skill.id ? (
@@ -93,9 +91,11 @@ export default function ProfileSkillsSection() {
               </div>
             ))
           ) : (
-            <p className="text-slate-400 text-sm font-bold w-full text-center py-4 bg-slate-50 rounded-2xl border border-slate-100 border-dashed">
-              لم تقم بإضافة أي مهارات بعد. أضف مهاراتك لتبرز ملفك للعملاء.
-            </p>
+            <div className="flex flex-col items-center justify-center py-10 border-2 border-dashed border-border/50 rounded-[32px] bg-bg/30 w-full group hover:border-primary/30 transition-colors duration-500">
+               <p className="text-gray-medium text-center text-sm md:text-base font-bold max-w-sm leading-relaxed px-10">
+                لم تقم بإضافة أي مهارات بعد. أضف مهاراتك لتبهر العملاء وتزيد من فرص اختيارك.
+              </p>
+            </div>
           )}
         </div>
       </section>

@@ -152,8 +152,8 @@ export default function RequestSidebar({
   };
 
   return (
-    <aside className="w-full lg:w-85 sticky top-24">
-      <div className="bg-card-bg rounded-3xl border border-border shadow-xl overflow-hidden transition-all duration-500">
+    <aside className="w-full">
+      <div className="bg-card-bg rounded-[32px] border border-border shadow-2xl lg:shadow-xl overflow-hidden transition-all duration-500">
         
         {/* Section: My Requests */}
         <div className="p-8">

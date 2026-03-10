@@ -6,7 +6,7 @@ import SkillsPage from "@/features/onboarding/skills/SkillsPage";
 export default function Page() {
 
   return <>
-    <header className="bg-white">
+    <header className="bg-bg">
       <Gradientline/>
       <LinksHeader/>
     </header>

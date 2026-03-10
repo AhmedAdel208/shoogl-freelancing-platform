@@ -31,14 +31,14 @@ export default function ProposalModal({
     formState: { errors, isValid },
     reset,
     setValue,
-  } = useForm<ProposalFormInput, any, ProposalFormData>({
+  } = useForm<ProposalFormData>({
     resolver: zodResolver(proposalSchema),
     mode: "onChange",
     defaultValues: {
       jobRequestId: Number(jobRequestId),
       description: "",
-      proposedPrice: "",
-      proposedDurationInDays: "",
+      proposedPrice: 0,
+      proposedDurationInDays: 0,
     },
   });
 
@@ -54,7 +54,7 @@ export default function ProposalModal({
     onClose();
   };
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: ProposalFormData) => {
     onSubmit(data);
   };
 
@@ -125,16 +125,16 @@ export default function ProposalModal({
           {/* Price & Duration Grid */}
           <div className="grid grid-cols-2 gap-5">
              {/* Proposed Price */}
-             <div className="space-y-2">
+              <div className="space-y-2">
                 <label className="flex items-center gap-2 text-slate-700 font-black font-cairo text-sm">
                   <Banknote size={16} className="text-primary/60" />
                   السعر المقترح
                 </label>
                 <div className="relative group">
                   <input
-                    type="text"
-                    inputMode="numeric"
-                    {...register("proposedPrice")}
+                    type="number"
+                    step="0.01"
+                    {...register("proposedPrice", { valueAsNumber: true })}
                     placeholder="0.00"
                     className={`w-full rounded-2xl border ${errors.proposedPrice ? 'border-rose-200 bg-rose-50/20' : 'border-slate-100 bg-slate-50/50'} pr-5 pl-12 py-3.5 text-base font-black font-cairo text-slate-800 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all duration-300 placeholder:text-slate-300`}
                   />
@@ -146,16 +146,15 @@ export default function ProposalModal({
              </div>
 
              {/* Proposed Duration */}
-             <div className="space-y-2">
+              <div className="space-y-2">
                 <label className="flex items-center gap-2 text-slate-700 font-black font-cairo text-sm">
                   <Clock size={16} className="text-primary/60" />
                   المدة المتوقعة
                 </label>
                 <div className="relative group">
                   <input
-                    type="text"
-                    inputMode="numeric"
-                    {...register("proposedDurationInDays")}
+                    type="number"
+                    {...register("proposedDurationInDays", { valueAsNumber: true })}
                     placeholder="0"
                     className={`w-full rounded-2xl border ${errors.proposedDurationInDays ? 'border-rose-200 bg-rose-50/20' : 'border-slate-100 bg-slate-50/50'} pr-5 pl-12 py-3.5 text-base font-black font-cairo text-slate-800 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all duration-300 placeholder:text-slate-300`}
                   />

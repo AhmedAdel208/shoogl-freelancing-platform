@@ -93,7 +93,7 @@ export default function ProposalCard({
   return (
     <>
       <div 
-        className={`group bg-card-bg rounded-[32px] border border-border p-6 md:p-8 hover:shadow-2xl transition-all duration-500 relative flex flex-col gap-8 ${isRtl ? 'text-right' : 'text-left'}`} 
+        className={`group bg-card-bg rounded-[40px] border border-border p-6 md:p-10 hover:shadow-2xl transition-all duration-500 relative flex flex-col gap-8 overflow-hidden ${isRtl ? 'text-right' : 'text-left'}`} 
         dir={isRtl ? "rtl" : "ltr"}
       >
         {/* Status Badge Top Row */}
@@ -104,35 +104,39 @@ export default function ProposalCard({
         </div>
 
         {/* Main Content Area */}
-        <div className="flex flex-col gap-5">
-          <h3 className="text-2xl font-black text-heading font-cairo leading-tight group-hover:text-primary transition-colors">
+        <div className="flex flex-col gap-6 w-full max-w-full">
+          <h3 className="text-2xl md:text-3xl font-black text-heading font-cairo leading-tight group-hover:text-primary transition-colors wrap-break-word ">
             {offer.title || offer.jobRequestTitle || (isRtl ? "طلب عمل" : "Job Request")}
           </h3>
           
-          <p className="text-gray-medium text-base font-bold font-cairo leading-relaxed line-clamp-2 opacity-80">
+          <p className="text-gray-medium text-base md:text-lg font-bold font-cairo leading-relaxed line-clamp-3 opacity-80wrap-break-word">
             {offer.description || (isRtl ? "لا يوجد وصف متاح لهذا الطلب" : "No description available for this request")}
           </p>
 
           {/* Info Cards Row */}
-          <div className={`flex flex-wrap items-center gap-4 mt-2 ${isRtl ? 'justify-start' : 'justify-end'}`}>
+          <div className={`flex flex-wrap items-center gap-3 mt-2 ${isRtl ? 'justify-start' : 'justify-end'}`}>
             {/* Price */}
-            <div className={`flex items-center gap-2 px-4 py-2 bg-bg border border-border rounded-xl shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+            <div className={`flex items-center gap-2 px-3 py-1.5 bg-bg/50 border border-border rounded-xl shadow-xs transition-transform hover:scale-105 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
               <Banknote className="w-4 h-4 text-primary" />
-              <span className="text-heading font-black text-sm">{isClient ? (offer.budget ?? 0) : (offer.proposedPrice ?? 0)}</span>
-              <span className="text-gray-medium text-[10px] font-black uppercase opacity-60 tracking-tighter">{t.common.riyal}</span>
+              <div className="flex items-center gap-1">
+                <span className="text-heading font-black text-sm">{isClient ? (offer.budget ?? 0) : (offer.proposedPrice ?? 0)}</span>
+                <span className="text-gray-medium text-[9px] font-black uppercase opacity-60 tracking-tighter">{t.common.riyal}</span>
+              </div>
             </div>
 
             {/* Duration */}
-            <div className={`flex items-center gap-2 px-4 py-2 bg-bg border border-border rounded-xl shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+            <div className={`flex items-center gap-2 px-3 py-1.5 bg-bg/50 border border-border rounded-xl shadow-xs transition-transform hover:scale-105 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
               <Clock className="w-4 h-4 text-blue-500" />
-              <span className="text-heading font-black text-sm">{offer.durationInDays || offer.proposedDurationInDays || offer.duration || 0}</span>
-              <span className="text-gray-medium text-[10px] font-black uppercase opacity-60 tracking-tighter">{t.common.days}</span>
+              <div className="flex items-center gap-1">
+                <span className="text-heading font-black text-sm">{offer.durationInDays || offer.proposedDurationInDays || offer.duration || 0}</span>
+                <span className="text-gray-medium text-[9px] font-black uppercase opacity-60 tracking-tighter">{t.common.days}</span>
+              </div>
             </div>
 
             {/* Time Created */}
-            <div className={`flex items-center gap-2 px-4 py-2 bg-bg border border-border rounded-xl shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+            <div className={`flex items-center gap-2 px-3 py-1.5 bg-bg/50 border border-border rounded-xl shadow-xs transition-transform hover:scale-105 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
               <Calendar className="w-4 h-4 text-gray-medium opacity-60" />
-              <span className="text-gray-medium text-[10px] font-black uppercase tracking-tighter opacity-80">
+              <span className="text-gray-medium text-[9px] font-black uppercase tracking-tighter opacity-80 whitespace-nowrap">
                 {offer.timeAgo || (offer.createdAt ? formatTimeAgo(offer.createdAt) : (isRtl ? "غير محدد" : "N/A"))}
                 {!offer.timeAgo && offer.createdAt && !isRtl && " ago"}
               </span>
@@ -140,10 +144,12 @@ export default function ProposalCard({
 
             {/* Proposals Count (Client only) */}
             {isClient && (
-              <div className={`flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-xl shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+              <div className={`flex items-center gap-2 px-3 py-1.5 bg-primary/5 border border-primary/10 rounded-xl shadow-xs transition-transform hover:scale-105 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
                 <Briefcase className="w-4 h-4 text-primary" />
-                <span className="text-primary font-black text-sm">{offer.proposalsCount ?? 0}</span>
-                <span className="text-primary/60 text-[10px] font-black uppercase tracking-tighter">{isRtl ? "عروض" : "Offers"}</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-primary font-black text-sm">{offer.proposalsCount ?? 0}</span>
+                  <span className="text-primary/60 text-[9px] font-black uppercase tracking-tighter">{isRtl ? "عروض" : "Offers"}</span>
+                </div>
               </div>
             )}
           </div>
@@ -201,33 +207,33 @@ export default function ProposalCard({
           </div>
 
           {/* Primary Action Buttons */}
-          <div className={`flex gap-4 items-center w-full sm:w-auto ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div className={`flex flex-col xs:flex-row gap-3 items-center w-full sm:w-auto ${isRtl ? 'xs:flex-row' : 'xs:flex-row-reverse'}`}>
             <button 
               onClick={handleViewDetails}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2.5 border-2 border-primary text-primary px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 shadow-xl shadow-primary/10"
+              className="w-full xs:w-auto flex items-center justify-center gap-2.5 border-2 border-primary text-primary px-8 py-3.5 rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 shadow-xl shadow-primary/10 group/eye"
             >
-              <Eye className="w-4.5 h-4.5" />
-              <span>{isRtl ? "عرض التفاصيل" : "View Details"}</span>
+              <Eye className="w-4.5 h-4.5 group-hover/eye:scale-110 transition-transform" />
+              <span className="whitespace-nowrap">{isRtl ? "عرض التفاصيل" : "View Details"}</span>
             </button>
 
             {isClient && offer.status === 'Completed' && (
               <button 
                 onClick={handleOpenEval}
                 disabled={isEvaluating}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2.5 bg-amber-500 text-white px-10 py-3.5 rounded-2xl font-black text-sm hover:bg-amber-600 transition-all duration-300 shadow-xl shadow-amber-500/20 active:scale-95"
+                className="w-full xs:w-auto flex items-center justify-center gap-2.5 bg-amber-500 text-white px-8 py-3.5 rounded-2xl font-black text-sm hover:bg-amber-600 transition-all duration-300 shadow-xl shadow-amber-500/20 active:scale-95"
               >
                 <Star className="w-4.5 h-4.5 fill-white" />
-                <span>{isRtl ? "تقييم المستقل" : "Rate Freelancer"}</span>
+                <span className="whitespace-nowrap">{isRtl ? "تقييم المستقل" : "Rate Freelancer"}</span>
               </button>
             )}
 
             {!isClient && (offer.status === 'InProgress' || offer.status === 'Accepted') && (
               <button 
                 onClick={handleDeliver}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2.5 bg-primary text-white px-12 py-3.5 rounded-2xl font-black text-sm hover:bg-primary/90 transition-all shadow-xl shadow-primary/25 active:scale-95 group"
+                className="w-full xs:w-auto flex items-center justify-center gap-2.5 bg-primary text-white px-8 py-3.5 rounded-2xl font-black text-sm hover:bg-primary/90 transition-all shadow-xl shadow-primary/25 active:scale-95 group"
               >
                 <RefreshCw size={18} className="group-hover:rotate-180 transition-transform duration-700" />
-                <span>{isRtl ? "تسليم الطلب" : "Deliver Service"}</span>
+                <span className="whitespace-nowrap">{isRtl ? "تسليم الطلب" : "Deliver Service"}</span>
               </button>
             )}
           </div>

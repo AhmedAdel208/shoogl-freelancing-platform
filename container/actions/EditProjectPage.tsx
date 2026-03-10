@@ -34,7 +34,7 @@ export default function EditProjectPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset,
   } = useForm<EditProjectFormData>({
     resolver: zodResolver(editProjectSchema),
@@ -49,7 +49,7 @@ export default function EditProjectPage() {
 
   // Update form data when project data is loaded
   useEffect(() => {
-    if (project) {
+    if (project && !isDirty) {
       reset({
         title: project.title || "",
         description: project.description || "",
@@ -58,7 +58,7 @@ export default function EditProjectPage() {
         deadline: formatDeadlineForInput(project.deadline),
       });
     }
-  }, [project, reset]);
+  }, [project, reset, isDirty]);
 
   const updateMutation = useUpdateProject();
 

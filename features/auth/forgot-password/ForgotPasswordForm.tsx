@@ -14,12 +14,7 @@ export default function ForgotPasswordForm() {
   return (
     <section className="py-12 lg:py-16 bg-bg min-h-[calc(100vh-200px)] flex items-center justify-center px-4">
       <div className="w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
-        {/* Logo Icon */}
-          <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 rounded-full  flex items-center justify-center text-white text-3xl font-bold animate-bounce duration-2000">
-                 <Image src={shogol} alt= "logo" className="rounded-full w-full h-full object-cover"/>
-                </div>
-              </div>
+     
 
         {/* Header */}
         <div className="text-center mb-8 space-y-2 animate-in fade-in slide-in-from-top-4 delay-300 duration-700 fill-mode-both">

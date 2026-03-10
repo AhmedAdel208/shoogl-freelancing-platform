@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,10 +8,9 @@ import {
   type ProposalFormData,
   type ProposalFormInput,
 } from "@/lib/validation/proposalSchema";
-import { Send, Clock, Banknote, FileText, Loader2, Sparkles, CheckCircle2 } from "lucide-react";
+import { Send, Clock, Banknote, FileText, Loader2, Sparkles} from "lucide-react";
 import { useProposal } from "@/hooks/ads/useProposal";
 import { ProposalSubmitData } from "@/lib/validation/proposalSchema";
-import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface CreateProposalFormProps {
@@ -42,6 +42,8 @@ export default function CreateProposalForm({
     },
   });
 
+  const router = useRouter();
+
   const handleFormSubmit = (data: ProposalFormData) => {
     const submitData: ProposalSubmitData = {
       jobRequestId: Number(data.jobRequestId),
@@ -54,6 +56,7 @@ export default function CreateProposalForm({
       onSuccess: (response) => {
         onSuccess?.(response.proposalId);
         reset();
+        router.push("/requests?section=in-progress");
       },
     });
   };
