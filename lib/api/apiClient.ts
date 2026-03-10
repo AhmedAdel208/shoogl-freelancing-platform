@@ -1,7 +1,9 @@
 import axios, { AxiosError } from "axios";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const apiClient = axios.create({
-  baseURL: "https://shogol.runasp.net/api",
+  baseURL: isProduction ? "/api-proxy" : "https://shogol.runasp.net/api",
   headers: {
     "Content-Type": "application/json",
     accept: "*/*",
