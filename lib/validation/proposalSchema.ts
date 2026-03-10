@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 export const proposalSchema = z.object({
-  jobRequestId: z.number(),
+  jobRequestId: z.coerce.number(),
   description: z.string().min(20, "يجب أن يكون الوصف 20 حرفاً على الأقل"),
-  proposedPrice: z
+  proposedPrice: z.coerce
     .number()
     .gt(0, "السعر يجب أن يكون أكبر من 0"),
-  proposedDurationInDays: z
+  proposedDurationInDays: z.coerce
     .number()
     .gt(0, "المدة يجب أن تكون أكبر من 0"),
 });

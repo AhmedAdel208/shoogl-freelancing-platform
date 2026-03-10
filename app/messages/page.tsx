@@ -38,7 +38,7 @@ export default function MessagesPage() {
     sendTypingStatus,
     deleteConversation,
     isDeleting,
-    clearPendingUser,
+  
   } = useChat();
 
   const handleSelectConversation = (id: number) => {

@@ -57,9 +57,10 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/images/shogolbg.webp"
+          href="/images/newHero.webp"
           as="image"
           type="image/webp"
+          fetchPriority="high"
         />
       </head>
       <body className={`${cairo.variable} ${elMissiri.variable}`}>

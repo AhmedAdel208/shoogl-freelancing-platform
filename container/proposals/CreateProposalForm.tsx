@@ -37,8 +37,8 @@ export default function CreateProposalForm({
     defaultValues: {
       jobRequestId: Number(jobRequestId),
       description: "",
-      proposedPrice: "",
-      proposedDurationInDays: "",
+      proposedPrice: 0,
+      proposedDurationInDays: 0,
     },
   });
 
@@ -56,7 +56,7 @@ export default function CreateProposalForm({
       onSuccess: (response) => {
         onSuccess?.(response.proposalId);
         reset();
-        router.push("/requests?section=in-progress");
+        router.push("/requests?section=pending");
       },
     });
   };
