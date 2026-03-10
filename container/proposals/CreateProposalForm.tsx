@@ -32,16 +32,15 @@ export default function CreateProposalForm({
     formState: { errors, isValid },
     reset,
   } = useForm<ProposalFormInput, any, ProposalFormData>({
-    resolver: zodResolver(proposalSchema),
-    mode: "onChange",
-    defaultValues: {
-      jobRequestId: Number(jobRequestId),
-      description: "",
-      proposedPrice: 0,
-      proposedDurationInDays: 0,
-    },
-  });
-
+  resolver: zodResolver(proposalSchema),
+  mode: "onChange",
+  defaultValues: {
+    jobRequestId: jobRequestId,
+    description: "",
+    proposedPrice: undefined,
+    proposedDurationInDays: undefined,
+  } as ProposalFormInput,
+});
   const router = useRouter();
 
   const handleFormSubmit = (data: ProposalFormData) => {
