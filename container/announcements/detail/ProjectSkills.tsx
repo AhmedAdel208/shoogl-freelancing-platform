@@ -12,8 +12,8 @@ export default function ProjectSkills({ project }: ProjectSkillsProps) {
   }
 
   return (
-    <div className="relative mb-10">
-      <div className={`flex items-center gap-3 mb-6 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
+    <div className="relative mb-6">
+      <div className={`flex items-center gap-3 mb-5 ${isRtl ? 'flex-row' : 'flex-row-reverse justify-end'}`}>
         <h3 className="text-xl font-black text-heading font-cairo">
           {t.projectDetails.skills}
         </h3>

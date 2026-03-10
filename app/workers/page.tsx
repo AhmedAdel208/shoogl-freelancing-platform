@@ -1,43 +1,41 @@
-"use client";
-
-import WorkersContainer from "@/container/workers/workersList/WorkersContainer";
+import { Suspense } from "react";
+import WorkersClient from "./WorkersClient";
 import Gradientline from "@/components/ui/header/Gradientline";
 import LinksHeader from "@/components/landing/header/LinksHeader";
 import Footer from "@/components/landing/footer/Footer";
-import { useFreelancers } from "@/hooks/workers/useFreelancers";
-import { useState } from "react";
+import PremiumSkeletonGrid from "@/common/PremiumSkeletonGrid";
+import { fetchFreelancers } from "@/lib/api/freelancers";
 
-export default function WorkersPage() {
-  const [searchParams, setSearchParams] = useState({
-    searchTerm: "",
-    skillIds: [] as number[],
-    nationality: "",
-    minRating: 0,
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60;
+
+// Server Component - fetches data on server
+export default async function WorkersPage() {
+  // Fetch initial data on server with caching
+  const initialData = await fetchFreelancers({
     pageNumber: 1,
-    pageSize: 12,
+    pageSize: 9,
   });
 
-  const { data, isLoading, error, refetch } = useFreelancers(searchParams);
+  // Filter out freelancers who don't have a bio (null, undefined, or empty string)
+  const freelancers = initialData.freelancers.filter((f) => f.bio && f.bio.trim() !== "");
+  
 
-  const freelancers = data?.freelancers || [];
-  const totalCount = data?.totalCount || 0;
 
   return (
     <div className="bg-bg min-h-screen w-full">
       <Gradientline />
       <LinksHeader />
-      <main className=" min-h-screen w-full">
-        <WorkersContainer
-          freelancers={freelancers}
-          totalCount={totalCount}
-          isLoading={isLoading}
-          error={error}
-          refetch={refetch}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-        />
+      <main className="min-h-screen w-full">
+        <Suspense fallback={<PremiumSkeletonGrid count={9} />}>
+          <WorkersClient
+            initialData={{
+              freelancers: freelancers,
+              totalCount: initialData.totalCount,
+            }}
+          />
+        </Suspense>
       </main>
-
       <Footer />
     </div>
   );

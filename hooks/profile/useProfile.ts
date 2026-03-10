@@ -75,9 +75,78 @@ export function useUploadProfilePicture() {
     onSuccess: () => {
       toast.success("تم تحديث الصورة الشخصية بنجاح");
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      queryClient.invalidateQueries({ queryKey: ["freelancers"] });
     },
     onError: () => {
       toast.error("فشل في تحميل الصورة الشخصية");
+    },
+  });
+}
+
+// Language Hooks
+export function useAddLanguage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: { languageName: string; proficiencyLevel: string }) =>
+      userService.addLanguage(data),
+    onSuccess: () => {
+      toast.success("تم إضافة اللغة بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "فشل في إضافة اللغة");
+    },
+  });
+}
+
+export function useRemoveLanguage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => userService.removeLanguage(id),
+    onSuccess: () => {
+      toast.success("تم حذف اللغة بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "فشل في حذف اللغة");
+    },
+  });
+}
+
+// Certificate Hooks
+export function useAddCertificate() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: {
+      title: string;
+      issuer?: string;
+      issueDate?: string;
+      certificateFile?: File;
+    }) => userService.addCertificate(data),
+    onSuccess: () => {
+      toast.success("تم إضافة الشهادة بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "فشل في إضافة الشهادة");
+    },
+  });
+}
+
+export function useRemoveCertificate() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: number) => userService.removeCertificate(id),
+    onSuccess: () => {
+      toast.success("تم حذف الشهادة بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "فشل في حذف الشهادة");
     },
   });
 }

@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import RequestSidebar from "@/components/requests/RequestSidebar";
 import RequestsLayout from "@/components/requests/RequestsLayout";
 import UserProfileHeader from "@/components/requests/UserProfileHeader";
@@ -9,7 +10,15 @@ import LoadingPage from "../loading";
 import { useProfile } from "@/hooks/profile/useProfile";
 
 export default function PendingPage() {
-  const [activeSection, setActiveSection] = useState("pending");
+  const searchParams = useSearchParams();
+  const sectionParam = searchParams.get("section");
+  const [activeSection, setActiveSection] = useState(sectionParam || "pending");
+
+  useEffect(() => {
+    if (sectionParam) {
+      setActiveSection(sectionParam);
+    }
+  }, [sectionParam]);
   const {
     data,
     proposals,
@@ -122,9 +131,9 @@ export default function PendingPage() {
          
         />
 
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4 -mt-8 relative z-10">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-4 -mt-12 md:-mt-8 relative z-10">
           <div className="flex flex-col lg:flex-row gap-8 items-start">
-            <aside className="shrink-0 transition-all sticky top-40 duration-500 w-full lg:w-auto z-10">
+            <aside className="shrink-0 w-full lg:w-85 lg:sticky lg:top-40 z-20">
                <RequestSidebar
                 activeItem={activeSection}
                 onItemClick={handleSidebarClick}

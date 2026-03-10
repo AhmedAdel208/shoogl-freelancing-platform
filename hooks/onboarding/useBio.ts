@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "@/common/toast";
 import { useUpdateBio } from "@/hooks/profile/useProfile";
 
 export function useBio() {
@@ -14,8 +15,12 @@ export function useBio() {
   });
 
   const handleFinish = () => {
-    if (bio.length < 10) {
-      alert("النبذة التعريفية يجب أن تكون 10 أحرف على الأقل");
+    if (!bio || bio.trim().length === 0) {
+      toast.error("النبذة التعريفية لا يمكن أن تكون فارغة");
+      return;
+    }
+    if (bio.trim().length < 10) {
+      toast.error("النبذة التعريفية يجب أن تكون 10 أحرف على الأقل");
       return;
     }
     updateBioMutation.mutate(bio);

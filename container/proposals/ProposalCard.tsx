@@ -5,7 +5,7 @@ import { ProposalDisplay } from "@/lib/validation/proposalSchema";
 import Image from "next/image";
 import { proposalApi } from "@/lib/api/proposal";
 import { useState } from "react";
-import { Star, Clock, Wallet, CheckCircle2, Briefcase, XCircle, Loader2, MessageSquare } from "lucide-react";
+import { Star, Clock, Wallet, CheckCircle2, Briefcase, XCircle, Loader2 } from "lucide-react";
 import { toast } from "@/common/toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -62,12 +62,15 @@ export default function ProposalCard({
     try {
       await proposalApi.acceptProposal(proposal.id);
       toast.success(isRtl ? "تم قبول العرض بنجاح وبدء العمل!" : "Proposal accepted successfully! Work started.");
-      
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["proposals", proposal.jobRequestId] }),
-        queryClient.invalidateQueries({ queryKey: ["project", proposal.jobRequestId] }),
-        queryClient.invalidateQueries({ queryKey: ["my-proposals"] }),
+        queryClient.refetchQueries({ queryKey: ["proposals", proposal.jobRequestId] }),
+        queryClient.refetchQueries({ queryKey: ["project", proposal.jobRequestId] }),
+        queryClient.invalidateQueries({ queryKey: ["requests"] }),
       ]);
+      router.refresh();
+
+      // Redirect to requests page as requested
+      router.push("/requests?section=in-progress");
     } catch (error) {
       console.error("Failed to accept proposal:", error);
       toast.error(isRtl ? "فشل قبول العرض، يرجى المحاولة مرة أخرى" : "Failed to accept proposal, please try again");
@@ -91,107 +94,99 @@ export default function ProposalCard({
         }`} 
       />
 
-      <div className="p-7 md:p-9">
+      <div className="p-4 md:p-9">
         {/* Header Section */}
-        <div className={`flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-          <div className={`flex items-center gap-5 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+        <div className={`flex flex-row items-center justify-between gap-4 mb-8`}>
+          <div className="flex items-center gap-4 min-w-0">
             <div 
               onClick={isProjectOwner ? handleContactFreelancer : undefined}
-              className={`relative w-16 h-16 bg-bg rounded-2xl flex items-center justify-center shrink-0 ring-4 ring-border/30 shadow-xl transition-all duration-500 ${isProjectOwner ? 'cursor-pointer hover:ring-primary/30 group-hover:scale-105' : ''}`}
+              className={`relative w-14 h-14 sm:w-20 sm:h-20 bg-bg rounded-full  flex items-center justify-center shrink-0 ring-4 ring-border/20 shadow-2xl transition-all duration-500 overflow-hidden ${isProjectOwner ? 'cursor-pointer hover:ring-primary/40 group-hover:scale-105' : ''}`}
             >
               {proposal.freelancerAvatar ? (
                 <Image
                   src={proposal.freelancerAvatar}
                   alt={proposal.freelancerName}
-                  width={64}
-                  height={64}
-                  className="w-full h-full rounded-[14px] object-cover"
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-primary/40 text-2xl font-black font-cairo">
-                  {proposal.freelancerName?.charAt(0).toUpperCase() || "U"}
-                </span>
+                <div className="bg-primary/5 w-full h-full flex items-center justify-center">
+                  <span className="text-primary text-2xl sm:text-3xl font-black font-cairo">
+                    {proposal.freelancerName?.charAt(0).toUpperCase() || "U"}
+                  </span>
+                </div>
               )}
-              {/* Status Dot */}
-              <div className="absolute -bottom-1.5 -right-1.5 w-5 h-5 bg-emerald-500 border-4 border-card-bg rounded-full shadow-lg z-10" />
+              
             </div>
 
-            <div className={`flex flex-col ${isRtl ? 'items-start' : 'items-end'}`}>
+            <div className="flex flex-col min-w-0">
               <div 
                 onClick={isProjectOwner ? handleContactFreelancer : undefined}
-                className={`flex items-center gap-2 group/name ${isProjectOwner ? 'cursor-pointer' : ''}`}
+                className={`flex items-center gap-2 group/name mb-1 min-w-0 ${isProjectOwner ? 'cursor-pointer' : ''}`}
               >
-                <h3 className="font-black text-heading text-xl md:text-2xl leading-tight font-cairo mb-2 group-hover/name:text-primary transition-colors">
+                <h3 className="font-black text-heading text-lg sm:text-2xl md:text-3xl leading-tight font-cairo group-hover/name:text-primary transition-colors truncate">
                   {proposal.freelancerName}
                 </h3>
-                {isProjectOwner && (
-                  <MessageSquare size={16} className="text-primary opacity-0 group-hover/name:opacity-100 transition-opacity" />
-                )}
               </div>
               
-              <div className={`flex flex-wrap items-center gap-3 text-sm font-bold ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-                <div className="flex items-center gap-1.5 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/10 shadow-xs">
-                  <Star className="text-amber-500 fill-amber-500" size={14} />
+              <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-sm font-bold">
+                <div className="flex items-center gap-1 bg-amber-500/10 px-2 py-1 rounded-lg border border-amber-500/10 shadow-xs">
+                  <Star className="text-amber-500 fill-amber-500" size={12} />
                   <span className="text-amber-600 font-black">
                     {proposal.freelancerRating?.toFixed(1) || "4.5"}
                   </span>
                 </div>
 
-                <span className="w-1.5 h-1.5 rounded-full bg-border" /> 
-
-                <div className={`flex items-center gap-1.5 text-gray-medium ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-                  <Briefcase size={14} className="opacity-60" />
-                  <span className="mb-px whitespace-nowrap">{proposal.freelancerCompletedJobs || 0} {isRtl ? "مكتمل" : "Completed"}</span>
+                <div className="flex items-center gap-1.5 text-gray-medium bg-bg/50 px-2 py-1 rounded-lg border border-border/50">
+                  <Briefcase size={12} className="opacity-60" />
+                  <span className="whitespace-nowrap font-black">{proposal.freelancerCompletedJobs || 0} {isRtl ? "مكتمل" : "Jobs"}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Status Badge */}
-          <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${status.bg} ${status.text} ${status.border} shrink-0 shadow-xs`}>
-            {status.icon}
-            <span className="text-sm font-black font-cairo tracking-wide">{status.label}</span>
+          <div className={`p-3 sm:p-4 rounded-2xl sm:rounded-3xl border ${status.bg} ${status.text} ${status.border} flex flex-col items-center justify-center shrink-0 shadow-xs min-w-[70px] sm:min-w-[100px]`}>
+            <div className="mb-1">{status.icon}</div>
+            <span className="text-[10px] sm:text-sm font-black font-cairo text-center leading-tight">{status.label}</span>
           </div>
         </div>
 
         {/* Description Box */}
-        <div className="mb-8 relative">
-          <div className="absolute top-4 right-4 text-primary/5 -z-10">
-            <MessageSquare size={120} />
-          </div>
-          <p className={`text-gray-medium text-base md:text-lg leading-relaxed font-bold font-cairo bg-bg/50 p-6 rounded-3xl border border-border/50 shadow-inner min-h-[100px] ${isRtl ? 'text-right' : 'text-left'}`}>
+        <div className="mb-6 relative">
+          <p className={`text-gray-medium text-sm sm:text-lg leading-relaxed font-bold font-cairo bg-bg/40 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] border border-border/40 shadow-inner min-h-[80px] wrap-break-word ${isRtl ? 'text-right' : 'text-left'}`}>
             {proposal.description}
           </p>
         </div>
 
         {/* Pricing & Duration Layout */}
-        <div className={`flex flex-col sm:flex-row gap-5 pt-8 border-t border-dashed border-border ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-          <div className={`flex-1 flex items-center p-6 rounded-3xl bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse text-left'}`}>
-            <div className={`w-14 h-14 rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border ${isRtl ? 'ml-5' : 'mr-5'}`}>
-              <Wallet size={24} strokeWidth={2.5} />
+        <div className={`grid grid-cols-2 gap-4 sm:gap-6 pt-4 border-t border-dashed border-border`}>
+          <div className="flex flex-col sm:flex-row items-center sm:justify-start p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
+            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
+              <Wallet size={20} className="sm:w-6 sm:h-6" strokeWidth={2.5} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[14px] font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70">
-                {isRtl ? "العرض المالي" : "Financial Offer"}
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70 truncate">
+                {isRtl ? "العرض المالي" : "Price"}
               </span>
-              <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-                 <span className="text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedPrice}</span>
-                 <span className="text-sm font-black text-gray-medium font-cairo uppercase">{t.common.riyal}</span>
+              <div className="flex items-baseline justify-center sm:justify-start gap-1 sm:gap-2">
+                 <span className="text-lg sm:text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedPrice}</span>
+                 <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo">{t.common.riyal}</span>
               </div>
             </div>
           </div>
           
-          <div className={`flex-1 flex items-center p-6 rounded-3xl bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs ${isRtl ? 'flex-row' : 'flex-row-reverse text-left'}`}>
-            <div className={`w-14 h-14 rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border ${isRtl ? 'ml-5' : 'mr-5'}`}>
-              <Clock size={24} strokeWidth={2.5} />
+          <div className="flex flex-col sm:flex-row items-center sm:justify-start p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
+            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
+              <Clock size={20} className="sm:w-6 sm:h-6" strokeWidth={2.5} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[14px] font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70">
-                {isRtl ? "الوقت المتوقع" : "Expected Time"}
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70 truncate">
+                {isRtl ? "الوقت المتوقع" : "Time"}
               </span>
-              <div className={`flex items-baseline gap-2 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-                 <span className="text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedDurationInDays}</span>
-                 <span className="text-sm font-black text-gray-medium font-cairo uppercase">{t.common.days}</span>
+              <div className="flex items-baseline justify-center sm:justify-start gap-1 sm:gap-2">
+                 <span className="text-lg sm:text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedDurationInDays}</span>
+                 <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo">{t.common.days}</span>
               </div>
             </div>
           </div>

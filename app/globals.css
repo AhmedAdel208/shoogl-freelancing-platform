@@ -128,16 +128,6 @@
     @apply font-bold text-heading leading-tight;
   }
 
-  /* Scale typography for Full HD */
-  h1 {
-    @apply text-4xl xl:text-5xl 2xl:text-6xl;
-  }
-  h2 {
-    @apply text-3xl xl:text-4xl 2xl:text-5xl;
-  }
-  h3 {
-    @apply text-2xl xl:text-3xl;
-  }
   button {
     @apply cursor-pointer;
   }
@@ -384,7 +374,9 @@
  * AUTOPILOT DARK MODE - PREMIUM VERSION
  * ==========================================
  */
-.dark .bg-white {
+.dark .bg-white,
+.dark .bg-white\/95,
+.dark .bg-white\/90 {
   background-color: var(--theme-card-bg) !important;
   border-color: var(--theme-border) !important;
 }

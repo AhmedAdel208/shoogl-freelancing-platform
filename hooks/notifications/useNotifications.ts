@@ -11,14 +11,14 @@ export const useNotifications = () => {
   const router = useRouter();
 
   // 1. Fetch exact notifications from your elegant API
-  const { data: notifications = [], isLoading } = useQuery({
+  const { data: notifications = [], isLoading, refetch } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: notificationsApi.getNotifications,
     enabled: isAuthenticated,
-    refetchInterval: 15000, // Poll every 15s to stay fresh across devices
+    refetchInterval: 10000, 
   });
 
-  // Filter to only show UNREAD notifications (so "seen" messages disappear)
+  // Filter to only show UNREAD notifications (as requested: read messages disappear)
   const unreadNotifications = notifications.filter((n) => !n.isRead);
   const unreadCount = unreadNotifications.length;
 
@@ -110,11 +110,12 @@ export const useNotifications = () => {
   };
 
   return {
-    unreadNotifications,
+    notifications: unreadNotifications,
     unreadCount,
     isLoading,
     isMarkingAllRead: markAllReadMutation.isPending,
     handleMarkAllRead,
     handleNotificationClick,
+    refetch,
   };
 };

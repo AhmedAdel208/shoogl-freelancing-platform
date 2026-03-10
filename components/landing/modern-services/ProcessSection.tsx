@@ -16,25 +16,22 @@ const sectionVariants = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.6,
-      delay: 0.3 + i * 0.15,
-      ease: [0.25, 0.4, 0.25, 1] as const,
+      duration: 0.4,
+      delay: i * 0.1,
     },
   }),
 };
@@ -108,14 +105,14 @@ export default function ProcessSection() {
   const steps = isRtl ? stepsAr : stepsEn;
 
   return (
-    <section className="py-32 bg-bg relative overflow-hidden select-none transition-colors duration-500">
+    <section className="py-16 sm:py-24 md:py-32 bg-bg relative overflow-hidden select-none transition-colors duration-500">
       {/* Background Decor */}
       <div className={`absolute top-0 ${isRtl ? 'right-1/4' : 'left-1/4'} w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10`} />
 
       <div className="max-w-8xl mx-auto px-6 md:px-12 text-center">
         {/* Section Header */}
         <motion.div
-          className="space-y-6 mb-24"
+          className="space-y-6 mb-16 md:mb-24"
           variants={sectionVariants}
           initial={processAnimationPlayed ? "visible" : "hidden"}
           whileInView="visible"
@@ -124,16 +121,16 @@ export default function ProcessSection() {
         >
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2.5 px-6 py-2.5 bg-card-bg border border-border rounded-full text-gray-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-card-bg border border-border rounded-full text-gray-medium shadow-sm"
           >
-            <Sparkles size={18} className="text-primary" />
-            <span className="text-sm font-black font-cairo uppercase tracking-wider">
+            <Sparkles size={16} className="text-primary sm:w-[18px] sm:h-[18px]" />
+            <span className="text-xs sm:text-sm font-black font-cairo uppercase tracking-wider">
               {isRtl ? "سهولة، سرعة، وكفاءة غير مسبوقة" : "Ease, Speed, and Unprecedented Efficiency"}
             </span>
           </motion.div>
           <motion.h2
             variants={fadeUp}
-            className="text-[40px] md:text-[54px] lg:text-[62px] font-black text-heading font-cairo leading-[1.1] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-black text-heading font-cairo leading-[1.2] tracking-tight max-w-4xl mx-auto"
           >
             {isRtl ? (
               <>رحلة النجاح مع شُغل تبدأ <span className="text-primary italic">بأربع خطوات</span></>
@@ -143,7 +140,7 @@ export default function ProcessSection() {
           </motion.h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 relative">
           {/* Animated Connecting Path (Desktop) */}
           <motion.div
             className={`hidden lg:block absolute top-[60px] ${isRtl ? 'right-[10%] left-[10%] origin-right' : 'left-[10%] right-[10%] origin-left'} h-[2px] bg-linear-to-r from-transparent via-border to-transparent -z-10`}
@@ -166,25 +163,25 @@ export default function ProcessSection() {
               className={`relative flex flex-col items-center group ${isRtl ? 'text-right' : 'text-left'}`}
             >
               {/* Step Number Dot */}
-              <div className={`absolute -top-4 ${isRtl ? '-right-2' : '-left-2'} w-10 h-10 bg-card-bg border border-border rounded-full flex items-center justify-center font-black text-gray-medium/30 text-xs shadow-md group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-500 z-10`}>
+              <div className={`absolute -top-3 sm:-top-4 ${isRtl ? '-right-1 sm:-right-2' : '-left-1 sm:-left-2'} w-8 h-8 sm:w-10 sm:h-10 bg-card-bg border border-border rounded-full flex items-center justify-center font-black text-gray-medium/30 text-[10px] sm:text-xs shadow-md group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-500 z-10`}>
                 0{i + 1}
               </div>
 
               {/* Icon Container */}
               <div
-                className={`w-28 h-28 ${step.color} rounded-[38px] flex items-center justify-center text-white shadow-2xl shadow-primary/20 mb-12 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ring-8 ring-card-bg/50 border border-white/20`}
+                className={`w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 ${step.color} rounded-[28px] sm:rounded-[38px] flex items-center justify-center text-white shadow-2xl shadow-primary/20 mb-8 sm:mb-10 md:mb-12 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ring-4 sm:ring-8 ring-card-bg/50 border border-white/20`}
               >
-                <div className="transform transition-transform duration-500 group-hover:scale-110">
+                <div className="transform transition-transform duration-500 group-hover:scale-110 scale-75 sm:scale-90 md:scale-100">
                   {step.icon}
                 </div>
               </div>
 
               {/* Content */}
-              <div className="space-y-4 text-center">
-                <h3 className="text-2xl font-black text-heading font-cairo group-hover:text-primary transition-colors">
+              <div className="space-y-2 sm:space-y-4 text-center">
+                <h3 className="text-xl sm:text-2xl font-black text-heading font-cairo group-hover:text-primary transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-base font-bold font-cairo text-gray-medium leading-relaxed max-w-[260px] mx-auto opacity-70 group-hover:opacity-100 transition-opacity">
+                <p className="text-sm sm:text-base font-bold font-cairo text-gray-medium leading-relaxed max-w-[260px] mx-auto opacity-70 group-hover:opacity-100 transition-opacity">
                   {step.desc}
                 </p>
               </div>

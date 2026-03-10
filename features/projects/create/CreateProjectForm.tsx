@@ -33,7 +33,7 @@ export default function CreateProjectForm() {
   } = form;
 
   if (isSkillsLoading) {
-    return <Spinner />;
+    return <Spinner fullPage />;
   }
 
   return (

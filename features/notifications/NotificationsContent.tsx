@@ -1,18 +1,24 @@
 "use client";
 
-import { Bell, CheckCheck, Inbox } from "lucide-react";
+import { useEffect } from "react";
+import { Bell, CheckCheck, Inbox, ChevronRight } from "lucide-react";
 import { formatTimeAgo } from "@/utils/date";
 import { useNotifications } from "@/hooks/notifications/useNotifications";
 
 export default function NotificationsContent() {
   const {
-    unreadNotifications,
+    notifications,
     unreadCount,
     isLoading,
     isMarkingAllRead,
     handleMarkAllRead,
     handleNotificationClick,
+    refetch,
   } = useNotifications();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (isLoading) {
     return (
@@ -33,60 +39,75 @@ export default function NotificationsContent() {
           </p>
         </div>
 
-        <button
-          onClick={handleMarkAllRead}
-          disabled={unreadCount === 0 || isMarkingAllRead}
-          className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-sm font-bold transition-all duration-300 ${
-            unreadCount > 0
-              ? "border-primary text-primary hover:bg-primary/5 active:scale-95"
-              : "border-border text-gray-medium cursor-not-allowed"
-          }`}
-        >
-          <CheckCheck size={18} />
-          تعيين الكل كمقروء
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => refetch()}
+            className="p-2.5 rounded-xl border border-border text-gray-medium hover:text-primary hover:border-primary/30 transition-all active:scale-95"
+            title="تحديث"
+          >
+            <Bell size={18} />
+          </button>
+          <button
+            onClick={handleMarkAllRead}
+            disabled={unreadCount === 0 || isMarkingAllRead}
+            className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-sm font-bold transition-all duration-300 ${
+              unreadCount > 0
+                ? "border-primary text-primary hover:bg-primary/5 active:scale-95"
+                : "border-border text-gray-medium cursor-not-allowed"
+            }`}
+          >
+            <CheckCheck size={18} />
+            تعيين الكل كمقروء
+          </button>
+        </div>
       </div>
 
       {/* List */}
       <div className="space-y-4">
-        {unreadNotifications.length === 0 ? (
+        {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 bg-card-bg border border-border rounded-2xl shadow-sm">
             <Inbox className="w-16 h-16 text-gray-medium mb-4" />
             <p className="text-gray-medium font-bold">لا توجد إشعارات حتى الآن</p>
           </div>
         ) : (
-          unreadNotifications.map((notification) => (
+          notifications.map((notification) => (
             <div
               key={notification.id}
               onClick={() => handleNotificationClick(notification)}
-              className={`flex items-center justify-between p-4 sm:p-5 bg-card-bg border rounded-lg transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-between p-4 sm:p-5 bg-card-bg border rounded-2xl transition-all duration-300 cursor-pointer group ${
                 notification.isRead
-                  ? "border-border hover:border-gray-medium hover:shadow-sm"
-                  : "border-primary/30 hover:border-primary/50 shadow-[0_2px_10px_rgb(0,0,0,0.04)]"
+                  ? "border-border/60 hover:border-primary/40 hover:shadow-md"
+                  : "border-primary/30 bg-primary/2 hover:border-primary/50 shadow-[0_4px_15px_rgb(0,0,0,0.05)]"
               }`}
             >
-              {/* Right Side: Bell Icon */}
-              <div className="w-8 sm:w-10 flex justify-center text-gray-medium shrink-0">
-                <Bell size={20} className={notification.isRead ? "text-gray-medium/50" : "text-gray-medium"} />
+              {/* Right Side: Icon */}
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 ${
+                notification.isRead ? "bg-slate-100 text-slate-400" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white"
+              }`}>
+                <Bell size={22} strokeWidth={notification.isRead ? 2 : 2.5} />
               </div>
 
               {/* Center Content */}
-              <div className="flex-1 text-center px-4">
-                <h3 className={`text-sm sm:text-base mb-1 ${notification.isRead ? "font-bold text-gray-medium" : "font-black text-heading"}`}>
-                  {notification.title}
-                </h3>
-                <p className={`text-xs sm:text-sm mb-2 ${notification.isRead ? "text-gray-medium/80" : "text-gray-medium"}`}>
+              <div className="flex-1 text-right px-5">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className={`text-base ${notification.isRead ? "font-bold text-slate-600" : "font-black text-slate-900"}`}>
+                    {notification.title}
+                  </h3>
+                  <div className="text-[10px] text-slate-400 font-bold bg-slate-50 px-2 py-0.5 rounded-full">
+                    {formatTimeAgo(notification.createdAt)}
+                  </div>
+                </div>
+                <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-500/80" : "text-slate-600"}`}>
                   {notification.message}
                 </p>
-                <div className="text-[11px] text-gray-medium/60 font-medium">
-                  {formatTimeAgo(notification.createdAt)}
-                </div>
               </div>
 
-              {/* Left Side: Unread Dot indicator */}
-              <div className="w-8 sm:w-10 flex items-center justify-center shrink-0">
-                {!notification.isRead && (
-                  <div className="w-2 h-2 rounded-full bg-primary shadow-sm shadow-primary/40 animate-pulse" />
+              {/* Left Side: indicator */}
+              <div className="w-6 flex items-center justify-center shrink-0">
+                {!notification.isRead ? (
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary shadow-lg shadow-primary/40 animate-pulse" />
+                ) : (
+                  <ChevronRight size={18} className="text-slate-300 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0" />
                 )}
               </div>
             </div>

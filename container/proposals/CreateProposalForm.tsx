@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,10 +8,9 @@ import {
   type ProposalFormData,
   type ProposalFormInput,
 } from "@/lib/validation/proposalSchema";
-import { Send, Clock, Banknote, FileText, Loader2, Sparkles, CheckCircle2 } from "lucide-react";
+import { Send, Clock, Banknote, FileText, Loader2, Sparkles} from "lucide-react";
 import { useProposal } from "@/hooks/ads/useProposal";
 import { ProposalSubmitData } from "@/lib/validation/proposalSchema";
-import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface CreateProposalFormProps {
@@ -22,7 +22,7 @@ export default function CreateProposalForm({
   jobRequestId,
   onSuccess,
 }: CreateProposalFormProps) {
-  const [isSuccess, setIsSuccess] = useState(false);
+
   const proposalMutation = useProposal();
   const { isRtl, t } = useTranslation();
 
@@ -31,16 +31,18 @@ export default function CreateProposalForm({
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm<ProposalFormInput>({
+  } = useForm<ProposalFormInput, any, ProposalFormData>({
     resolver: zodResolver(proposalSchema),
     mode: "onChange",
     defaultValues: {
       jobRequestId: Number(jobRequestId),
       description: "",
-      proposedPrice: "",
-      proposedDurationInDays: "",
+      proposedPrice: 0,
+      proposedDurationInDays: 0,
     },
   });
+
+  const router = useRouter();
 
   const handleFormSubmit = (data: ProposalFormData) => {
     const submitData: ProposalSubmitData = {
@@ -52,28 +54,14 @@ export default function CreateProposalForm({
 
     proposalMutation.mutate(submitData, {
       onSuccess: (response) => {
-        setIsSuccess(true);
         onSuccess?.(response.proposalId);
         reset();
+        router.push("/requests?section=pending");
       },
     });
   };
 
-  if (isSuccess) {
-    return (
-      <div className="bg-emerald-500/5 border-2 border-dashed border-emerald-500/20 rounded-[40px] p-12 text-center animate-in fade-in zoom-in duration-700 mt-12 mb-8">
-        <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center text-white mx-auto mb-8 shadow-2xl shadow-emerald-500/30 animate-bounce">
-          <CheckCircle2 size={48} strokeWidth={3} />
-        </div>
-        <h3 className="text-3xl font-black text-emerald-500 font-cairo mb-3">
-          {isRtl ? "تم إرسال عرضك بنجاح!" : "Proposal Sent Successfully!"}
-        </h3>
-        <p className="text-emerald-500/60 font-bold font-cairo text-lg">
-          {isRtl ? "شكراً لك، سيتم إشعار صاحب المشروع بعرضك فوراً." : "Thank you! The project owner will be notified of your proposal immediately."}
-        </p>
-      </div>
-    );
-  }
+
 
   return (
     <div id="proposal-form-section" className="bg-card-bg rounded-[40px] border border-border shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">

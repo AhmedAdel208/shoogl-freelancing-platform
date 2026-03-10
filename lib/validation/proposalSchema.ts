@@ -1,18 +1,14 @@
 import { z } from "zod";
 
 export const proposalSchema = z.object({
-  jobRequestId: z.number(),
+  jobRequestId: z.coerce.number(),
   description: z.string().min(20, "يجب أن يكون الوصف 20 حرفاً على الأقل"),
-  proposedPrice: z
-    .string()
-    .min(1, "أدخل سعراً صحيحاً")
-    .transform((val) => Number(val)) // ✅ convert string to number
-    .refine((val) => !isNaN(val) && val > 0, "السعر يجب أن يكون أكبر من 0"),
-  proposedDurationInDays: z
-    .string()
-    .min(1, "أدخل مدة صحيحة")
-    .transform((val) => Number(val)) // ✅ convert string to number
-    .refine((val) => !isNaN(val) && val > 0, "المدة يجب أن تكون أكبر من 0"),
+  proposedPrice: z.coerce
+    .number()
+    .gt(0, "السعر يجب أن يكون أكبر من 0"),
+  proposedDurationInDays: z.coerce
+    .number()
+    .gt(0, "المدة يجب أن تكون أكبر من 0"),
 });
 
 // Output type (after zod transforms - numbers)

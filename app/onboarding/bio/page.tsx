@@ -6,7 +6,7 @@ import BioPage from "@/features/onboarding/bio/BioPage";
 export default function Page() {
  
   return <>
-    <header className="bg-white">
+    <header className="bg-bg">
       <Gradientline/>
       <LinksHeader/>
     </header>

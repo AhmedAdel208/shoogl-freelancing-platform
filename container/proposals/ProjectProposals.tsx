@@ -21,7 +21,7 @@ export default function ProjectProposals({
     data: project,
     isLoading,
     error,
-    refetch
+   
   } = useProjectDetail({
     id: jobRequestId || "",
   });
@@ -40,7 +40,7 @@ export default function ProjectProposals({
 
   if (error) {
     return (
-      <div className="py-8">
+      <div >
         <ErrorState 
           title={isRtl ? "خطأ في تحميل العروض" : "Error Loading Proposals"}
           message={isRtl ? t.projectDetails.errorLoading : "Failed to load proposals for this project."}
@@ -53,7 +53,7 @@ export default function ProjectProposals({
 
   if (!projectProposals || projectProposals.length === 0) {
     return (
-      <div className="py-12">
+      <div>
         <EmptyState 
           title={isRtl ? t.projectDetails.noProposals : "No proposals submitted yet"}
           description={isRtl ? t.projectDetails.beFirst : "Be the first to submit a proposal for this special project."}

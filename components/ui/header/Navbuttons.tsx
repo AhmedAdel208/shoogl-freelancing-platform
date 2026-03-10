@@ -50,6 +50,19 @@ export default function Navbuttons() {
         </div>
       ) : (
         <>
+          <div className="flex items-center gap-4 border-l border-border pl-4 ml-2 rtl:pr-4 rtl:mr-2 ltr:pl-4 ltr:ml-2">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
+
+          {/* Login - Secondary Action */}
+          <Link href="/login">
+            <button className={SECONDARY_BTN_CLASSES}>
+              <LogIn size={18} className="group-hover:-translate-x-0.5 transition-transform" />
+              <span className="mb-px">{t.header.login}</span>
+            </button>
+          </Link>
+
           {/* Become a Worker / Sign Up - Primary Action */}
           <Link href="/signup">
             <button className={PRIMARY_BTN_CLASSES}>
@@ -65,18 +78,6 @@ export default function Navbuttons() {
                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           </Link>
-
-          {/* Login - Secondary Action */}
-          <Link href="/login">
-            <button className={SECONDARY_BTN_CLASSES}>
-              <LogIn size={18} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span className="mb-px">{t.header.login}</span>
-            </button>
-          </Link>
-          <div className="flex items-center gap-4 ml-2 border-l border-border pl-4">
-            <LanguageToggle />
-            <ThemeToggle />
-          </div>
         </>
       )}
     </div>

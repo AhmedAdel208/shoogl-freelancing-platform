@@ -15,7 +15,7 @@ export const services = [
     duration: "منذ ساعتين",
     durationEn: "2 hours ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "الرياض، السعودية",
   },
   {
@@ -34,7 +34,7 @@ export const services = [
     duration: "منذ 4 ساعات",
     durationEn: "4 hours ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "جدة، السعودية",
   },
   {
@@ -53,7 +53,7 @@ export const services = [
     duration: "منذ يوم",
     durationEn: "A day ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "الدمام، السعودية",
   },
   {
@@ -72,7 +72,7 @@ export const services = [
     duration: "منذ 30 دقيقة",
     durationEn: "30 minutes ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "الخبر، السعودية",
   },
   {
@@ -91,7 +91,7 @@ export const services = [
     duration: "منذ 3 ساعات",
     durationEn: "3 hours ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "مكة، السعودية",
   },
   {
@@ -110,7 +110,7 @@ export const services = [
     duration: "منذ يومين",
     durationEn: "2 days ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "المدينة، السعودية",
   },
   {
@@ -129,7 +129,7 @@ export const services = [
     duration: "منذ 5 ساعات",
     durationEn: "5 hours ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "أبها، السعودية",
   },
   {
@@ -148,7 +148,7 @@ export const services = [
     duration: "منذ أسبوع",
     durationEn: "A week ago",
     AnnouncementsImage: "/images/web-design.png",
-    personImage: "/images/person.svg",
+    personImage: "",
     location: "تبوك، السعودية",
   },
 ];

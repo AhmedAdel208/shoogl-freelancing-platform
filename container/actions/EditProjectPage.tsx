@@ -34,7 +34,7 @@ export default function EditProjectPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset,
   } = useForm<EditProjectFormData>({
     resolver: zodResolver(editProjectSchema),
@@ -49,7 +49,7 @@ export default function EditProjectPage() {
 
   // Update form data when project data is loaded
   useEffect(() => {
-    if (project) {
+    if (project && !isDirty) {
       reset({
         title: project.title || "",
         description: project.description || "",
@@ -58,7 +58,7 @@ export default function EditProjectPage() {
         deadline: formatDeadlineForInput(project.deadline),
       });
     }
-  }, [project, reset]);
+  }, [project, reset, isDirty]);
 
   const updateMutation = useUpdateProject();
 
@@ -97,7 +97,7 @@ export default function EditProjectPage() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-[#1f2937] rounded-2xl p-6 space-y-6"
+      className="bg-card-bg rounded-3xl p-8 space-y-8 border border-border shadow-xl mb-12"
     >
       {/* Title */}
       <FormInput
@@ -107,6 +107,7 @@ export default function EditProjectPage() {
         required
         registration={register("title")}
         error={errors.title?.message}
+        className="text-heading"
       />
 
       {/* Description */}
@@ -118,6 +119,7 @@ export default function EditProjectPage() {
         registration={register("description")}
         error={errors.description?.message}
         rows={5}
+        className="text-heading"
       />
 
       {/* Budget */}
@@ -128,6 +130,7 @@ export default function EditProjectPage() {
         required
         registration={register("budget", { valueAsNumber: true })}
         error={errors.budget?.message}
+        className="text-heading"
       />
 
       {/* Duration */}
@@ -138,6 +141,7 @@ export default function EditProjectPage() {
         required
         registration={register("durationInDays", { valueAsNumber: true })}
         error={errors.durationInDays?.message}
+        className="text-heading"
       />
 
       {/* Deadline */}
@@ -146,6 +150,7 @@ export default function EditProjectPage() {
         type="date"
         registration={register("deadline")}
         error={errors.deadline?.message}
+        className="text-heading"
       />
 
       {/* Buttons */}

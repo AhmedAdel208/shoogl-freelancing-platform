@@ -4,10 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/lib/api/auth";
 import { useTimer } from "@/hooks/useTimer";
-import { toast } from "sonner";
+import { toast } from "@/common/toast";
 import { useOtpInput } from "@/hooks/auth/useOtpInput";
 import { VerifyOtpData } from "@/types/auth";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { setCookie } from "@/utils/cookies";
 
 export function useVerify() {
   const router = useRouter();
@@ -43,14 +44,15 @@ export function useVerify() {
     onSuccess: (response) => {
       const token = response.token;
       if (token) {
-        localStorage.setItem("token", token);
-        // Sync with reactive store
+        
+        localStorage.setItem("token", token)
+        setCookie("token", token, 7);
         useAuthStore.getState().setToken(token);
       }
 
       if (userRole === "client") {
         toast.success("تم تفعيل حسابك بنجاح! مرحباً بك في شغل");
-        router.replace("/");
+        router.replace("/workers");
       } else {
         router.replace("/onboarding/skills");
       }
@@ -73,7 +75,7 @@ export function useVerify() {
     onError: (error: unknown) => {
       const errorMessage =
         error instanceof Error ? error.message : "فشل التحقق من الرمز";
-      alert(errorMessage);
+      toast.error(errorMessage);
     },
   });
 

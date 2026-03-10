@@ -14,13 +14,13 @@ export default function FormInput({
 }: FormInputProps) {
   const errorId = useId();
 
-  const baseInputClasses = "w-full bg-white border border-border rounded-xl px-4 py-3 pr-10 text-right text-dark placeholder-gray-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all group-hover:border-primary/50";
-  const errorClasses = error ? "border-red-500 ring-2 ring-red-500/10" : "";
+  const baseInputClasses = "w-full bg-bg/50 border border-border rounded-2xl px-5 py-4 text-right text-heading placeholder:text-gray-medium/40 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all group-hover:border-primary/40 shadow-inner";
+  const errorClasses = error ? "border-red-500/50 ring-4 ring-red-500/10 bg-red-500/5" : "";
 
   return (
     <div className={`text-right ${className}`}>
       {label && (
-        <label className="block text-dark mb-2 text-base font-medium">
+        <label className="block text-slate-700 mb-2.5 text-[15px] font-black font-cairo mr-1">
           {label} {required && <span className="text-red-500" aria-hidden="true">*</span>}
         </label>
       )}
@@ -32,7 +32,7 @@ export default function FormInput({
             rows={rows || 5}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? errorId : undefined}
-            className={`${baseInputClasses} ${errorClasses} resize-none`}
+            className={`${baseInputClasses} ${errorClasses} resize-none ${icon ? 'pr-12' : ''} font-cairo`}
           />
         ) : (
           <input
@@ -41,11 +41,11 @@ export default function FormInput({
             {...registration}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? errorId : undefined}
-            className={`${baseInputClasses} ${errorClasses}`}
+            className={`${baseInputClasses} ${errorClasses} ${icon ? 'pr-12' : ''} font-cairo`}
           />
         )}
         {icon && (
-          <div className="absolute right-3 top-5 -translate-y-1/2 text-gray-medium transition-colors group-focus-within:text-primary">
+          <div className={`absolute right-4 ${type === 'textarea' ? 'top-6' : 'top-1/2 -translate-y-1/2'} text-gray-medium transition-colors group-focus-within:text-primary z-20 pointer-events-none`}>
             {icon}
           </div>
         )}

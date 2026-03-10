@@ -9,6 +9,7 @@ import {
   MessageList,
   ChatInput,
   EmptyChatState,
+  NewConversation,
 } from "@/features/chat";
 import Gradientline from "@/components/ui/header/Gradientline";
 import LinksHeader from "@/components/landing/header/LinksHeader";
@@ -22,6 +23,7 @@ export default function MessagesPage() {
     messages,
     selectedConversation,
     selectedConversationId,
+    pendingUserId,
     onlineUsers,
     isTyping,
     currentUserId,
@@ -36,6 +38,7 @@ export default function MessagesPage() {
     sendTypingStatus,
     deleteConversation,
     isDeleting,
+  
   } = useChat();
 
   const handleSelectConversation = (id: number) => {
@@ -80,7 +83,10 @@ export default function MessagesPage() {
                 <ChatHeader
                   name={selectedConversation.otherUserName}
                   image={selectedConversation.otherUserImage}
-                  isOnline={selectedConversation.isOnline || onlineUsers.has(selectedConversation.otherUserId)}
+                  isOnline={
+                    selectedConversation.isOnline ||
+                    onlineUsers.has(selectedConversation.otherUserId)
+                  }
                   onBack={() => setShowChatMobile(false)}
                   onDelete={() => deleteConversation(selectedConversation.id)}
                   isDeleting={isDeleting}
@@ -89,7 +95,9 @@ export default function MessagesPage() {
                 <MessageList
                   messages={messages}
                   currentUserId={currentUserId}
-                  currentUserImage={profile?.profilePictureUrl || currentUserImage}
+                  currentUserImage={
+                    profile?.profilePictureUrl || currentUserImage
+                  }
                   otherUserImage={selectedConversation.otherUserImage}
                   isTyping={isTyping}
                   isLoading={isLoadingMessages}
@@ -101,13 +109,20 @@ export default function MessagesPage() {
                     sendMessage(
                       selectedConversation.otherUserId,
                       content,
-                      attachment
+                      attachment,
                     )
                   }
                   isSending={isSending}
                   onTyping={sendTypingStatus}
                 />
               </>
+            ) : pendingUserId ? (
+              <NewConversation
+                onSend={(content) => {
+                  sendMessage(pendingUserId, content);
+                }}
+                isSending={isSending}
+              />
             ) : (
               <EmptyChatState />
             )}

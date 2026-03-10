@@ -74,6 +74,45 @@ class UserService {
     const { data } = await apiClient.delete(`/User/portfolios/${id}`);
     return data;
   }
+
+  // Languages Management
+  async addLanguage(languageData: { languageName: string; proficiencyLevel: string }) {
+    const { data } = await apiClient.post("/User/languages", languageData);
+    return data;
+  }
+
+  async removeLanguage(id: number) {
+    const { data } = await apiClient.delete(`/User/languages/${id}`);
+    return data;
+  }
+
+  // Certificates Management
+  async addCertificate(certificateData: {
+    title: string;
+    issuer?: string;
+    issueDate?: string;
+    certificateFile?: File;
+  }) {
+    const formData = new FormData();
+    formData.append("title", certificateData.title);
+    if (certificateData.issuer) formData.append("issuer", certificateData.issuer);
+    if (certificateData.issueDate) formData.append("issueDate", certificateData.issueDate);
+    if (certificateData.certificateFile) {
+      formData.append("certificateFile", certificateData.certificateFile);
+    }
+
+    const { data } = await apiClient.post("/User/certificates", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return data;
+  }
+
+  async removeCertificate(id: number) {
+    const { data } = await apiClient.delete(`/User/certificates/${id}`);
+    return data;
+  }
 }
 
 export const userService = new UserService();

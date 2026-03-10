@@ -21,17 +21,17 @@ export default function EmptyState({
   href = "/announcements",
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-6 bg-white/50 backdrop-blur-sm rounded-[3rem] border border-white/50 shadow-xs">
-      <div className="w-28 h-28 bg-gray-100 rounded-3xl flex items-center justify-center mb-10 shadow-inner">
-        <Icon className="w-14 h-14 text-gray-300" />
+    <div className="flex flex-col items-center justify-center py-24 px-6 bg-card-bg/40 backdrop-blur-xl rounded-[3rem] border border-border shadow-sm">
+      <div className="w-28 h-28 bg-bg rounded-3xl flex items-center justify-center mb-10 shadow-inner border border-border/50 group-hover:scale-110 transition-transform duration-500">
+        <Icon className="w-14 h-14 text-primary opacity-60" />
       </div>
       
-      <h3 className="text-2xl font-black text-gray-900 mb-4 text-center tracking-tight">
+      <h3 className="text-2xl font-black text-heading mb-4 text-center tracking-tight">
         {title}
       </h3>
       
       {description && (
-        <p className="text-gray-500 text-center mb-12 max-w-sm font-medium leading-relaxed">
+        <p className="text-gray-medium text-center mb-12 max-w-sm font-bold leading-relaxed">
           {description}
         </p>
       )}

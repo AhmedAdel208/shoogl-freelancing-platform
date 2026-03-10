@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, El_Messiri } from "next/font/google";
 
 import "./globals.css";
@@ -17,12 +17,22 @@ const elMissiri = El_Messiri({
   preload: false,
 });
 
+export const viewport: Viewport = {
+  themeColor: "#3b82f6",
+};
+
 export const metadata: Metadata = {
   title: "شغل | منصة العمل الحر الأولى",
   description:
     "منصة شُغل تجمع بين نُخبة المستقلين وأصحاب المشاريع الطموحة في بيئة عمل ذكية وآمنة",
   keywords: ["عمل حر", "مستقلين", "مشاريع", "تصميم", "برمجة", "شغل"],
   authors: [{ name: "شغل" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "شغل",
+  },
   openGraph: {
     title: "شغل | منصة العمل الحر الأولى",
     description: "منصة شُغل تجمع بين نُخبة المستقلين وأصحاب المشاريع",
@@ -35,6 +45,7 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Toaster } from "sonner";
 import { LocaleProvider } from "@/providers/LocaleProvider";
+import OfflineModal from "@/components/ui/OfflineModal";
 
 export default function RootLayout({
   children,
@@ -46,16 +57,23 @@ export default function RootLayout({
       <head>
         <link
           rel="preload"
-          href="/images/shogolbg.webp"
+          href="/images/newHero.webp"
           as="image"
           type="image/webp"
+          fetchPriority="high"
         />
       </head>
       <body className={`${cairo.variable} ${elMissiri.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <LocaleProvider>
             <ReactQueryProvider>{children}</ReactQueryProvider>
             <Toaster position="top-center" />
+            <OfflineModal />
           </LocaleProvider>
         </ThemeProvider>
       </body>

@@ -2,14 +2,17 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { authService } from "@/lib/api/auth";
 import { loginSchema, type LoginFormData } from "@/lib/validation/loginSchema";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { setCookie } from "@/utils/cookies";
+import { toast } from "@/common/toast";
 
 export function useLogin() {
   const router = useRouter();
+ 
 
   const {
     register,
@@ -25,11 +28,25 @@ export function useLogin() {
     onSuccess: (data) => {
       if (data.token) {
         localStorage.setItem("token", data.token);
+        setCookie("token", data.token, 7); // Set cookie for middleware
+       
         useAuthStore.getState().setToken(data.token);
+        
+        // Redirect based on user role
+        const user = useAuthStore.getState().user;
+        if (user?.isClient) {
+          router.push("/workers");
+        } else if (user?.isFreelancer) {
+          router.push("/announcements");
+        } else {
+          router.push("/");
+        }
+
+        toast.success("تم تسجيل الدخول بنجاح. مرحباً بك مجدداً!", "دخول ناجح");
       }
-      router.push("/");
     },
     onError: (error) => {
+      toast.error(error.message || "حدث خطأ أثناء تسجيل الدخول", "فشل الدخول");
       setError("root", {
         message: error.message || "فشل تسجيل الدخول. يرجى التحقق من بياناتك.",
       });

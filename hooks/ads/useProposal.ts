@@ -8,15 +8,24 @@ export const useProposal = () => {
   return useMutation({
     mutationFn: (data: ProposalSubmitData) => proposalApi.submitProposal(data),
     onSuccess: (data, variables) => {
-      // Invalidate the specific job request query to show new proposal immediately
+ 
       queryClient.invalidateQueries({
         queryKey: ["proposals", variables.jobRequestId],
       });
-      // Also invalidate the project detail query where proposals are usually nested
+      queryClient.invalidateQueries({
+        queryKey: ["proposals", String(variables.jobRequestId)],
+      });
+    
       queryClient.invalidateQueries({
         queryKey: ["project", variables.jobRequestId],
       });
-      // Also invalidate my-proposals to refresh the user's proposals list
+      queryClient.invalidateQueries({
+        queryKey: ["project", String(variables.jobRequestId)],
+      });
+  
+      queryClient.invalidateQueries({
+        queryKey: ["requests", "my-proposals"],
+      });
       queryClient.invalidateQueries({
         queryKey: ["my-proposals"],
       });

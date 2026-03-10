@@ -8,7 +8,7 @@ interface ProposalListProps {
     subtitle: string;
     data: any[];
   };
-  onDeleteProposal: (proposalId: number) => void;
+  onDeleteProposal: (proposalId: number, jobRequestId?: number) => void;
   isClient?: boolean;
   onDeleteJobRequest?: (jobRequestId: number) => void;
   onEditJobRequest?: (jobRequestId: number) => void;
@@ -36,7 +36,7 @@ export default function ProposalList({
           description="لم تقم بإنشاء أي طلبات عمل بعد. ابدأ بإنشاء طلب جديد للعثور على المستقلين المناسبين لمشروعك."
           buttonText="إنشاء طلب جديد"
           buttonIcon={Plus}
-          href="/announcements/create"
+          href="/projects/create"
         />
       );
     }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Save, X, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -34,7 +33,7 @@ export default function EditProfilePage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset
   } = useForm<ProfileUpdateFormData>({
     resolver: zodResolver(profileUpdateSchema),
@@ -49,7 +48,7 @@ export default function EditProfilePage() {
   });
 
   useEffect(() => {
-    if (profile) {
+    if (profile && !isDirty) {
       reset({
         firstName: profile.firstName || "",
         lastName: profile.lastName || "",
@@ -59,7 +58,7 @@ export default function EditProfilePage() {
         companyName: profile.companyName || ""
       });
     }
-  }, [profile, reset]);
+  }, [profile, reset, isDirty]);
 
   if (isProfileLoading) return <Loading />;
 
@@ -112,13 +111,13 @@ export default function EditProfilePage() {
                     </>
                  )}
                </button>
-               <Link
-                 href="/profile"
+               <button
+                 onClick={() =>  router.back()}
                  className="flex-1 flex items-center justify-center gap-2 px-6 py-4.5 bg-white border-2 border-primary text-primary rounded-2xl font-black text-base hover:bg-primary/5 transition-all active:scale-[0.98]"
                >
                  <X size={18} />
                  إلغاء
-               </Link>
+               </button>
             </div>
 
           </form>

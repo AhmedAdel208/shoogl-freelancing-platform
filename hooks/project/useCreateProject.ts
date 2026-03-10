@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { jobRequestService } from "@/lib/api/jobRequests";
 import { useAllSkills } from "@/hooks/profile/useSkills";
 import {
@@ -11,12 +11,13 @@ import {
   type CreateProjectFormData,
 } from "@/lib/validation/projectSchema";
 import { Skill } from "@/types/skills";
-import { toast } from "sonner";
+import { toast } from "@/common/toast";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
 export function useCreateProject() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +64,8 @@ export function useCreateProject() {
       jobRequestService.createJobRequest(formData),
     onSuccess: () => {
       toast.success("تم نشر طلبك بنجاح!");
+      // Invalidate announcements list so the new project appears immediately
+      queryClient.invalidateQueries({ queryKey: ["jobRequests"] });
       router.push("/announcements");
     },
     onError: (error: AxiosError) => {

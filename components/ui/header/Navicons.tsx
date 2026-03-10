@@ -25,15 +25,17 @@ export default function Navicons() {
 
 
   return (
-    <div className="flex items-center gap-4 sm:gap-6 lg:gap-10">
-      {/* Theme Toggle Button */}
-      <LanguageToggle />
-      <ThemeToggle />
+    <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
+      {/* Theme & Language Toggles (Hidden on Mobile, inside Drawer instead) */}
+      <div className="hidden md:flex items-center gap-4">
+        <LanguageToggle />
+        <ThemeToggle />
+      </div>
 
       {/* Notifications Icon */}
       <Link 
         href="/notifications" 
-        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-light-white hover:bg-primary/5 border border-border/50 transition-all duration-400 active:scale-95 shadow-sm"
+        className="group relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-[14px] md:rounded-[18px] bg-light-white hover:bg-primary/5 border border-border/50 transition-all duration-400 active:scale-95 shadow-sm"
       >
         <div className="relative">
           <Bell 
@@ -42,7 +44,7 @@ export default function Navicons() {
             strokeWidth={2.2}
           />
           {unreadNotificationsCount > 0 && (
-            <div className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-red-500 text-white text-[9px] font-black rounded-full shadow-lg shadow-red-500/20 z-10 transition-transform animate-in zoom-in">
+            <div className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 flex items-center justify-center bg-red-500 text-white text-[11px] font-black rounded-full shadow-lg shadow-red-500/20 z-10 transition-transform animate-in zoom-in">
               {unreadNotificationsCount > 9 ? "+9" : unreadNotificationsCount}
             </div>
           )}
@@ -53,7 +55,7 @@ export default function Navicons() {
       {/* Chat Icon */}
       <Link 
         href="/messages" 
-        className="group relative w-12 h-12 flex items-center justify-center rounded-[18px] bg-light-white hover:bg-primary transition-all duration-400 active:scale-95 shadow-sm border border-border/50"
+        className="group relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-[14px] md:rounded-[18px] bg-light-white hover:bg-primary transition-all duration-400 active:scale-95 shadow-sm border border-border/50"
       >
         <MessageSquareMore 
           size={25} 
