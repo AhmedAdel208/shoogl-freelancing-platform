@@ -5,7 +5,8 @@ import {
   HubConnectionState,
 } from "@microsoft/signalr";
 
-const HUB_URL = "https://shogol.runasp.net/chatHub";
+const isProduction = process.env.NODE_ENV === "production";
+const HUB_URL = isProduction ? "/chatHub" : "https://shogol.runasp.net/chatHub";
 
 let connection: HubConnection | null = null;
 

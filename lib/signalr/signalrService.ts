@@ -15,9 +15,11 @@ class SignalRService {
   async startConnection(): Promise<void> {
     try {
       const token = localStorage.getItem('token'); // Get auth token
+      const isProduction = process.env.NODE_ENV === "production";
+      const hubUrl = isProduction ? "/notificationHub" : "https://shogol.runasp.net/notificationHub";
       
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl('/notificationHub', {
+        .withUrl(hubUrl, {
           accessTokenFactory: () => token || '',
           skipNegotiation: true,
           transport: signalR.HttpTransportType.WebSockets
