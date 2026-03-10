@@ -17,21 +17,20 @@ const containerVariants = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.98 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
 
