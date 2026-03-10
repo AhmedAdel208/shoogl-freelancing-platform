@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Star, X, Send } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface EvaluationModalProps {
   isOpen: boolean;
@@ -53,24 +52,17 @@ export default function EvaluationModal({
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isOpen && (
         <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
           {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
           />
 
           {/* Modal Content */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-md bg-[#1a2533] rounded-4xl shadow-2xl overflow-hidden border border-white/10"
+          <div
+            className="relative w-full max-w-md bg-[#1a2533] rounded-4xl shadow-2xl overflow-hidden border border-white/10 animate-in fade-in zoom-in-95 duration-300"
             dir="rtl"
           >
             {/* Header */}
@@ -110,13 +102,11 @@ export default function EvaluationModal({
                   ))}
                 </div>
                 {rating > 0 && (
-                  <motion.span
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-yellow-400 font-bold text-sm bg-yellow-400/10 px-4 py-1 rounded-full"
+                  <span
+                    className="text-yellow-400 font-bold text-sm bg-yellow-400/10 px-4 py-1 rounded-full animate-in fade-in slide-in-from-top-2 duration-200"
                   >
                     {ratingLabels[rating as keyof typeof ratingLabels]}
-                  </motion.span>
+                  </span>
                 )}
               </div>
 
@@ -138,18 +128,13 @@ export default function EvaluationModal({
               </div>
 
               {/* Error Message */}
-              <AnimatePresence>
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="text-red-400 text-xs font-bold text-center bg-red-400/10 py-2 rounded-xl border border-red-400/20"
-                  >
+              {error && (
+                <div
+                  className="text-red-400 text-xs font-bold text-center bg-red-400/10 py-2 rounded-xl border border-red-400/20 animate-in fade-in duration-200"
+                >
                     {error}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                </div>
+              )}
 
               {/* Action Buttons */}
               <div className="flex gap-4">
@@ -176,9 +161,9 @@ export default function EvaluationModal({
                 </button>
               </div>
             </form>
-          </motion.div>
+          </div>
         </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

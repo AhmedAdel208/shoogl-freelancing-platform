@@ -3,34 +3,25 @@
 import logo from "@/public/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 import FacebookIcon from "@/public/icons/FacebookIcon";
 import XIcon from "@/public/icons/XIcon";
 import InstagramIcon from "@/public/icons/InstagramIcon";
 import LinkedInIcon from "@/public/icons/LinkedInIcon";
 
-const columnVariants = {
-  hidden: { opacity: 0, y: 25 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] as const },
-  },
-};
-
 export default function LinksFooter() {
   const { t, isRtl } = useTranslation();
 
   return (
-    <motion.div variants={columnVariants} className={`lg:col-span-1 mt-5 `}>
+    <div className={`lg:col-span-1 mt-5`}>
       <Link href="/">
         <Image
           src={logo}
           alt={t.hero.title}
           width={130}
           height={50}
-          className={`object-contain -mt-8 mb-4 `}
+          className={`object-contain -mt-8 mb-4`}
+          loading="lazy"
         />
       </Link>
 
@@ -53,6 +44,7 @@ export default function LinksFooter() {
           <FacebookIcon className="w-4 h-4" />
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
+

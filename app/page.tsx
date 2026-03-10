@@ -4,17 +4,9 @@ import LinksHeader from "@/components/landing/header/LinksHeader";
 import Gradientline from "@/components/ui/header/Gradientline";
 import dynamic from 'next/dynamic';
 
-const ProcessSection = dynamic(() => import('@/components/landing/modern-services/ProcessSection'), {
-  ssr: true,
-});
-
-const ModernServices = dynamic(() => import('@/components/landing/modern-services/ModernServices'), {
-  ssr: true,
-});
-
-const ContactCTA = dynamic(() => import('@/components/landing/contact/ContactCTA'), {
-  ssr: true,
-});
+const ProcessSection = dynamic(() => import('@/components/landing/modern-services/ProcessSection'));
+const ModernServices = dynamic(() => import('@/components/landing/modern-services/ModernServices'));
+const ContactCTA = dynamic(() => import('@/components/landing/contact/ContactCTA'));
 
 export default function LandingPage() {
   return (

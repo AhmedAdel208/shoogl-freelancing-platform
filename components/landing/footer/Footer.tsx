@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import googleplay from "@/public/images/googleplay.png";
-import appstore from "@/public/images/appstore.png";
 import LinksFooter from "./LinksFooter";
 import Copyright from "./Copywright";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Apple, Play } from "lucide-react";
 
 export default function Footer() {
   const { isAuthenticated, isMounted } = useAuth();

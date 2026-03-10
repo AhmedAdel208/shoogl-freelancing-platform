@@ -5,7 +5,7 @@
   
   [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
   [![React Query](https://img.shields.io/badge/TanStack_Query-5.0-FF4154?style=for-the-badge&logo=react-query)](https://tanstack.com/query)
   [![Zustand](https://img.shields.io/badge/Zustand-State-orange?style=for-the-badge&logo=react)](https://github.com/pmndrs/zustand)
 </div>
@@ -24,14 +24,14 @@
 
 - **🌍 Full Bilingual Support**: Seamless RTL/LTR switching (Arabic/English) with a unified design system.
 - **⚡ Advanced Search & Discovery**: Real-time filtering by skills, rating, and nationality using highly optimized API calls.
+- **💬 Real-time Communication**: Integrated chat system (Conversation & Messages) with microsoft signalR library.
 - **🎨 Premium UI/UX**:
   - **Glassmorphism Design**: Elegant blur effects and consistent spacing.
-  - **Micro-animations**: Powered by Framer Motion for a "premium-weight" feel.
   - **Responsive Brilliance**: Pixel-perfect from 4K displays down to the smallest mobile devices.
 - **🛡️ Secure Data Handling**: 
   - Strict **Zod** schema validation for all user inputs.
   - **React Query** for robust caching, stale-time management, and optimistic updates.
-- **💬 Real-time Communication**: Integrated chat system (Conversation & Messages) with signalR library.
+
 - **📋 Management Dashboard**: Full CRUD for Proposals, Announcements, and Job Requests.
 
 ---
@@ -44,7 +44,7 @@
 - **Zustand**: Lightweight, scalable state management for global UI and auth states.
 
 ### **Performance**
-- **Max-Boost Hero Section**: Custom `fetchPriority` and optimized `framer-motion` variants to achieve an LCP < 1.2s.
+
 - **Efficient Caching**: `TanStack Query` with fine-tuned `staleTime` and `gcTime`.
 - **Image Optimization**: Using `next/image` with WebP format and priority preloading (LCP boost).
 - **Zustand Persistence**: Securely managing auth and UI state across sessions.

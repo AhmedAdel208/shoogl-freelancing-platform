@@ -1,5 +1,4 @@
 import type { ChatMessage } from "@/types/chat";
-import { motion } from "framer-motion";
 import { Check, CheckCheck, FileIcon } from "lucide-react";
 import { getImageUrl } from "@/utils/image";
 
@@ -36,14 +35,12 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
 
   const isImage = (url?: string) => {
     if (!url) return false;
-    return /\.(jpg|jpeg|png|gif|webp|svg|bmp)(\?.*)?\s*$/i.test(url);
+    return /\.(jpg|jpeg|png|gif|webp|svg|bmp)(\?.*)?\\s*$/i.test(url);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`flex items-end gap-2 mb-4 ${
+    <div
+      className={`flex items-end gap-2 mb-4 animate-in fade-in zoom-in-95 duration-200 ${
         isMine ? "flex-row self-start" : "flex-row-reverse self-end"
       }`}
     >
@@ -129,6 +126,6 @@ export default function MessageBubble({ message, isMine, avatarUrl }: Props) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

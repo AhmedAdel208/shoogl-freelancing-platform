@@ -54,15 +54,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <head>
-        <link
-          rel="preload"
-          href="/images/newHero.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-        />
-      </head>
       <body className={`${cairo.variable} ${elMissiri.variable}`}>
         <ThemeProvider
           attribute="class"

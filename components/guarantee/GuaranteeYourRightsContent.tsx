@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { ChevronDown, Shield, Lock, Eye, Users, DollarSign, CheckCircle, Mail, Home, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -136,11 +136,8 @@ export default function GuaranteeYourRightsContent() {
       </nav>
       
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+      <div
+        className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700"
       >
         <h1 className="text-4xl lg:text-6xl font-black mb-6 bg-linear-to-r from-green-400 via-emerald-500 to-teal-600 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">
           ضمان حقوقك 100%
@@ -148,7 +145,7 @@ export default function GuaranteeYourRightsContent() {
         <p className="text-gray-400 text-lg lg:text-xl max-w-3xl mx-auto">
           نحن في منصة شغل نضع أمانك وحقوقك على رأس أولوياتنا. إليك كيف نضمن لك تجربة عمل احترافية وآمنة تماماً.
         </p>
-      </motion.div>
+      </div>
 
       {/* Privacy Sections */}
       <div className="space-y-6 mb-16">
@@ -157,18 +154,14 @@ export default function GuaranteeYourRightsContent() {
           const Icon = section.icon;
 
           return (
-            <motion.div
+            <div
               key={section.id}
-              layout
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="bg-linear-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-700 overflow-hidden shadow-xl"
+              className="bg-linear-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-700 overflow-hidden shadow-xl animate-in fade-in zoom-in-95 duration-500"
             >
               {/* Header Button */}
-              <motion.button
+              <button
                 onClick={() => toggle(section.id)}
-                className="w-full px-8 py-6 flex items-center justify-between text-right group"
+                className="w-full px-8 py-6 flex items-center justify-between text-right group cursor-pointer"
               >
                 <div className="flex items-center space-x-3 space-x-reverse">
                   <Icon className="w-6 h-6 text-green-400" />
@@ -177,68 +170,36 @@ export default function GuaranteeYourRightsContent() {
                   </h3>
                 </div>
 
-                <motion.div
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-gray-400"
+                <div
+                  className={`text-gray-400 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                 >
                   <ChevronDown />
-                </motion.div>
-              </motion.button>
+                </div>
+              </button>
 
-              {/* Animated Content */}
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    key="content"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <motion.ul
-                      initial="hidden"
-                      animate="visible"
-                      variants={{
-                        hidden: {},
-                        visible: {
-                          transition: {
-                            staggerChildren: 0.05
-                          }
-                        }
-                      }}
-                      className="px-8 pb-8 space-y-4 text-gray-300"
-                    >
-                      {section.content.map((item, i) => (
-                        <motion.li
-                          key={i}
-                          variants={{
-                            hidden: { opacity: 0, y: 10 },
-                            visible: { opacity: 1, y: 0 }
-                          }}
-                          className="flex items-start"
-                        >
-                          <span className="text-green-400 ml-3 mt-1">•</span>
-                          <span>{item}</span>
-                        </motion.li>
-                      ))}
-                    </motion.ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+              {/* Content */}
+              {isOpen && (
+                <div
+                  className="overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300"
+                >
+                  <ul className="px-8 pb-8 space-y-4 text-gray-300">
+                    {section.content.map((item, i) => (
+                      <li key={i} className="flex items-start">
+                        <span className="text-green-400 ml-3 mt-1">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           );
         })}
       </div>
 
       {/* Financial Protection Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-16 bg-linear-to-br from-green-900/20 to-emerald-900/20 rounded-3xl p-12 border border-green-700/30 shadow-2xl"
+      <div
+        className="mb-16 bg-linear-to-br from-green-900/20 to-emerald-900/20 rounded-3xl p-12 border border-green-700/30 shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-700"
       >
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 text-white flex items-center justify-center gap-3">
@@ -252,31 +213,23 @@ export default function GuaranteeYourRightsContent() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {financialProtectionSteps.map((step, index) => (
-            <motion.div
+            <div
               key={step.step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center"
+              className="text-center animate-in fade-in zoom-in-95 duration-500"
             >
               <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold text-white">
                 {step.step}
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
               <p className="text-gray-400">{step.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Contact Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-center bg-linear-to-br from-gray-900 to-gray-800 rounded-3xl p-12 border border-gray-700 shadow-2xl"
+      <div
+        className="text-center bg-linear-to-br from-gray-900 to-gray-800 rounded-3xl p-12 border border-gray-700 shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-700"
       >
         <h2 className="text-3xl font-bold mb-4 text-white">
           لديك استفسار عن الخصوصية؟
@@ -288,15 +241,13 @@ export default function GuaranteeYourRightsContent() {
           </p>
         </div>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
+        <button
           onClick={handleContactUs}
-          className="bg-linear-to-r cursor-pointer from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-10 py-4 rounded-xl font-semibold shadow-xl transition-all duration-300"
+          className="bg-linear-to-r cursor-pointer from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-10 py-4 rounded-xl font-semibold shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
         >
           تواصل معنا
-        </motion.button>
-      </motion.div>
+        </button>
+      </div>
     </div>
   );
 }
