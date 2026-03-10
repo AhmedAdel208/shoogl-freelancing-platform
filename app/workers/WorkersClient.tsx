@@ -18,18 +18,20 @@ export default function WorkersClient({ initialData }: WorkersClientProps) {
     nationality: "",
     minRating: 0,
     pageNumber: 1,
-    pageSize: 12,
+    pageSize: 9,
   });
 
   const { data, isLoading, error, refetch } = useFreelancers(searchParams, initialData);
 
   const freelancers = data?.freelancers || [];
   const totalCount = data?.totalCount || 0;
+  const totalPages = data?.totalPages || 0;
 
   return (
     <WorkersContainer
       freelancers={freelancers}
       totalCount={totalCount}
+      totalPages={totalPages}
       isLoading={isLoading}
       error={error}
       refetch={refetch}

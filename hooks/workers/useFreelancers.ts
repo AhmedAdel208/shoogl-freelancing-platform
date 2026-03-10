@@ -25,21 +25,28 @@ export function useFreelancers(
   searchParams?: FreelancerSearchParams,
   initialData?: UseFreelancersOptions["initialData"],
 ) {
-  return useQuery<FreelancersResponse>({
+  const query = useQuery<FreelancersResponse>({
     queryKey: ["freelancers", searchParams],
     queryFn: () => fetchFreelancersClient(searchParams || {}),
-    staleTime: 60 * 1000, // 1 minute - don't refetch
-    gcTime: 5 * 60 * 1000, // 5 minutes cache
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    staleTime: 0, // Force refetch on mount to get most recent data (fixes registration lag
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
     initialData: initialData
       ? {
           freelancers: initialData.freelancers,
           totalCount: initialData.totalCount,
           pageNumber: 1,
-          pageSize: 12,
-          totalPages: Math.ceil(initialData.totalCount / 12),
+          pageSize: 9,
+          totalPages: Math.ceil(initialData.totalCount / 9),
         }
       : undefined,
   });
+
+  // Derived state to ensure totalPages is always accurate based on our client-side pageSize (9)
+  const data = query.data ? {
+    ...query.data,
+    totalPages: Math.ceil(query.data.totalCount / (searchParams?.pageSize || 9))
+  } : undefined;
+
+  return { ...query, data };
 }

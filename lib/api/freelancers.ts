@@ -49,7 +49,7 @@ export async function fetchFreelancers(
       freelancers: [],
       totalCount: 0,
       pageNumber: 1,
-      pageSize: 12,
+      pageSize: 9,
       totalPages: 0,
     };
   }
