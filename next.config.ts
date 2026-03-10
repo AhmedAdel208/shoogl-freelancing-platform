@@ -4,12 +4,10 @@ const withPWA = require("next-pwa")({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
+  buildExcludes: [/app-build-manifest\.json$/],
 });
 
 const nextConfig: NextConfig = {
-  webpack: (config) => {
-    return config;
-  },
   images: {
     qualities: [60, 75],
     minimumCacheTTL: 60 * 60 * 24 * 30,
