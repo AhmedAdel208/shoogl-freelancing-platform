@@ -12,6 +12,7 @@ interface SearchParams {
 export interface WorkersContainerProps {
   freelancers: Freelancer[];
   totalCount: number;
+  totalPages: number;
   isLoading: boolean;
   error: any;
   refetch: () => void;

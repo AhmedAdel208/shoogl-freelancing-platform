@@ -14,7 +14,7 @@ export default async function WorkersPage() {
   // Fetch initial data on server with caching
   const initialData = await fetchFreelancers({
     pageNumber: 1,
-    pageSize: 12,
+    pageSize: 9,
   });
 
   // Filter out freelancers who don't have a bio (null, undefined, or empty string)
@@ -27,7 +27,7 @@ export default async function WorkersPage() {
       <Gradientline />
       <LinksHeader />
       <main className="min-h-screen w-full">
-        <Suspense fallback={<PremiumSkeletonGrid count={6} />}>
+        <Suspense fallback={<PremiumSkeletonGrid count={9} />}>
           <WorkersClient
             initialData={{
               freelancers: freelancers,
