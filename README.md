@@ -39,7 +39,7 @@
 ## 🛠️ Tech Stack & Optimization
 
 ### **Core**
-- **Next.js 15 (App Router)**: Utilizing Server Components for SEO and Client Components for interactivity.
+- **Next.js 16 (App Router)**: Utilizing Server Components for SEO and Client Components for interactivity.
 - **TypeScript**: 100% type-safe codebase for long-term maintainability.
 - **Zustand**: Lightweight, scalable state management for global UI and auth states.
 
