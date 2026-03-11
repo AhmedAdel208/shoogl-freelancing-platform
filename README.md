@@ -8,6 +8,7 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
   [![React Query](https://img.shields.io/badge/TanStack_Query-5.0-FF4154?style=for-the-badge&logo=react-query)](https://tanstack.com/query)
   [![Zustand](https://img.shields.io/badge/Zustand-State-orange?style=for-the-badge&logo=react)](https://github.com/pmndrs/zustand)
+  [![SignalR](https://img.shields.io/badge/SignalR-Real_Time-5C2D91?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/apps/aspnet/signalr)
 </div>
 
 ---
