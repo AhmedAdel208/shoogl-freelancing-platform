@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./public/favicon.ico" width="80" height="80" alt="Shogol Logo" />
   <h1>🚀 SHOGOL - Freelancing Revolution</h1>
-  <p><b>Next-Generation Freelance Platform built with Next.js 15, TypeScript.</b></p>
+  <p><b>Next-Generation Freelance Platform built with Next.js 16, TypeScript.</b></p>
   
   [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
