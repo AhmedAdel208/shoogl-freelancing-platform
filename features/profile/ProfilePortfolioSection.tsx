@@ -99,10 +99,10 @@ export default function ProfilePortfolioSection() {
                 <div className="p-6">
                   <div className="flex justify-between items-start gap-4">
                     <div className="space-y-1 flex-1">
-                      <h3 className="font-black text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
+                      <h3 className="font-black text-slate-900 group-hover:text-primary transition-colors line-clamp-1 wrap-break-word">
                         {item.title}
                       </h3>
-                      <p className="text-slate-500 font-bold text-xs line-clamp-2 leading-relaxed">
+                      <p className="text-slate-500 font-bold text-xs line-clamp-2 leading-relaxed wrap-break-word">
                         {item.description || "لا يوجد وصف"}
                       </p>
                     </div>

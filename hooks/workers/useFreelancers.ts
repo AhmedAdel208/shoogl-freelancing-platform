@@ -36,8 +36,9 @@ export function useFreelancers(
           freelancers: initialData.freelancers,
           totalCount: initialData.totalCount,
           pageNumber: 1,
-          pageSize: 9,
-          totalPages: Math.ceil(initialData.totalCount / 9),
+          
+          pageSize: 12,
+          totalPages: Math.ceil(initialData.totalCount / 12),
         }
       : undefined,
   });
@@ -45,7 +46,7 @@ export function useFreelancers(
   // Derived state to ensure totalPages is always accurate based on our client-side pageSize (9)
   const data = query.data ? {
     ...query.data,
-    totalPages: Math.ceil(query.data.totalCount / (searchParams?.pageSize || 9))
+    totalPages: Math.ceil(query.data.totalCount / (searchParams?.pageSize || 12))
   } : undefined;
 
   return { ...query, data };

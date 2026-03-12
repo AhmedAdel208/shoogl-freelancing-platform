@@ -50,7 +50,7 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
       {attachment && (
         <div className="flex items-center gap-3 p-3 bg-bg rounded-xl border border-border animate-in slide-in-from-bottom-2">
           <div className="flex-1 text-right">
-            <p className="text-xs font-bold text-heading font-cairo truncate">
+            <p className="text-xs font-bold text-heading font-cairo truncate break-all">
               {attachment.name}
             </p>
             <p className="text-[10px] text-gray-medium font-cairo">

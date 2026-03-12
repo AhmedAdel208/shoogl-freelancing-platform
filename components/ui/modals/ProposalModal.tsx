@@ -7,7 +7,7 @@ import {
   type ProposalFormData,
 
 } from "@/lib/validation/proposalSchema";
-import { X, Send, Clock, Banknote, FileText, ChevronRight } from "lucide-react";
+import { X, Send, Clock, Banknote, FileText} from "lucide-react";
 import { useEffect } from "react";
 
 interface ProposalModalProps {
@@ -123,7 +123,7 @@ export default function ProposalModal({
           </div>
 
           {/* Price & Duration Grid */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
              {/* Proposed Price */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-slate-700 font-black font-cairo text-sm">
@@ -167,11 +167,11 @@ export default function ProposalModal({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-4 pt-4 border-t border-slate-50">
+          <div className="flex flex-col-reverse sm:flex-row items-center gap-3 sm:gap-4 pt-4 border-t border-slate-50">
              <button
                 type="submit"
                 disabled={isSubmitting || !isValid}
-                className="flex-2 relative overflow-hidden bg-primary text-white py-4 rounded-2xl font-black font-cairo text-base shadow-xl shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none group/btn cursor-pointer"
+                className="w-full sm:flex-2 relative overflow-hidden bg-primary text-white py-4 rounded-2xl font-black font-cairo text-base shadow-xl shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none group/btn cursor-pointer"
              >
                 <div className="relative z-10 flex items-center justify-center gap-2">
                   {isSubmitting ? (
@@ -192,7 +192,7 @@ export default function ProposalModal({
              <button
                 type="button"
                 onClick={handleClose}
-                className="flex-1 bg-slate-50 text-slate-400 py-4 rounded-2xl font-black font-cairo text-base hover:bg-slate-100 hover:text-slate-600 transition-all cursor-pointer"
+                className="w-full sm:flex-1 bg-slate-50 text-slate-400 py-4 rounded-2xl font-black font-cairo text-base hover:bg-slate-100 hover:text-slate-600 transition-all cursor-pointer"
              >
                 إلغاء
              </button>

@@ -57,10 +57,10 @@ export default function NewHero({ t, isRtl }: NewHeroProps) {
 
             {/* Headline */}
             <div>
-              <h1 className="leading-[1.15] sm:leading-[1.1] font-extrabold tracking-tight text-[32px] sm:text-[40px] md:text-[52px] lg:text-[64px] ">
+              <h1 className="leading-[1.15] sm:leading-[1.1] font-extrabold tracking-tight text-[32px] sm:text-[40px] md:text-[45px] lg:text-[58px] ">
                 <span className="text-white block">{t.hero.title}</span>
               </h1>
-              <p className="text-white/90 mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] xl:text-[24px]  font-medium sm:font-bold leading-relaxed mt-4 sm:mt-6 lg:mt-8 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+              <p className="text-white/90 mx-auto text-base sm:text-lg md:text-xl lg:text-[20px] xl:text-[22px]  font-medium sm:font-bold leading-relaxed mt-4 sm:mt-6 lg:mt-8 max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
                 {t.hero.subtitle}
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function NewHero({ t, isRtl }: NewHeroProps) {
                       className={`hidden md:block absolute ${isRtl ? "right-0" : "left-0"} top-1/2 -translate-y-1/2 w-px h-10 bg-white/10`}
                     />
                   )}
-                  <span className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl  font-black text-white">
+                  <span className="text-1xl sm:text-2xl lg:text-3xl  font-black text-white">
                     {stat.value}
                   </span>
                   <span className="text-[11px] sm:text-xs xl:text-sm font-semibold text-white/50 text-center uppercase tracking-wider">

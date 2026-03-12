@@ -55,7 +55,7 @@ export default function ServiceCard() {
             <h3 className="text-heading font-black text-[19px] mb-3 leading-tight font-cairo group-hover:text-primary transition-colors">
               {isRtl ? service.title : (service.titleEn || service.title)}
             </h3>
-            <p className="text-slate-900 text-sm leading-relaxed mb-6 line-clamp-2 font-bold font-cairo opacity-70">
+            <p className="text-slate-900 text-sm leading-relaxed mb-6 line-clamp-2 font-bold font-cairo opacity-70 wrap-break-word">
               {isRtl ? service.description : (service.descriptionEn || service.description)}
             </p>
 

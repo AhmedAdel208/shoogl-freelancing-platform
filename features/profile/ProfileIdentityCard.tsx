@@ -41,24 +41,24 @@ export default function ProfileIdentityCard({ profile }: ProfileIdentityCardProp
             <h1 className="text-2xl font-black text-heading tracking-tight flex items-center gap-2">
               {displayName}
             </h1>
-            <p className="text-gray-medium font-bold text-sm flex items-center gap-2">
+            <p className="text-gray-medium font-bold text-xs sm:text-sm flex items-center gap-2 break-all">
               <Mail size={14} className="text-gray-medium opacity-60" />
               {profile.email}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 w-full sm:w-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto mt-2 sm:mt-0">
           {profile.isFreelancer && (
             <Link 
               href={`/workers/${profile.id}`}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-bg border-2 border-border text-gray-medium rounded-2xl font-bold hover:bg-card-bg hover:border-primary/30 hover:text-primary transition-all active:scale-[0.98]"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-bg border-2 border-border text-gray-medium rounded-2xl font-bold hover:bg-card-bg hover:border-primary/30 hover:text-primary transition-all active:scale-[0.98] text-sm sm:text-base"
             >
               <Eye size={18} />
               <span>عرض ملفي</span>
             </Link>
           )}
-          <Link href="/profile/edit" className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary/10 text-primary rounded-2xl font-black hover:bg-primary hover:text-white transition-all active:scale-[0.98]">
+          <Link href="/profile/edit" className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-primary/10 text-primary rounded-2xl font-black hover:bg-primary hover:text-white transition-all active:scale-[0.98] text-sm sm:text-base">
             <Settings size={18} />
             <span>تعديل</span>
           </Link>

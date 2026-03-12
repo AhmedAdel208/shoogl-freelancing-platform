@@ -90,14 +90,14 @@ export default function NotificationsContent() {
               {/* Center Content */}
               <div className="flex-1 text-right px-5">
                 <div className="flex items-center justify-between mb-1">
-                  <h3 className={`text-base ${notification.isRead ? "font-bold text-slate-600" : "font-black text-slate-900"}`}>
+                  <h3 className={`text-base wrap-break-word ${notification.isRead ? "font-bold text-slate-600" : "font-black text-slate-900"}`}>
                     {notification.title}
                   </h3>
                   <div className="text-[10px] text-slate-400 font-bold bg-slate-50 px-2 py-0.5 rounded-full">
                     {formatTimeAgo(notification.createdAt)}
                   </div>
                 </div>
-                <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-500/80" : "text-slate-600"}`}>
+                <p className={`text-sm leading-relaxed wrap-break-word ${notification.isRead ? "text-slate-500/80" : "text-slate-600"}`}>
                   {notification.message}
                 </p>
               </div>

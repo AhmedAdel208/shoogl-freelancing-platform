@@ -1,4 +1,4 @@
-"use client";
+
 
 import RequestsToolbar from "@/container/workers/workersList/RequestsToolbar";
 import FreelancerCard from "./FreelancerCard";
@@ -7,8 +7,7 @@ import PremiumSkeletonGrid from "@/common/PremiumSkeletonGrid";
 import EmptyState from "@/common/EmptyState";
 import ErrorState from "@/common/ErrorState";
 import { RefreshCw, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
-import { useEffect } from "react";
+
 
 export default function WorkersContainer({
   freelancers,
@@ -19,8 +18,9 @@ export default function WorkersContainer({
   refetch,
   searchParams,
   setSearchParams,
+  isRtl
 }: WorkersContainerProps) {
-  const { isRtl } = useTranslation();
+  
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -112,7 +112,7 @@ export default function WorkersContainer({
       )}
 
       {/* Loading State: Premium Skeleton Grid */}
-      {isLoading && <PremiumSkeletonGrid count={9} />}
+      {isLoading && <PremiumSkeletonGrid count={12} />}
 
       {/* Error State */}
       {error && (
@@ -146,31 +146,33 @@ export default function WorkersContainer({
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="mt-16 sm:mt-24 mb-10 flex flex-col items-center gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-              {/* Pagination Container */}
-              <div className="flex items-center gap-1.5 sm:gap-3 p-2 bg-card-bg border border-border rounded-[24px] shadow-sm ring-4 ring-primary/5">
+            <div className="mt-20 sm:mt-28 mb-12 flex flex-col items-center gap-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              {/* Premium Pagination Container */}
+              <div className="flex items-center gap-2 sm:gap-4 p-3 bg-card-bg border border-border/60 rounded-[30px] shadow-[0_10px_40px_rgb(0,0,0,0.04)] ring-8 ring-primary/5 backdrop-blur-xl">
                 {/* First Page */}
                 <button
                   onClick={() => handlePageChange(1)}
                   disabled={searchParams.pageNumber === 1}
-                  className="p-2.5 sm:p-3.5 rounded-2xl bg-white border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-gray-medium transition-all duration-300 shadow-sm group/btn"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
                   aria-label="First Page"
                 >
-                  <ChevronsLeft className={`w-4.5 h-4.5 sm:w-5 sm:h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
+                  <ChevronsLeft className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
                 </button>
+                
+                <div className="w-px h-8 bg-border/40 mx-1 hidden sm:block" />
 
                 {/* Previous Page */}
                 <button
                   onClick={() => handlePageChange(searchParams.pageNumber - 1)}
                   disabled={searchParams.pageNumber === 1}
-                  className="p-2.5 sm:p-3.5 rounded-2xl bg-white border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-gray-medium transition-all duration-300 shadow-sm group/btn"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
                   aria-label="Previous Page"
                 >
-                  <ChevronLeft className={`w-4.5 h-4.5 sm:w-5 sm:h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
+                  <ChevronLeft className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
                 </button>
 
                 {/* Page Numbers */}
-                <div className="flex items-center gap-1.5 sm:gap-2.5 mx-1">
+                <div className="flex items-center gap-2 sm:gap-3 mx-1">
                   {renderPageNumbers()}
                 </div>
 
@@ -178,33 +180,25 @@ export default function WorkersContainer({
                 <button
                   onClick={() => handlePageChange(searchParams.pageNumber + 1)}
                   disabled={searchParams.pageNumber === totalPages}
-                  className="p-2.5 sm:p-3.5 rounded-2xl bg-white border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-gray-medium transition-all duration-300 shadow-sm group/btn"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
                   aria-label="Next Page"
                 >
-                  <ChevronRight className={`w-4.5 h-4.5 sm:w-5 sm:h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
+                  <ChevronRight className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
                 </button>
+
+                <div className="w-px h-8 bg-border/40 mx-1 hidden sm:block" />
 
                 {/* Last Page */}
                 <button
                   onClick={() => handlePageChange(totalPages)}
                   disabled={searchParams.pageNumber === totalPages}
-                  className="p-2.5 sm:p-3.5 rounded-2xl bg-white border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-gray-medium transition-all duration-300 shadow-sm group/btn"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
                   aria-label="Last Page"
                 >
-                  <ChevronsRight className={`w-4.5 h-4.5 sm:w-5 sm:h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
+                  <ChevronsRight className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
                 </button>
               </div>
 
-              {/* Page Indicator */}
-              <div className="flex items-center gap-3 px-6 py-2 bg-primary/5 rounded-full border border-primary/10">
-                <span className="text-[13px] sm:text-sm font-black font-cairo text-primary">
-                  {isRtl ? "صفحة" : "Page"} {searchParams.pageNumber} {isRtl ? "من" : "of"} {totalPages}
-                </span>
-                <div className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-                <span className="text-[13px] sm:text-sm font-bold font-cairo text-gray-medium opacity-70">
-                   {totalCount} {isRtl ? "مشتغل" : "Freelancers"}
-                </span>
-              </div>
             </div>
           )}
         </>

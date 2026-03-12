@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useFreelancers } from "@/hooks/workers/useFreelancers";
 import WorkersContainer from "@/container/workers/workersList/WorkersContainer";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface WorkersClientProps {
   initialData?: {
@@ -18,10 +19,11 @@ export default function WorkersClient({ initialData }: WorkersClientProps) {
     nationality: "",
     minRating: 0,
     pageNumber: 1,
-    pageSize: 9,
+    pageSize: 12,
   });
 
   const { data, isLoading, error, refetch } = useFreelancers(searchParams, initialData);
+  const { isRtl } = useTranslation();
 
   const freelancers = data?.freelancers || [];
   const totalCount = data?.totalCount || 0;
@@ -34,6 +36,7 @@ export default function WorkersClient({ initialData }: WorkersClientProps) {
       totalPages={totalPages}
       isLoading={isLoading}
       error={error}
+      isRtl={isRtl}
       refetch={refetch}
       searchParams={searchParams}
       setSearchParams={setSearchParams}

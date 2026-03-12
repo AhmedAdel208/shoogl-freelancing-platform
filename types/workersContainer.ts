@@ -18,4 +18,5 @@ export interface WorkersContainerProps {
   refetch: () => void;
   searchParams: SearchParams;
   setSearchParams: React.Dispatch<React.SetStateAction<SearchParams>>;
+  isRtl: boolean;
 }

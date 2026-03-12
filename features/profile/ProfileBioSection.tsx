@@ -170,7 +170,7 @@ export default function ProfileBioSection({ bio }: ProfileBioSectionProps) {
       ) : (
         <div className="bg-bg/40 rounded-[32px] p-10 border border-border/50 hover:bg-bg/60 hover:border-border transition-all duration-300 shadow-inner group">
           {bio ? (
-            <p className="text-gray-dark font-bold leading-loose text-base md:text-lg whitespace-pre-line">
+            <p className="text-gray-dark font-bold leading-loose text-base md:text-lg whitespace-pre-line wrap-break-word">
               {bio}
             </p>
           ) : (
