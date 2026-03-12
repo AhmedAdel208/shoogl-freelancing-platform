@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --theme-heading: #02385a;        /* Dark blue on light mode */
-  --theme-brand-dark: #02385a;     /* Pure Brand Dark */
+  --theme-heading: #02385a; /* Dark blue on light mode */
+  --theme-brand-dark: #02385a; /* Pure Brand Dark */
   --theme-gray-light: #fafafa;
   --theme-gray-medium: #8f8f8f;
   --theme-gray-dark: #37383b;
@@ -13,22 +13,22 @@
 }
 
 .dark {
-  --theme-heading: #f1f5f9;        /* Slate-100 */
-  --theme-brand-dark: #0f172a;     /* Slate-900 */
-  --theme-gray-light: #1e293b;     /* Slate-800 */
-  --theme-gray-medium: #94a3b8;    /* Slate-400 */
-  --theme-gray-dark: #e2e8f0;      /* Slate-200 */
-  --theme-bg: #020617;             /* Ultra Deep Navy/Slate-950 */
-  --theme-border: #1e293b;         /* Slate-800 */
-  --theme-card-bg: #0f172a;        /* Slate-900 */
-  --theme-light-white: #1e293b;    /* Slate-800 variant */
+  --theme-heading: #f1f5f9; /* Slate-100 */
+  --theme-brand-dark: #0f172a; /* Slate-900 */
+  --theme-gray-light: #1e293b; /* Slate-800 */
+  --theme-gray-medium: #94a3b8; /* Slate-400 */
+  --theme-gray-dark: #e2e8f0; /* Slate-200 */
+  --theme-bg: #020617; /* Ultra Deep Navy/Slate-950 */
+  --theme-border: #1e293b; /* Slate-800 */
+  --theme-card-bg: #0f172a; /* Slate-900 */
+  --theme-light-white: #1e293b; /* Slate-800 variant */
 }
 
 @theme {
   /* Dynamic Theme Colors */
   --color-primary: #1eaaad;
   --color-accent: #fcbf29;
-  
+
   --color-dark: var(--theme-brand-dark);
   --color-heading: var(--theme-heading);
   --color-gray-light: var(--theme-gray-light);
@@ -116,7 +116,9 @@
     max-width: 1920px;
     margin: 0 auto;
     line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   h1,
@@ -131,7 +133,6 @@
   button {
     @apply cursor-pointer;
   }
-
 }
 
 @layer components {
@@ -354,7 +355,8 @@
 }
 
 @keyframes bounce-slow {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(-5%);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
@@ -367,7 +369,6 @@
 .animate-bounce-slow {
   animation: bounce-slow 3s infinite;
 }
-
 
 /* 
  * ==========================================
@@ -382,10 +383,10 @@
 }
 
 /* Light Backgrounds -> Ultra Deep Navy Background */
-.dark .bg-slate-50, 
-.dark .bg-gray-50, 
-.dark .bg-slate-100, 
-.dark .bg-gray-100, 
+.dark .bg-slate-50,
+.dark .bg-gray-50,
+.dark .bg-slate-100,
+.dark .bg-gray-100,
 .dark .bg-\[\#f8fafc\],
 .dark .bg-slate-50\/50,
 .dark .bg-slate-200\/20,
@@ -396,22 +397,22 @@
 
 /* Text Colors Inversion */
 .dark .text-dark,
-.dark .text-slate-900, 
-.dark .text-gray-900, 
-.dark .text-gray-800, 
+.dark .text-slate-900,
+.dark .text-gray-900,
+.dark .text-gray-800,
 .dark .text-slate-800,
 .dark .text-black {
   color: var(--theme-heading) !important;
 }
 
-.dark .text-gray-700, 
-.dark .text-gray-600, 
+.dark .text-gray-700,
+.dark .text-gray-600,
 .dark .text-slate-700,
 .dark .text-slate-600 {
   color: var(--theme-gray-dark) !important;
 }
 
-.dark .text-gray-500, 
+.dark .text-gray-500,
 .dark .text-slate-500,
 .dark .text-slate-400 {
   color: var(--theme-gray-medium) !important;
@@ -424,15 +425,15 @@
 
 /* Borders and Shadows */
 .dark .border-slate-100,
-.dark .border-slate-200, 
-.dark .border-gray-100, 
-.dark .border-gray-200, 
+.dark .border-slate-200,
+.dark .border-gray-100,
+.dark .border-gray-200,
 .dark .border {
   border-color: var(--theme-border) !important;
 }
 
-.dark .shadow-sm, 
-.dark .shadow-md, 
+.dark .shadow-sm,
+.dark .shadow-md,
 .dark .shadow-lg,
 .dark .shadow-xl,
 .dark .shadow-slate-200\/50 {
@@ -440,11 +441,15 @@
 }
 
 /* Special Case: Gradient Borders */
-.dark .from-slate-200 { --tw-gradient-from: #1e293b !important; }
-.dark .to-slate-50 { --tw-gradient-to: #020617 !important; }
+.dark .from-slate-200 {
+  --tw-gradient-from: #1e293b !important;
+}
+.dark .to-slate-50 {
+  --tw-gradient-to: #020617 !important;
+}
 
 /* Invert Colored Light Backgrounds (Amber for Bio, Emerald for Skills, Primary for Buttons) */
-.dark .bg-amber-50, 
+.dark .bg-amber-50,
 .dark .bg-emerald-50,
 .dark .bg-primary\/5,
 .dark .bg-primary\/10,

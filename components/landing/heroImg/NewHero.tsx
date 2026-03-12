@@ -1,41 +1,22 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Search } from "lucide-react";
-import { useState, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import newHero from "@/public/images/newHero.webp";
 import Image from "next/image";
 import { HERO_STATS_AR, HERO_STATS_EN } from "@/data/heroStats";
-import { useTranslation } from "@/hooks/useTranslation";
+import HeroSearchBar from "./HeroSearchBar";
 
-export default function NewHero() {
-  const router = useRouter();
-  const { t, isRtl } = useTranslation();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+interface NewHeroProps {
+  t: {
+    hero: {
+      title: string;
+      subtitle: string;
+    };
+  };
+  isRtl: boolean;
+}
 
+export default function NewHero({ t, isRtl }: NewHeroProps) {
   const HERO_STATS = isRtl ? HERO_STATS_AR : HERO_STATS_EN;
-
-  const handleSearch = useCallback(() => {
-    const trimmed = searchQuery.trim();
-    if (trimmed) {
-      router.push(`/announcements?search=${encodeURIComponent(trimmed)}`);
-    } else {
-      router.push("/announcements");
-    }
-  }, [searchQuery, router]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSearch();
-      }
-    },
-    [handleSearch],
-  );
 
   return (
     <section
@@ -64,7 +45,7 @@ export default function NewHero() {
 
       {/* Content */}
       <div className="relative flex-1 flex items-center justify-center">
-        <div className="w-full max-w-[1440px] mx-auto text-center px-4 sm:px-6 md:px-12 lg:px-16 py-20 sm:py-28 lg:py-36 xl:py-48 2xl:py-56">
+        <div className="w-full max-w-8xl mx-auto text-center px-4 sm:px-6 md:px-12 lg:px-16 py-20 sm:py-28 lg:py-36 xl:py-48 2xl:py-56">
           <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto space-y-8 sm:space-y-10 lg:space-y-12 2xl:space-y-16">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm text-primary text-xs sm:text-sm font-bold">
@@ -86,44 +67,13 @@ export default function NewHero() {
 
             {/* Search */}
             <div>
-              <div className="relative group">
-                <div
-                  className={`absolute -inset-px bg-linear-to-l from-primary to-teal-400 rounded-[18px] blur-sm transition-opacity duration-300 ${isFocused ? "opacity-50" : "opacity-0"}`}
-                />
-                <div
-                  className={`relative flex items-center backdrop-blur-xl rounded-2xl p-2 pr-5 gap-2 transition-all duration-300 ${
-                    isFocused
-                      ? "bg-white/15 border border-primary/30 shadow-xl"
-                      : "bg-white/10 border border-white/10"
-                  } ${isRtl ? "pr-5" : "pl-5"}`}
-                >
-                  <div className="flex-1 relative min-h-[56px] flex items-center">
-                    <input
-                      ref={inputRef}
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
-                      onKeyDown={handleKeyDown}
-                      placeholder={isRtl ? "اكتب ما تبحث عنه..." : "Type what you're looking for..."}
-                      dir={isRtl ? "rtl" : "ltr"}
-                      className={`w-full bg-transparent! border-none! outline-none text-white text-sm sm:text-base min-w-0 font-medium relative z-10 placeholder:text-white/50 ${isRtl ? "text-right" : "text-left"}`}
-                    />
-                  </div>
-
-                  <button
-                    onClick={handleSearch}
-                    className="bg-primary cursor-pointer text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center hover:bg-primary/90 transition-all shadow-lg shadow-primary/30 shrink-0"
-                  >
-                    <Search className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </button>
-                </div>
-              </div>
+              <HeroSearchBar />
             </div>
 
             {/* CTAs */}
-            <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-0 ${isRtl ? "" : "sm:flex-row-reverse"}`}>
+            <div
+              className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-0 ${isRtl ? "" : "sm:flex-row-reverse"}`}
+            >
               <Link href="/announcements" className="w-full sm:w-auto">
                 <button className="relative w-full sm:w-auto overflow-hidden px-6 py-3.5 sm:px-9 sm:py-4 rounded-[14px] font-black text-[15px] sm:text-base xl:text-lg text-white cursor-pointer shadow-primary/25 hover:shadow-primary/45 transition-all duration-300">
                   <div className="absolute backdrop-blur-sm inset-0 bg-linear-to-l from-primary via-teal-500 to-primary bg-size-[200%_auto]" />

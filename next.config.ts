@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         source: "/api-proxy/:path*",
         destination: "https://shogol.runasp.net/api/:path*",
       },
-   
+
       {
         source: "/chatHub/:path*",
         destination: "https://shogol.runasp.net/chatHub/:path*",

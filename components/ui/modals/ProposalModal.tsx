@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   proposalSchema,
   type ProposalFormData,
-  type ProposalFormInput,
+
 } from "@/lib/validation/proposalSchema";
 import { X, Send, Clock, Banknote, FileText, ChevronRight } from "lucide-react";
 import { useEffect } from "react";

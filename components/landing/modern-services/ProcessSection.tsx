@@ -1,11 +1,10 @@
-"use client";
-
 import { CheckCircle2, Search, Send, Rocket, Sparkles } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
 
-export default function ProcessSection() {
-  const { isRtl } = useTranslation();
+interface ProcessSectionProps {
+  isRtl: boolean;
+}
 
+export default function ProcessSection({ isRtl }: ProcessSectionProps) {
   const stepsAr = [
     {
       icon: <Send className="w-8 h-8" />,
@@ -65,22 +64,32 @@ export default function ProcessSection() {
   return (
     <section className="py-16 sm:py-24 md:py-32 bg-bg relative overflow-hidden select-none">
       {/* Background Decor */}
-      <div className={`absolute top-0 ${isRtl ? 'right-1/4' : 'left-1/4'} w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10`} />
+      <div
+        className={`absolute top-0 ${isRtl ? "right-1/4" : "left-1/4"} w-150 h-150 bg-primary/5 rounded-full blur-[120px] -z-10`}
+      />
 
       <div className="max-w-8xl mx-auto px-6 md:px-12 text-center">
         {/* Section Header */}
         <div className="space-y-6 mb-16 md:mb-24">
           <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-card-bg border border-border rounded-full text-gray-medium shadow-sm">
-            <Sparkles size={16} className="text-primary sm:w-[18px] sm:h-[18px]" />
+            <Sparkles size={16} className="text-primary sm:w-4.5 sm:h-4.5" />
             <span className="text-xs sm:text-sm font-black font-cairo uppercase tracking-wider">
-              {isRtl ? "سهولة، سرعة، وكفاءة غير مسبوقة" : "Ease, Speed, and Unprecedented Efficiency"}
+              {isRtl
+                ? "سهولة، سرعة، وكفاءة غير مسبوقة"
+                : "Ease, Speed, and Unprecedented Efficiency"}
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-black text-heading font-cairo leading-[1.2] tracking-tight max-w-4xl mx-auto">
             {isRtl ? (
-              <>رحلة النجاح مع شُغل تبدأ <span className="text-primary italic">بأربع خطوات</span></>
+              <>
+                رحلة النجاح مع شُغل تبدأ{" "}
+                <span className="text-primary italic">بأربع خطوات</span>
+              </>
             ) : (
-              <>Success Journey with SHOGOL Starts <span className="text-primary italic">in 4 Steps</span></>
+              <>
+                Success Journey with SHOGOL Starts{" "}
+                <span className="text-primary italic">in 4 Steps</span>
+              </>
             )}
           </h2>
         </div>
@@ -88,16 +97,18 @@ export default function ProcessSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 relative">
           {/* Static Connecting Path (Desktop) */}
           <div
-            className={`hidden lg:block absolute top-[60px] ${isRtl ? 'right-[10%] left-[10%]' : 'left-[10%] right-[10%]'} h-[2px] bg-linear-to-r from-transparent via-border to-transparent -z-10`}
+            className={`hidden lg:block absolute top-15 ${isRtl ? "right-[10%] left-[10%]" : "left-[10%] right-[10%]"} h-[2px] bg-linear-to-r from-transparent via-border to-transparent -z-10`}
           />
 
           {steps.map((step, i) => (
             <div
               key={i}
-              className={`relative flex flex-col items-center group ${isRtl ? 'text-right' : 'text-left'}`}
+              className={`relative flex flex-col items-center group ${isRtl ? "text-right" : "text-left"}`}
             >
               {/* Step Number Dot */}
-              <div className={`absolute -top-3 sm:-top-4 ${isRtl ? '-right-1 sm:-right-2' : '-left-1 sm:-left-2'} w-8 h-8 sm:w-10 sm:h-10 bg-card-bg border border-border rounded-full flex items-center justify-center font-black text-gray-medium/30 text-[10px] sm:text-xs shadow-md group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-500 z-10`}>
+              <div
+                className={`absolute -top-3 sm:-top-4 ${isRtl ? "-right-1 sm:-right-2" : "-left-1 sm:-left-2"} w-8 h-8 sm:w-10 sm:h-10 bg-card-bg border border-border rounded-full flex items-center justify-center font-black text-gray-medium/30 text-[10px] sm:text-xs shadow-md group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-500 z-10`}
+              >
                 0{i + 1}
               </div>
 
@@ -115,7 +126,7 @@ export default function ProcessSection() {
                 <h3 className="text-xl sm:text-2xl font-black text-heading font-cairo group-hover:text-primary transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-sm sm:text-base font-bold font-cairo text-gray-medium leading-relaxed max-w-[260px] mx-auto opacity-70 group-hover:opacity-100 transition-opacity">
+                <p className="text-sm sm:text-base font-bold font-cairo text-gray-medium leading-relaxed max-w-65 mx-auto opacity-70 group-hover:opacity-100 transition-opacity">
                   {step.desc}
                 </p>
               </div>
