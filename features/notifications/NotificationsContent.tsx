@@ -1,24 +1,25 @@
-"use client";
-
-import { useEffect } from "react";
 import { Bell, CheckCheck, Inbox, ChevronRight } from "lucide-react";
 import { formatTimeAgo } from "@/utils/date";
-import { useNotifications } from "@/hooks/notifications/useNotifications";
 
-export default function NotificationsContent() {
-  const {
-    notifications,
-    unreadCount,
-    isLoading,
-    isMarkingAllRead,
-    handleMarkAllRead,
-    handleNotificationClick,
-    refetch,
-  } = useNotifications();
+interface NotificationsContentProps {
+  notifications: any[];
+  unreadCount: number;
+  isLoading: boolean;
+  isMarkingAllRead: boolean;
+  handleMarkAllRead: () => void;
+  handleNotificationClick: (notification: any) => void;
+  refetch: () => void;
+}
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+export default function NotificationsContent({
+  notifications,
+  unreadCount,
+  isLoading,
+  isMarkingAllRead,
+  handleMarkAllRead,
+  handleNotificationClick,
+  refetch,
+}: NotificationsContentProps) {
 
   if (isLoading) {
     return (

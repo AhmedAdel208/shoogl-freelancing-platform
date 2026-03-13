@@ -78,3 +78,23 @@ export const formatLastSeen = (dateString?: string): string => {
   
   return new Intl.DateTimeFormat('ar-EG', { day: 'numeric', month: 'short' }).format(date);
 };
+
+export const formatProjectDeadline = (
+  createdAt: string,
+  durationInDays: number,
+  deadline?: string,
+  locale: string = 'ar'
+): string => {
+  const dateToUse = deadline ? new Date(deadline) : (() => {
+    const createdDate = new Date(createdAt);
+    const deadlineDate = new Date(createdDate);
+    deadlineDate.setDate(deadlineDate.getDate() + durationInDays);
+    return deadlineDate;
+  })();
+
+  return dateToUse.toLocaleDateString(locale === 'ar' ? "ar-EG" : "en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};

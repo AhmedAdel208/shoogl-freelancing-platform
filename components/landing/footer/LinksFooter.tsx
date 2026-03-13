@@ -9,8 +9,8 @@ import XIcon from "@/public/icons/XIcon";
 import InstagramIcon from "@/public/icons/InstagramIcon";
 import LinkedInIcon from "@/public/icons/LinkedInIcon";
 
-export default function LinksFooter() {
-  const { t, isRtl } = useTranslation();
+export default function LinksFooter({t, isRtl} : {t: any, isRtl: boolean }) {
+
 
   return (
     <div className={`lg:col-span-1 mt-5`}>

@@ -100,7 +100,7 @@ export default function ProposalCard({
           <div className="flex items-center gap-4 min-w-0">
             <div 
               onClick={isProjectOwner ? handleContactFreelancer : undefined}
-              className={`relative w-14 h-14 sm:w-20 sm:h-20 bg-bg rounded-full  flex items-center justify-center shrink-0 ring-4 ring-border/20 shadow-2xl transition-all duration-500 overflow-hidden ${isProjectOwner ? 'cursor-pointer hover:ring-primary/40 group-hover:scale-105' : ''}`}
+              className={`relative w-12 h-12 sm:w-15 sm:h-15 bg-bg rounded-full  flex items-center justify-center shrink-0 ring-4 ring-border/20 shadow-2xl transition-all duration-500 overflow-hidden ${isProjectOwner ? 'cursor-pointer hover:ring-primary/40 group-hover:scale-105' : ''}`}
             >
               {proposal.freelancerAvatar ? (
                 <Image
@@ -112,7 +112,7 @@ export default function ProposalCard({
                 />
               ) : (
                 <div className="bg-primary/5 w-full h-full flex items-center justify-center">
-                  <span className="text-primary text-2xl sm:text-3xl font-black font-cairo">
+                  <span className="text-primary text-2xl  font-black font-cairo">
                     {proposal.freelancerName?.charAt(0).toUpperCase() || "U"}
                   </span>
                 </div>
@@ -123,14 +123,14 @@ export default function ProposalCard({
             <div className="flex flex-col min-w-0">
               <div 
                 onClick={isProjectOwner ? handleContactFreelancer : undefined}
-                className={`flex items-center gap-2 group/name mb-1 min-w-0 ${isProjectOwner ? 'cursor-pointer' : ''}`}
+                className={`flex items-center gap-2 group/name mb-2 min-w-0 ${isProjectOwner ? 'cursor-pointer' : ''}`}
               >
-                <h3 className="font-black text-heading text-lg sm:text-2xl md:text-3xl leading-tight font-cairo group-hover/name:text-primary transition-colors truncate">
+                <h3 className="font-black text-heading text-lg sm:text-1xl md:text-2xl leading-tight font-cairo group-hover/name:text-primary transition-colors truncate">
                   {proposal.freelancerName}
                 </h3>
               </div>
               
-              <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-sm font-bold">
+              <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs font-bold">
                 <div className="flex items-center gap-1 bg-amber-500/10 px-2 py-1 rounded-lg border border-amber-500/10 shadow-xs">
                   <Star className="text-amber-500 fill-amber-500" size={12} />
                   <span className="text-amber-600 font-black">
@@ -146,23 +146,23 @@ export default function ProposalCard({
             </div>
           </div>
 
-          <div className={`p-3 sm:p-4 rounded-2xl sm:rounded-3xl border ${status.bg} ${status.text} ${status.border} flex flex-col items-center justify-center shrink-0 shadow-xs min-w-[70px] sm:min-w-[100px]`}>
+          <div className={`p-2  rounded-2xl sm:rounded-3xl border ${status.bg} ${status.text} ${status.border} flex flex-col items-center justify-center shrink-0 shadow-xs min-w-[70px] sm:min-w-[100px]`}>
             <div className="mb-1">{status.icon}</div>
             <span className="text-[10px] sm:text-sm font-black font-cairo text-center leading-tight">{status.label}</span>
           </div>
         </div>
 
         {/* Description Box */}
-        <div className="mb-6 relative">
-          <p className={`text-gray-medium text-sm sm:text-lg leading-relaxed font-bold font-cairo bg-bg/40 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] border border-border/40 shadow-inner min-h-[80px] wrap-break-word ${isRtl ? 'text-right' : 'text-left'}`}>
+        <div className="mb-2 relative">
+          <p className={`text-gray-medium text-sm  leading-relaxed font-bold font-cairo bg-bg/40 p-5  rounded-[24px] border border-border/40 shadow-inner min-h-[80px] wrap-break-word ${isRtl ? 'text-right' : 'text-left'}`}>
             {proposal.description}
           </p>
         </div>
 
         {/* Pricing & Duration Layout */}
-        <div className={`grid grid-cols-2 gap-4 sm:gap-6 pt-4 border-t border-dashed border-border`}>
-          <div className="flex flex-col sm:flex-row items-center sm:justify-start p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
-            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
+        <div className={`grid grid-cols-2 gap-4 sm:gap-6  border-t border-dashed border-border`}>
+          <div className="flex flex-col sm:flex-row items-center sm:justify-center p-4 rounded-[24px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
+            <div className={`w-10 h-10 rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
               <Wallet size={20} className="sm:w-6 sm:h-6" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col min-w-0">
@@ -170,22 +170,22 @@ export default function ProposalCard({
                 {isRtl ? "العرض المالي" : "Price"}
               </span>
               <div className="flex items-baseline justify-center sm:justify-start gap-1 sm:gap-2">
-                 <span className="text-lg sm:text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedPrice}</span>
-                 <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo">{t.common.riyal}</span>
+                 <span className="text-lg  font-black text-heading font-cairo leading-none">{proposal.proposedPrice}</span>
+                 <span className="text-[10px]  font-black text-gray-medium font-cairo">{t.common.riyal}</span>
               </div>
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center sm:justify-start p-4 sm:p-6 rounded-[24px] sm:rounded-[32px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
-            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
+          <div className="flex flex-col sm:flex-row items-center sm:justify-center p-4  rounded-[24px] bg-bg border border-border group-hover:border-primary/20 transition-all duration-500 shadow-xs text-center sm:text-right">
+            <div className={`w-10 h-10  rounded-xl sm:rounded-2xl bg-card-bg shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shrink-0 border border-border mb-3 sm:mb-0 ${isRtl ? 'sm:ml-5' : 'sm:mr-5'}`}>
               <Clock size={20} className="sm:w-6 sm:h-6" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70 truncate">
+              <span className="text-[10px]  font-black text-gray-medium font-cairo mb-1 uppercase tracking-tight opacity-70 truncate">
                 {isRtl ? "الوقت المتوقع" : "Time"}
               </span>
               <div className="flex items-baseline justify-center sm:justify-start gap-1 sm:gap-2">
-                 <span className="text-lg sm:text-2xl font-black text-heading font-cairo leading-none">{proposal.proposedDurationInDays}</span>
+                 <span className="text-lg  font-black text-heading font-cairo leading-none">{proposal.proposedDurationInDays}</span>
                  <span className="text-[10px] sm:text-sm font-black text-gray-medium font-cairo">{t.common.days}</span>
               </div>
             </div>

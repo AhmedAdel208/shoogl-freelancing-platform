@@ -1,4 +1,4 @@
-"use client";
+
 
 import { formatLastSeen } from "@/utils/date";
 import type { Conversation } from "@/types/chat";

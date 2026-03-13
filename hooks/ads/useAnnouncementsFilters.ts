@@ -25,6 +25,13 @@ export const useAnnouncementsFilters = (): UseAnnouncementsFiltersReturn => {
     [],
   );
 
+  const setPage = useCallback((page: number) => {
+    setFilters((prev) => ({
+      ...prev,
+      pageNumber: page,
+    }));
+  }, []);
+
   const resetFilters = useCallback(() => {
     setFilters({
       searchTerm: "",
@@ -49,6 +56,7 @@ export const useAnnouncementsFilters = (): UseAnnouncementsFiltersReturn => {
     filters,
     apiParams,
     updateFilter,
+    setPage,
     resetFilters,
   };
 };

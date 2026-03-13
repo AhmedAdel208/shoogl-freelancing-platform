@@ -26,7 +26,7 @@ export default function AnnouncementDetailPage() {
   const projectId = params.id as string;
   const {  user } = useAuth();
   const [showProposalForm, setShowProposalForm] = useState(false);
-  const { t, isRtl } = useTranslation();
+  const { t, isRtl, locale } = useTranslation();
 
   const {
     data: project,
@@ -74,12 +74,12 @@ export default function AnnouncementDetailPage() {
           <main className="flex-1 space-y-8 animate-in fade-in duration-700">
             <div className="bg-card-bg p-6 md:p-10 shadow-sm rounded-4xl border border-border flex flex-col relative transition-all duration-300 hover:shadow-lg">
               {/* Project Header: Title, Status, Meta */}
-              <ProjectHeader project={project} />
+              <ProjectHeader project={project} isRtl={isRtl} t={t} />
 
               <div className="w-full h-px bg-border my-8 opacity-50" />
 
               {/* Info Cards: Budget, Duration, Deadline */}
-              <ProjectDetails project={project} />
+              <ProjectDetails project={project}  t={t} locale={locale} isRtl={isRtl}  />
 
               {/* Description Section */}
               <div className="mb-6 group" dir={isRtl ? "rtl" : "ltr"}>
@@ -93,10 +93,10 @@ export default function AnnouncementDetailPage() {
               </div>
 
               {/* Skills Section */}
-              <ProjectSkills project={project} />
+              <ProjectSkills project={project} isRtl={isRtl} t={t} />
 
               {/* Attachments Section */}
-              <ProjectAttachments attachments={project.attachments} />
+              <ProjectAttachments attachments={project.attachments}  isRtl={isRtl}/>
 
               {/* Proposal Submission (Inline) */}
               {isFreelancer && !isOwner && !hasSubmittedProposal && showProposalForm && (
@@ -117,7 +117,7 @@ export default function AnnouncementDetailPage() {
               {!isOwner && (
                 <ClientInfo
                   project={project}
-                  onSendMessage={() => console.log("Send message")}
+                 
                 />
               )}
               <div className="mt-6">
@@ -126,7 +126,7 @@ export default function AnnouncementDetailPage() {
                   jobRequestId={project.id}
                   projectStatus={project.status}
                   hasSubmittedProposal={hasSubmittedProposal}
-                  onSendMessage={() => console.log("Send message")}
+                
                   onEditProject={() =>
                     router.push(`/announcements/edit/${projectId}`)
                   }

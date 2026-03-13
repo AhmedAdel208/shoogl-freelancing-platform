@@ -1,34 +1,35 @@
-"use client";
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useJobRequests } from "@/hooks/ads/useJobRequests";
-import { useAnnouncementsFilters } from "@/hooks/ads/useAnnouncementsFilters";
-import { transformJobRequestToProject } from "@/utils/dataTransforms";
+import { TransformedJobRequestsResponse } from "@/hooks/ads/useJobRequests";
 import SearchAndFilters from "./SearchAndFilters";
 import ProjectCard from "./ProjectCard";
 import EmptyState from "@/common/EmptyState";
 import ErrorState from "@/common/ErrorState";
-import Loading from "@/common/Loading";
-import { useTranslation } from "@/hooks/useTranslation";
+import PremiumSkeletonGrid from "@/common/PremiumSkeletonGrid";
+import Pagination from "@/common/Pagination";
+import { FiltersState } from "@/types/announcements";
 
-export default function AdsSection() {
-  const searchParams = useSearchParams();
-  const { isRtl, t } = useTranslation();
-  const { apiParams, filters, updateFilter } = useAnnouncementsFilters();
-  const { data, isLoading, error, refetch } = useJobRequests(apiParams);
+interface AdsSectionProps {
+  isRtl: boolean;
+  filters: FiltersState;
+  updateFilter: (key: keyof FiltersState, value: string | number | boolean) => void;
+  setPage: (page: number) => void;
+  isLoading: boolean;
+  error: any;
+  refetch: () => void;
+  data: TransformedJobRequestsResponse | undefined;
+}
 
-  // Read search query from URL on mount
-  useEffect(() => {
-    const searchFromUrl = searchParams.get("search");
-    if (searchFromUrl) {
-      updateFilter("searchTerm", searchFromUrl);
-    }
-  }, [searchParams]);
+export default function AdsSection({
+  isRtl,
+  filters,
+  updateFilter,
+  setPage,
+  isLoading,
+  error,
+  refetch,
+  data,
+}: AdsSectionProps) {
 
-  const projects =
-    data?.jobRequests?.filter((project) => project.status === "Pending") || [];
-
-  if (isLoading) return <Loading />;
+  const projects = data?.projects || [];
 
   return (
     <div
@@ -55,37 +56,47 @@ export default function AdsSection() {
             maxBudget={filters.maxBudget}
             status={filters.status}
             filterShow={filters.filterShow}
-            onSearchChange={(value) => updateFilter("searchTerm", value)}
+            onSearchChange={(value: string) => updateFilter("searchTerm", value)}
             onFilterChange={updateFilter}
           />
 
   
 
-        {error && (
+        {/* Results State */}
+        {isLoading ? (
+          <PremiumSkeletonGrid count={6} />
+        ) : error ? (
           <div className="py-12">
             <ErrorState 
               message={isRtl ? "حدث خطأ أثناء جلب الإعلانات. يرجى المحاولة لاحقاً." : "An error occurred while fetching projects. Please try again later."} 
               onRetry={refetch} 
             />
           </div>
-        )}
-
-        {!isLoading && !error && projects.length === 0 && (
+        ) : projects.length === 0 ? (
           <div className="py-12">
             <EmptyState />
           </div>
-        )}
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                />
+              ))}
+            </div>
 
-        {/* Project Cards List */}
-        {!isLoading && !error && projects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={transformJobRequestToProject(project)}
+            {/* Pagination */}
+            {data && data.totalPages > 1 && (filters.pageNumber > 1 || projects.length === data.pageSize) && (
+              <Pagination
+                currentPage={filters.pageNumber}
+                totalPages={data.totalPages}
+                onPageChange={setPage}
+                isRtl={isRtl}
               />
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </div>

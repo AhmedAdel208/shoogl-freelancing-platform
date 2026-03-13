@@ -1,4 +1,4 @@
-"use client";
+
 
 import { ArrowRight } from "lucide-react";
 import UserAvatar from "./UserAvatar";

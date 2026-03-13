@@ -1,11 +1,10 @@
-"use client";
 
 import { ProjectSkillsProps } from "@/types/detailComponents";
 import { Code2, Tags } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
 
-export default function ProjectSkills({ project }: ProjectSkillsProps) {
-  const { t, isRtl } = useTranslation();
+
+export default function ProjectSkills({ project, t, isRtl }: ProjectSkillsProps) {
+
 
   if (!project.skills || project.skills.length === 0) {
     return null;

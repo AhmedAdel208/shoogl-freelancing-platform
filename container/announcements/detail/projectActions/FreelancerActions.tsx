@@ -4,7 +4,7 @@ import { Send, CheckCircle2 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 interface FreelancerActionsProps {
-  onSendMessage: () => void;
+
   jobRequestId: string;
   hasSubmittedProposal?: boolean;
   onShowForm?: () => void;

@@ -1,8 +1,7 @@
-"use client";
 
 import { FileText, Paperclip, ExternalLink, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { useTranslation } from "@/hooks/useTranslation";
+
 
 interface Attachment {
   id: string;
@@ -14,10 +13,11 @@ interface Attachment {
 
 interface ProjectAttachmentsProps {
   attachments?: Attachment[];
+  isRtl: boolean;
 }
 
-export default function ProjectAttachments({ attachments }: ProjectAttachmentsProps) {
-  const { isRtl } = useTranslation();
+export default function ProjectAttachments({ attachments, isRtl }: ProjectAttachmentsProps) {
+
 
   if (!attachments || attachments.length === 0) {
     return null;

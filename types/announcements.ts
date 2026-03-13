@@ -26,7 +26,7 @@ export interface Project {
   clientName: string;
   clientAvatar?: string;
   createdAt: string;
-  skills?: Array<{ id: string; nameAr: string }>;
+  skills?: Array<{ id: string; nameAr: string; nameEn?: string }>;
   proposals?: import("@/lib/validation/proposalSchema").ProposalDisplay[];
   attachments?: Array<{ id: string; url: string; fileName: string; type: string }>; // Add attachments
 }
@@ -76,5 +76,6 @@ export interface UseAnnouncementsFiltersReturn {
     key: keyof FiltersState,
     value: string | number | boolean,
   ) => void;
+  setPage: (page: number) => void;
   resetFilters: () => void;
 }

@@ -29,7 +29,7 @@ export const LanguageToggle = () => {
       <span className={`flex-1 flex items-center justify-center text-[10px] font-black z-10 transition-colors duration-500 ${
         locale === 'ar' ? 'text-primary' : 'text-gray-medium'
       }`}>
-        ع
+        AR
       </span>
       
       <span className={`flex-1 flex items-center justify-center text-[10px] font-black z-10 transition-colors duration-500 ${

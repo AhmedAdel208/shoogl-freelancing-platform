@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="./public/favicon.ico" width="80" height="80" alt="Shogol Logo" />
-  <h1>🚀 SHOGOL - Freelancing Revolution</h1>
+ 
+  <h1>🚀 SHOOGL - Freelancing Revolution</h1>
   <p><b>Next-Generation Freelance Platform built with Next.js 16, TypeScript.</b></p>
   
   [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
@@ -15,7 +15,7 @@
 
 ## 🌟 Overview
 
-**Shogol** (شغل) is a premium, high-performance freelancing ecosystem designed to bridge the gap between talented creators and ambitious clients. Focused on a "Mobile-First" and "Aesthetic-First" philosophy, Shogol delivers a sub-second response time and a glassmorphic UI that feels alive.
+**Shoogl** (شغل) is a premium, high-performance freelancing ecosystem designed to bridge the gap between talented creators and ambitious clients. Focused on a "Mobile-First" and "Aesthetic-First" philosophy, Shogol delivers a sub-second response time and a glassmorphic UI that feels alive.
 
 ### 🎥 [Live Demo (https://shoogl.vercel.app/)] | [Architecture Docs](#-architecture)
 
@@ -117,5 +117,5 @@ Our architecture follows the **Container-Component Pattern** (see `/container` v
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by Shogol Dev Team.</sub>
+  <sub>Built with ❤️ by Shoogl Dev Team.</sub>
 </div>

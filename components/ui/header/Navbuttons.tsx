@@ -28,7 +28,18 @@ export default function Navbuttons() {
   const { t } = useTranslation();
 
   if (!isMounted) {
-    return null; // Avoid hydration mismatch
+    // Show placeholder matching unauthenticated state dimensions 
+    // This provides zero layout shift for new visitors
+    return (
+      <div className={CONTAINER_CLASSES}>
+        <div className="flex items-center gap-4 border-l border-border pl-4 ml-2 rtl:pr-4 rtl:mr-2 ltr:pl-4 ltr:ml-2">
+          <div className="w-9 h-9 rounded-xl bg-gray-medium/10 animate-pulse" />
+          <div className="w-9 h-9 rounded-xl bg-gray-medium/10 animate-pulse" />
+        </div>
+        <div className="w-[100px] h-[44px] rounded-xl bg-gray-medium/10 animate-pulse" />
+        <div className="w-[170px] h-[44px] rounded-xl bg-gray-medium/10 animate-pulse" />
+      </div>
+    );
   }
 
   return (

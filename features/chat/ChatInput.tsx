@@ -45,7 +45,7 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
   };
 
   return (
-    <div className="p-4 sticky bottom-5 sm:p-6 w-full sm:w-[95%] lg:w-[90%] mx-auto bg-card-bg/50 backdrop-blur-md border-t border-border space-y-3">
+    <div className="p-4 sticky bottom-6  w-full sm:w-[95%] lg:w-[90%] mx-auto bg-card-bg/50 backdrop-blur-md  space-y-3">
       {/* Attachment preview */}
       {attachment && (
         <div className="flex items-center gap-3 p-3 bg-bg rounded-xl border border-border animate-in slide-in-from-bottom-2">
@@ -107,7 +107,7 @@ export default function ChatInput({ onSend, isSending, onTyping }: Props) {
           }`}
         >
           {isSending ? (
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           ) : (
             <Send size={20} className="-rotate-135" />
           )}

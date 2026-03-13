@@ -1,12 +1,11 @@
-"use client";
 
 import { mapStatus, formatTimeAgo } from "@/utils";
 import { ProjectHeaderProps } from "@/types/detailComponents";
 import { User, CalendarDays, Clock, CheckCircle2 } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
 
-export default function ProjectHeader({ project }: ProjectHeaderProps) {
-  const { t, isRtl } = useTranslation();
+
+export default function ProjectHeader({ project, isRtl, t }: ProjectHeaderProps) {
+ 
   const isPending = project.status === "Pending";
   const isAccepted = project.status === "Accepted";
 
@@ -58,7 +57,7 @@ export default function ProjectHeader({ project }: ProjectHeaderProps) {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black font-cairo text-heading leading-tight tracking-tight wrap-break-word overflow-hidden max-w-full">
+      <h1 className="text-1xl sm:text-2xl lg:text-3xl font-black font-cairo text-heading leading-tight tracking-tight wrap-break-word overflow-hidden max-w-full">
         {project.title}
       </h1>
     </div>

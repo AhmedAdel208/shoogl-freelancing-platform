@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8">
           {/* Column 1 - Logo & Social */}
           <div className="lg:col-span-1">
-            <LinksFooter />
+            <LinksFooter t={t} isRtl={isRtl} />
           </div>
 
           {/* Column 2 - Quick Links */}

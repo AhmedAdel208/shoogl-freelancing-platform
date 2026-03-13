@@ -1,26 +1,16 @@
-"use client";
 
 import { Banknote, Clock, CalendarDays } from "lucide-react";
 import { ProjectDetailsProps } from "@/types/detailComponents";
-import { useTranslation } from "@/hooks/useTranslation";
+import { formatProjectDeadline } from "@/utils";
 
-export default function ProjectDetails({ project }: ProjectDetailsProps) {
-  const { t, isRtl, locale } = useTranslation();
+export default function ProjectDetails({ project, t, locale }: ProjectDetailsProps) {
 
-  const getDeadlineDate = (): string => {
-    const dateToUse = project.deadline ? new Date(project.deadline) : (() => {
-      const createdDate = new Date(project.createdAt);
-      const deadlineDate = new Date(createdDate);
-      deadlineDate.setDate(deadlineDate.getDate() + project.durationInDays);
-      return deadlineDate;
-    })();
-
-    return dateToUse.toLocaleDateString(locale === 'ar' ? "ar-EG" : "en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
+  const deadlineDate = formatProjectDeadline(
+    project.createdAt,
+    project.durationInDays,
+    project.deadline,
+    locale
+  );
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -48,7 +38,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
           <span className="text-gray-medium text-[12px] font-black uppercase tracking-wider font-cairo mb-0.5">
             {t.projectDetails.deadline}
           </span>
-          <p className="text-lg font-black text-heading font-cairo leading-none">{getDeadlineDate()}</p>
+          <p className="text-lg font-black text-heading font-cairo leading-none">{deadlineDate}</p>
         </div>
       </div>
 

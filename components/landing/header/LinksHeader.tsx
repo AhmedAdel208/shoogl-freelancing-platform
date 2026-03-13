@@ -36,10 +36,17 @@ export default function LinksHeader() {
 
         {/* Mobile Right: Notifications, Avatar + Hamburger */}
         <div className="flex md:hidden items-center gap-3">
-          {isMounted && isAuthenticated && (
+          {isMounted ? (
+            isAuthenticated && (
+              <div className="flex items-center gap-2">
+                <Navicons />
+                <UserButton />
+              </div>
+            )
+          ) : (
             <div className="flex items-center gap-2">
-              <Navicons />
-              <UserButton />
+              <div className="w-8 h-8 rounded-full bg-gray-medium/10 animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-gray-medium/10 animate-pulse" />
             </div>
           )}
           <MobileMenu />

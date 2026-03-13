@@ -17,5 +17,6 @@ export const transformJobRequestToProject = (jobRequest: JobRequest): Project =>
   skills: jobRequest.skills?.map((skill) => ({
     id: skill.id.toString(),
     nameAr: skill.nameAr,
+    nameEn: skill.nameEn,
   })),
 });

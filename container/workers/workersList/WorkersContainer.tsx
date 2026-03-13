@@ -6,7 +6,8 @@ import { WorkersContainerProps } from "@/types/workersContainer";
 import PremiumSkeletonGrid from "@/common/PremiumSkeletonGrid";
 import EmptyState from "@/common/EmptyState";
 import ErrorState from "@/common/ErrorState";
-import { RefreshCw, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import Pagination from "@/common/Pagination";
 
 
 export default function WorkersContainer({
@@ -22,40 +23,6 @@ export default function WorkersContainer({
 }: WorkersContainerProps) {
   
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setSearchParams((prev) => ({ ...prev, pageNumber: newPage }));
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const renderPageNumbers = () => {
-    const pages = [];
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, searchParams.pageNumber - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl font-black transition-all duration-300 shadow-sm ${
-            searchParams.pageNumber === i
-              ? "bg-primary text-white shadow-lg shadow-primary/25 scale-110"
-              : "bg-white text-gray-medium hover:bg-primary hover:text-white border border-border"
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
-    return pages;
-  };
 
   return (
     <div
@@ -145,62 +112,12 @@ export default function WorkersContainer({
           </div>
 
           {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="mt-20 sm:mt-28 mb-12 flex flex-col items-center gap-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-              {/* Premium Pagination Container */}
-              <div className="flex items-center gap-2 sm:gap-4 p-3 bg-card-bg border border-border/60 rounded-[30px] shadow-[0_10px_40px_rgb(0,0,0,0.04)] ring-8 ring-primary/5 backdrop-blur-xl">
-                {/* First Page */}
-                <button
-                  onClick={() => handlePageChange(1)}
-                  disabled={searchParams.pageNumber === 1}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
-                  aria-label="First Page"
-                >
-                  <ChevronsLeft className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
-                </button>
-                
-                <div className="w-px h-8 bg-border/40 mx-1 hidden sm:block" />
-
-                {/* Previous Page */}
-                <button
-                  onClick={() => handlePageChange(searchParams.pageNumber - 1)}
-                  disabled={searchParams.pageNumber === 1}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
-                  aria-label="Previous Page"
-                >
-                  <ChevronLeft className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
-                </button>
-
-                {/* Page Numbers */}
-                <div className="flex items-center gap-2 sm:gap-3 mx-1">
-                  {renderPageNumbers()}
-                </div>
-
-                {/* Next Page */}
-                <button
-                  onClick={() => handlePageChange(searchParams.pageNumber + 1)}
-                  disabled={searchParams.pageNumber === totalPages}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
-                  aria-label="Next Page"
-                >
-                  <ChevronRight className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
-                </button>
-
-                <div className="w-px h-8 bg-border/40 mx-1 hidden sm:block" />
-
-                {/* Last Page */}
-                <button
-                  onClick={() => handlePageChange(totalPages)}
-                  disabled={searchParams.pageNumber === totalPages}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-bg border border-border text-gray-medium hover:bg-primary hover:text-white disabled:opacity-20 disabled:hover:bg-bg disabled:hover:text-gray-medium transition-all duration-500 shadow-sm group/btn flex items-center justify-center cursor-pointer active:scale-95"
-                  aria-label="Last Page"
-                >
-                  <ChevronsRight className={`w-5 h-5 ${isRtl ? "rotate-180" : ""} group-hover/btn:scale-110 transition-transform`} />
-                </button>
-              </div>
-
-            </div>
-          )}
+          <Pagination
+            currentPage={searchParams.pageNumber}
+            totalPages={totalPages}
+            onPageChange={(page) => setSearchParams((prev) => ({ ...prev, pageNumber: page }))}
+            isRtl={isRtl}
+          />
         </>
       )}
     </div>

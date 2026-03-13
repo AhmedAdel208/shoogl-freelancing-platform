@@ -8,13 +8,15 @@ const cairo = Cairo({
   variable: "--font-cairo",
   display: "swap",
   preload: true,
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const elMissiri = El_Messiri({
   subsets: ["latin", "arabic"],
   variable: "--font-el-missiri",
   display: "swap",
-  preload: false,
+  preload: true,
+  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
   description:
     "منصة شُغل تجمع بين نُخبة المستقلين وأصحاب المشاريع الطموحة في بيئة عمل ذكية وآمنة",
   keywords: ["عمل حر", "مستقلين", "مشاريع", "تصميم", "برمجة", "شغل"],
-  authors: [{ name: "شغل" }],
+  authors: [{ name: "Ahmed Adel" }],
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -54,7 +56,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body className={`${cairo.variable} ${elMissiri.variable}`}>
+      <body className={`${cairo.className} ${cairo.variable} ${elMissiri.className} ${elMissiri.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

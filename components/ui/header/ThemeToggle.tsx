@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[18px] bg-light-white border border-border/50 shadow-sm" />
+      <div className="w-11 h-11 flex items-center justify-center rounded-[18px] bg-light-white border border-border/50 shadow-sm" />
     );
   }
 
@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`group relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-[18px] transition-all duration-400 active:scale-95 shadow-sm border border-border/50 overflow-hidden ${
+      className={`group relative w-10 h-10 flex items-center justify-center rounded-[18px] transition-all duration-400 active:scale-95 shadow-sm border border-border/50 overflow-hidden ${
         isDark ? "bg-card-bg hover:bg-light-white" : "bg-light-white hover:bg-gray-100"
       }`}
       aria-label="Toggle Dark Mode"

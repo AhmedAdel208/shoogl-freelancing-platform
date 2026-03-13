@@ -36,15 +36,15 @@ export default function ProposalsList({
   return (
     <div className="space-y-5">
       {/* Header with Counter */}
-      <div className={`flex items-center justify-between mt-4 px-4 sm:px-6 ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
-        <h2 className="text-2xl md:text-3xl font-black tracking-tight text-heading font-cairo">
+      <div className={`flex items-center justify-between mt-4 px-4  ${isRtl ? 'flex-row' : 'flex-row-reverse'}`}>
+        <h2 className="text-2xl  font-black tracking-tight text-heading font-cairo">
           {displayTitle}
         </h2>
     
       </div>
       
       {/* Cards Grid/List */}
-      <div className="space-y-6 w-full animate-in fade-in duration-700">
+      <div className="space-y-4 w-full animate-in fade-in duration-700">
         {proposals.map((proposal) => (
           <ProposalCard
             key={proposal.id}
