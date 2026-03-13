@@ -8,6 +8,7 @@ import ProposalList from "@/components/requests/ProposalList";
 import { useRequestsData } from "@/hooks/requests/useRequestsData";
 import LoadingPage from "../loading";
 import { useProfile } from "@/hooks/profile/useProfile";
+import UnauthenticatedRequests from "@/components/requests/UnauthenticatedRequests";
 
 export default function PendingPage() {
   const searchParams = useSearchParams();
@@ -24,6 +25,7 @@ export default function PendingPage() {
     proposals,
     isLoading,
     isAuthChecking,
+    isAuthenticated,
     handleDeleteProposal,
     handleDeleteJobRequest,
     handleEditJobRequest,
@@ -36,10 +38,18 @@ export default function PendingPage() {
 
 
   // Show loading screen while checking authentication or fetching profile
-  if (isAuthChecking || isProfilePending) {
+  if (isAuthChecking || (isAuthenticated && isProfilePending)) {
     return (
       <RequestsLayout>
         <LoadingPage />
+      </RequestsLayout>
+    );
+  }
+
+  if (!isAuthChecking && !isAuthenticated) {
+    return (
+      <RequestsLayout>
+        <UnauthenticatedRequests />
       </RequestsLayout>
     );
   }

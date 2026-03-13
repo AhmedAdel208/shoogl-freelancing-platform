@@ -31,7 +31,7 @@ export default function NewHero({ t, isRtl }: NewHeroProps) {
           fill
           className="absolute inset-0 w-full h-full object-cover"
           priority
-          quality={70}
+          quality={75}
           sizes="100vw"
           fetchPriority="high"
           placeholder="blur"

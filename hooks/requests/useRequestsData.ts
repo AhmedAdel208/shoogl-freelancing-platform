@@ -5,7 +5,7 @@ import { requestsService } from "@/lib/api/requests";
 import { proposalApi } from "@/lib/api/proposal";
 import { toast } from "@/common/toast";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const REQUESTS_QUERY_KEYS = {
   all: ["requests"] as const,
@@ -18,18 +18,11 @@ export function useRequestsData() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user: currentUser, isAuthenticated } = useAuthStore();
-
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
- 
-    const checkAuth = () => {
-      const token = localStorage.getItem("auth-storage"); // check zustand persist
-      if (!isAuthenticated && !token) {
-        router.push("/login");
-      }
-    };
-    checkAuth();
-  }, [isAuthenticated, router]);
+    setHasHydrated(true);
+  }, []);
 
   // Queries
   const { data: requestsData, isLoading: isLoadingRequests } = useQuery({
@@ -113,7 +106,8 @@ export function useRequestsData() {
     proposals: proposalsData || null,
     isLoading: isLoadingRequests || isLoadingProposals ,
     currentUser,
-    isAuthChecking: !isAuthenticated,
+    isAuthenticated,
+    isAuthChecking: !hasHydrated,
     handleDeleteProposal: (id: number, jobRequestId?: number) => 
       deleteProposalMutation.mutate({ proposalId: id, jobRequestId }),
     handleDeleteJobRequest: (id: number) => deleteJobRequestMutation.mutate(id),
