@@ -11,7 +11,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 const CONTAINER_CLASSES = "flex gap-4 items-center";
 
 const PRIMARY_BTN_CLASSES = 
-  "relative group cursor-pointer overflow-hidden px-8 py-2.5 rounded-xl font-bold font-cairo text-[16px] text-white " +
+  "relative group cursor-pointer overflow-hidden px-4 lg:px-6 xl:px-8 py-2.5 rounded-xl font-bold font-cairo text-sm xl:text-base text-white " +
   "transition-all duration-300 active:scale-[0.97] shadow-lg shadow-primary/20 hover:shadow-primary/30";
 
 const GRADIENT_BG_CLASSES = 
@@ -19,7 +19,7 @@ const GRADIENT_BG_CLASSES =
   "animate-[gradient_3s_linear_infinite] group-hover:bg-size-[100%_auto] transition-all";
 
 const SECONDARY_BTN_CLASSES = 
-  "group flex items-center cursor-pointer gap-2 px-5 py-2.5 rounded-xl font-bold font-cairo text-[16px] text-primary " +
+  "group flex items-center cursor-pointer gap-2 px-3 lg:px-4 xl:px-5 py-2.5 rounded-xl font-bold font-cairo text-sm xl:text-base text-primary " +
   "hover:bg-primary/5 transition-all duration-300 border border-transparent hover:border-primary/10";
 
 export default function Navbuttons() {
@@ -61,7 +61,7 @@ export default function Navbuttons() {
         </div>
       ) : (
         <>
-          <div className="flex items-center gap-4 border-l border-border pl-4 ml-2 rtl:pr-4 rtl:mr-2 ltr:pl-4 ltr:ml-2">
+          <div className="flex items-center gap-2 xl:gap-4 border-l border-border pl-2 xl:pl-4 ml-1 xl:ml-2 rtl:pr-2 xl:rtl:pr-4 rtl:mr-1 xl:rtl:mr-2 ltr:pl-2 xl:ltr:pl-4 ltr:ml-1 xl:ltr:ml-2">
             <LanguageToggle />
             <ThemeToggle />
           </div>

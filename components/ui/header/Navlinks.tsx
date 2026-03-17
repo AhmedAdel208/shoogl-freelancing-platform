@@ -17,7 +17,7 @@ export default function Navlinks() {
   ];
 
   return (
-    <ul className="flex gap-4 lg:gap-8 text-sm lg:text-base font-cairo">
+    <ul className="flex gap-4 xl:gap-8 text-sm xl:text-base font-cairo">
       {links.map((link) => {
         const isActive =
           pathname === link.href ||

@@ -17,6 +17,36 @@
 
 **Shoogl** (شغل) is a premium, high-performance freelancing ecosystem designed to bridge the gap between talented creators and ambitious clients. Focused on a "Mobile-First" and "Aesthetic-First" philosophy, Shogol delivers a sub-second response time and a glassmorphic UI that feels alive.
 
+### 🖼️ Visual Showcase
+
+<div align="center">
+  <p><b>Desktop Experience</b></p>
+  <table style="width:100%">
+    <tr>
+      <td width="50%"><img src="./public/demo/preview1.webp" alt="Landing Page" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+      <td width="50%"><img src="./public/demo/preview5.webp" alt="Dashboard" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+    </tr>
+    <tr>
+      <td width="50%"><img src="./public/demo/preview3.webp" alt="Search & Filtering" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+      <td width="50%"><img src="./public/demo/preview4.webp" alt="Project Management" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+    </tr>
+    <tr>
+      <td width="50%"><img src="./public/demo/preview6.webp" alt="Chat System" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+      <td width="50%"><img src="./public/demo/preview8.webp" alt="Settings & Profile" style="border-radius: 12px; border: 1px solid #1eaaad33"></td>
+    </tr>
+  </table>
+
+  <br/>
+  
+  <p><b>Mobile Optimized Interface</b></p>
+  <img src="./public/demo/preview10.webp" width="23%" style="border-radius: 12px; border: 1px solid #1eaaad33; margin: 0 0.5%">
+  <img src="./public/demo/preview11.webp" width="23%" style="border-radius: 12px; border: 1px solid #1eaaad33; margin: 0 0.5%">
+  <img src="./public/demo/preview12.webp" width="23%" style="border-radius: 12px; border: 1px solid #1eaaad33; margin: 0 0.5%">
+  <img src="./public/demo/preview2.webp" width="23%" style="border-radius: 12px; border: 1px solid #1eaaad33; margin: 0 0.5%">
+</div>
+
+---
+
 ### 🎥 [Live Demo (https://shoogl.vercel.app/)] | [Architecture Docs](#-architecture)
 
 ---
